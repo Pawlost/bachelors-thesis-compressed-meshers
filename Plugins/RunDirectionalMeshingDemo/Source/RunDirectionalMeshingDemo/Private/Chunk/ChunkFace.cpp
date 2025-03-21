@@ -1,82 +1,57 @@
 ﻿#include "Chunk/ChunkFace.h"
 
-// Initialized quad vertices
-
-FChunkFace FChunkFace::FrontFace = FChunkFace(
-	FIntVector(0, 0, 0),
-	FIntVector(0, 1, 0),
-	FIntVector(0, 1, 1),
-	FIntVector(0, 0, 1));
-
-FChunkFace FChunkFace::BackFace = FChunkFace(
-	FIntVector(1, 1, 0),
-	FIntVector(1, 0, 0),
-	FIntVector(1, 0, 1),
-	FIntVector(1, 1, 1));
-
-FChunkFace FChunkFace::RightFace = FChunkFace(
-	FIntVector(1, 0, 0),
-	FIntVector(0, 0, 0),
-	FIntVector(0, 0, 1),
-	FIntVector(1, 0, 1));
-
-FChunkFace FChunkFace::LeftFace = FChunkFace(
-	FIntVector(0, 1, 0),
-	FIntVector(1, 1, 0),
-	FIntVector(1, 1, 1),
-	FIntVector(0, 1, 1));
-
-FChunkFace FChunkFace::TopFace = FChunkFace(
-	FIntVector(0, 0, 1),
-	FIntVector(0, 1, 1),
-	FIntVector(1, 1, 1),
-	FIntVector(1, 0, 1));
-
-FChunkFace FChunkFace::BottomFace = FChunkFace(
-	FIntVector(0, 1, 0),
-	FIntVector(0, 0, 0),
-	FIntVector(1, 0, 0),
-	FIntVector(1, 1, 0));
-
-FChunkFace FChunkFace::CreateChunkFace(const FIntVector& InitialPosition, const FVoxel& Voxel, FChunkFace Face)
+FChunkFace FChunkFace::CreateFrontFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
 {
-	// Combine voxel and static quad definition
-	Face.Voxel = Voxel;
-	Face.StartVertexDown += InitialPosition;
-	Face.StartVertexUp += InitialPosition;
-	Face.EndVertexDown += InitialPosition;
-	Face.EndVertexUp += InitialPosition;
-	return Face;
+	return FChunkFace(Voxel,
+		InitialPosition,
+		 InitialPosition + FIntVector(0, RunLenght, 0),
+		InitialPosition + FIntVector(0, RunLenght, 1),
+		InitialPosition + FIntVector(0, 0, 1));
 }
 
-FChunkFace FChunkFace::CreateFrontFace(const FIntVector& InitialPosition, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateBackFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
 {
-	return CreateChunkFace(InitialPosition, Voxel, FrontFace);
+	return FChunkFace(Voxel,
+		InitialPosition + FIntVector(1, RunLenght, 0),
+		 InitialPosition + FIntVector(1, 0, 0),
+		InitialPosition + FIntVector(1, 0, 1),
+		InitialPosition + FIntVector(1, RunLenght, 1));
 }
 
-FChunkFace FChunkFace::CreateBackFace(const FIntVector& InitialPosition, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateLeftFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
 {
-	return CreateChunkFace(InitialPosition, Voxel, BackFace);
+	return FChunkFace(Voxel,
+		InitialPosition + FIntVector(0, RunLenght, 0),
+		 InitialPosition + FIntVector(1, RunLenght, 0),
+		InitialPosition + FIntVector(1, RunLenght, 1),
+		InitialPosition + FIntVector(0, RunLenght, 1));
 }
 
-FChunkFace FChunkFace::CreateLeftFace(const FIntVector& InitialPosition, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateRightFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
 {
-	return CreateChunkFace(InitialPosition, Voxel, LeftFace);
+	return FChunkFace(Voxel,
+		InitialPosition + FIntVector(1, 0, 0),
+		 InitialPosition,
+		InitialPosition + FIntVector(0, 0, 1),
+		InitialPosition + FIntVector(1, 0, 1));
 }
 
-FChunkFace FChunkFace::CreateRightFace(const FIntVector& InitialPosition, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateTopFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
 {
-	return CreateChunkFace(InitialPosition, Voxel, RightFace);
+	return FChunkFace(Voxel,
+		InitialPosition + FIntVector(0, 0, 1),
+		 InitialPosition + FIntVector(0, RunLenght, 1),
+		InitialPosition + FIntVector(1, RunLenght, 1),
+		InitialPosition + FIntVector(1, 0, 1));
 }
 
-FChunkFace FChunkFace::CreateTopFace(const FIntVector& InitialPosition, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateBottomFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
 {
-	return CreateChunkFace(InitialPosition, Voxel, TopFace);
-}
-
-FChunkFace FChunkFace::CreateBottomFace(const FIntVector& InitialPosition, const FVoxel& Voxel)
-{
-	return CreateChunkFace(InitialPosition, Voxel, BottomFace);
+	return FChunkFace(Voxel,
+		InitialPosition + FIntVector(0, RunLenght, 0),
+		 InitialPosition,
+		InitialPosition + FIntVector(1, 0, 0),
+		InitialPosition +FIntVector(1, RunLenght, 0));
 }
 
 /**

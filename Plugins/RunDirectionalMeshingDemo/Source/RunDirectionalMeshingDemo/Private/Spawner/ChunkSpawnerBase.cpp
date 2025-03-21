@@ -1,7 +1,7 @@
 ﻿#include "Spawner/ChunkSpawnerBase.h"
 
 #include "Mesher/MeshingUtils/MesherVariables.h"
-#include "Voxel/Generators/VoxelGeneratorBase.h"
+#include "Voxel/Generator/VoxelGeneratorBase.h"
 
 void AChunkSpawnerBase::BeginPlay()
 {

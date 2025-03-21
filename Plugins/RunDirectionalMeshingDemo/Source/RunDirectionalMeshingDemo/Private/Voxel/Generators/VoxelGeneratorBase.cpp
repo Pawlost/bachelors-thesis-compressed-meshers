@@ -1,5 +1,5 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
-#include "Voxel/Generators/VoxelGeneratorBase.h"
+#include "Voxel/Generator/VoxelGeneratorBase.h"
 
 #include "Chunk/Chunk.h"
 #include "Mesher/MesherBase.h"

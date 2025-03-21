@@ -1,6 +1,6 @@
 ﻿#include "Spawner/Single/SingleChunkSpawnerBase.h"
 
-#include "Voxel/Generators/VoxelGeneratorBase.h"
+#include "Voxel/Generator/VoxelGeneratorBase.h"
 
 void ASingleChunkSpawnerBase::BeginPlay()
 {

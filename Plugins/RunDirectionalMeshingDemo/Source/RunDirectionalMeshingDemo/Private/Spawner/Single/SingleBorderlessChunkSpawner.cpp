@@ -1,7 +1,7 @@
 ﻿#include "Spawner/Single/SingleBorderlessChunkSpawner.h"
 
 #include "Mesher/MeshingUtils/MesherVariables.h"
-#include "Voxel/Generators/VoxelGeneratorBase.h"
+#include "Voxel/Generator/VoxelGeneratorBase.h"
 
 void ASingleBorderlessChunkSpawner::StartMeshing()
 {

@@ -5,7 +5,6 @@
 struct FStaticMergeData
 {
 	const EFaceDirection FaceSide;
-	const FChunkFace& FaceTemplate;
 	const TFunctionRef<bool(FChunkFace& PrevFace, const FChunkFace& NewFace)> RunDirectionFaceMerge;
 
 	static FStaticMergeData FrontFaceData;

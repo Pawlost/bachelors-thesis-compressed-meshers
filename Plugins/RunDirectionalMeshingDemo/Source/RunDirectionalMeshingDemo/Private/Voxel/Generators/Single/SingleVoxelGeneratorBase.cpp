@@ -1,4 +1,4 @@
-﻿#include "Voxel/Generators/Single/SingleVoxelGeneratorBase.h"
+﻿#include "Voxel/Generator/Single/SingleVoxelGeneratorBase.h"
 
 void USingleVoxelGeneratorBase::BeginPlay()
 {

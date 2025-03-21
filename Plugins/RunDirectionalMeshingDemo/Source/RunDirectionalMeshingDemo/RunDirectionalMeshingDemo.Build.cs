@@ -39,7 +39,7 @@ public class RunDirectionalMeshingDemo : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore"
+				"SlateCore", "RLERunDirectionalMeshingDemo"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

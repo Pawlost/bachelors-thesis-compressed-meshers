@@ -1,12 +1,21 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿#include "Mesher/MesherBase.h"
 
-#include "Mesher/MesherBase.h"
+#include "Mesher/MeshingUtils/MesherVariables.h"
+#include "Voxel/Grid/VoxelGrid.h"
 
 void UMesherBase::SetVoxelGenerator(const TObjectPtr<UVoxelGeneratorBase>& VoxelGeneratorBase)
 {
 	this->VoxelGenerator = VoxelGeneratorBase;
 	UpdateAllFacesParams();
 }
+
+void UMesherBase::CompressVoxelGrid(FMesherVariables& MeshVars, TArray<FVoxel>& VoxelGrid)
+{
+	auto VoxelGridObject = NewObject<UVoxelGrid>(this);
+	VoxelGridObject->VoxelGrid = VoxelGrid;
+	MeshVars.ChunkParams.OriginalChunk->VoxelGrid = VoxelGridObject;
+}
+
 const UMesherBase::FNormalsAndTangents UMesherBase::FaceNormalsAndTangents[] = {
 	{FVector3f(-1.0f, 0.0f, 0.0f), FVector3f(0.0, 1.0, 0.0)}, //Front
 	{FVector3f(1.0f, 0.0f, 0.0f), FVector3f(0.0, 1.0, 0.0)}, //Back

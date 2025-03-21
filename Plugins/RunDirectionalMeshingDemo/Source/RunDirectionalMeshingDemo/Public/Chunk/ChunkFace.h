@@ -13,14 +13,6 @@ struct RUNDIRECTIONALMESHINGDEMO_API FChunkFace
 	FIntVector EndVertexUp;
 	FIntVector StartVertexUp;
 
-	// Create something like singletons
-	static FChunkFace FrontFace;
-	static FChunkFace BackFace;
-	static FChunkFace LeftFace;
-	static FChunkFace RightFace;
-	static FChunkFace TopFace;
-	static FChunkFace BottomFace;
-
 	FChunkFace() : Voxel(FVoxel()), StartVertexDown(), EndVertexDown(), EndVertexUp(), StartVertexUp()
 	{
 	}
@@ -38,12 +30,13 @@ struct RUNDIRECTIONALMESHINGDEMO_API FChunkFace
 	{
 	}
 
-	static FChunkFace CreateFrontFace(const FIntVector& InitialPosition, const FVoxel& Voxel);
-	static FChunkFace CreateBackFace(const FIntVector& InitialPosition, const FVoxel& Voxel);
-	static FChunkFace CreateLeftFace(const FIntVector& InitialPosition, const FVoxel& Voxel);
-	static FChunkFace CreateRightFace(const FIntVector& InitialPosition, const FVoxel& Voxel);
-	static FChunkFace CreateTopFace(const FIntVector& InitialPosition, const FVoxel& Voxel);
-	static FChunkFace CreateBottomFace(const FIntVector& InitialPosition, const FVoxel& Voxel);
+	// TODO: Switch voxel parameter
+	static FChunkFace CreateFrontFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
+	static FChunkFace CreateBackFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
+	static FChunkFace CreateLeftFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
+	static FChunkFace CreateRightFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
+	static FChunkFace CreateTopFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
+	static FChunkFace CreateBottomFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
 
 	static bool MergeFaceEnd(FChunkFace& PrevFace, const FChunkFace& NewFace);
 	static bool MergeFaceStart(FChunkFace& PrevFace, const FChunkFace& NewFace);
@@ -53,7 +46,4 @@ struct RUNDIRECTIONALMESHINGDEMO_API FChunkFace
 	FVector3f GetFinalStartVertexUp(const double& VoxelSize) const;
 	FVector3f GetFinalEndVertexDown(const double& VoxelSize) const;
 	FVector3f GetFinalEndVertexUp(const double& VoxelSize) const;
-
-private:
-	static FChunkFace CreateChunkFace(const FIntVector& InitialPosition, const FVoxel& Voxel, FChunkFace Face);
 };

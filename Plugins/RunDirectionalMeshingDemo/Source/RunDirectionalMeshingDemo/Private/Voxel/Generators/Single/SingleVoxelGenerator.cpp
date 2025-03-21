@@ -1,4 +1,4 @@
-﻿#include "Voxel/Generators/Single/SingleVoxelGenerator.h"
+﻿#include "Voxel/Generator/Single/SingleVoxelGenerator.h"
 
 #include "Chunk/Chunk.h"
 

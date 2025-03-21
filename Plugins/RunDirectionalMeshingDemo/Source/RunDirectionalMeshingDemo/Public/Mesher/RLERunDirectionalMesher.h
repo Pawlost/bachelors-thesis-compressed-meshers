@@ -1,20 +1,21 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
-#include "RLEVoxel.h"
 #include "Mesh/RealtimeMeshDataStream.h"
 #include "Mesher/MesherBase.h"
+#include "Voxel/RLEVoxel.h"
 #include "RLERunDirectionalMesher.generated.h"
 
 struct FChunkParams;
 
 UCLASS(ClassGroup=(Meshers), Blueprintable)
-class RLERUNDIRECTIONALMESHINGDEMO_API URLERunDirectionalMesher : public UMesherBase
+class RUNDIRECTIONALMESHINGDEMO_API URLERunDirectionalMesher : public UMesherBase
 {
 	GENERATED_BODY()
 
 public:
 	virtual void GenerateMesh(FMesherVariables& MeshVars) override;
-	
+	virtual void CompressVoxelGrid(FMesherVariables& MeshVars, TArray<FVoxel>& VoxelGrid);
+
 private:
 	struct FVoxelIndexParams
 	{

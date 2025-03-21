@@ -1,4 +1,4 @@
-﻿#include "Voxel/Generators/Single/FractionFillVoxelGridGenerator.h"
+﻿#include "Voxel/Generator/Single/FractionFillVoxelGridGenerator.h"
 
 void UFractionFillVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 {

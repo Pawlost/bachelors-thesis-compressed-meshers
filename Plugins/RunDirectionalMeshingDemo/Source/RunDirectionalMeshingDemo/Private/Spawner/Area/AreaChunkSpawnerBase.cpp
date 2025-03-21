@@ -1,6 +1,6 @@
 ﻿#include "Spawner/Area/AreaChunkSpawnerBase.h"
 #include "Mesher/MeshingUtils/MesherVariables.h"
-#include "Voxel/Generators/VoxelGeneratorBase.h"
+#include "Voxel/Generator/VoxelGeneratorBase.h"
 
 void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
                                                const FName& VoxelId)

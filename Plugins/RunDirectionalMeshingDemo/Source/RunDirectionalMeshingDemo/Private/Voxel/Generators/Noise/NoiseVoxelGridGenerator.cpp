@@ -1,7 +1,7 @@
-﻿#include "Voxel/Generators/Noise/NoiseVoxelGridGenerator.h"
+﻿#include "Voxel/Generator/Noise/NoiseVoxelGridGenerator.h"
 
 #include "Chunk/Chunk.h"
-#include "Voxel/Generators/Noise/NoiseSurfaceGenerator.h"
+#include "Voxel/Generator/Noise/NoiseSurfaceGenerator.h"
 
 void UNoiseVoxelGridGenerator::BeginPlay()
 {

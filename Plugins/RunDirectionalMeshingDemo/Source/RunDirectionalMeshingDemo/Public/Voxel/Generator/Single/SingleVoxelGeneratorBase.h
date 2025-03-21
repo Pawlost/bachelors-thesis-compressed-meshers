@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "Voxel/Generators/VoxelGeneratorBase.h"
+#include "Voxel/Generator/VoxelGeneratorBase.h"
 #include "SingleVoxelGeneratorBase.generated.h"
 
 UCLASS(ClassGroup=(VoxelGeneration), Abstract, Blueprintable)

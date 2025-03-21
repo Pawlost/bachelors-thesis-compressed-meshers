@@ -9,7 +9,7 @@
  * Contains an ID and a transparency flag.
  */
 USTRUCT()
-struct RLERUNDIRECTIONALMESHINGDEMO_API FRLEVoxel
+struct RUNDIRECTIONALMESHINGDEMO_API FRLEVoxel
 {
 	GENERATED_BODY()
 

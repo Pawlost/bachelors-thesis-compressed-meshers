@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
-#include "Voxel/Generators/VoxelGeneratorBase.h"
+#include "Voxel/Generator/VoxelGeneratorBase.h"
 #include "NoiseVoxelGridGenerator.generated.h"
 
 struct FNoiseSurfaceGenerator;
