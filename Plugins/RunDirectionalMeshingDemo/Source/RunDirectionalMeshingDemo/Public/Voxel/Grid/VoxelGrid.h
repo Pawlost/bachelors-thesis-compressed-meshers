@@ -14,4 +14,9 @@ class RUNDIRECTIONALMESHINGDEMO_API UVoxelGrid : public UVoxelData
 public:
 	UPROPERTY(VisibleAnywhere)
 	TArray<FVoxel> VoxelGrid;
+
+	virtual FVoxel GetVoxelAtIndex(const int32 Index) override
+	{
+		return VoxelGrid[Index];		
+	}
 };

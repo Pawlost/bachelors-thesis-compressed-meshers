@@ -1,7 +1,6 @@
 ﻿#include "Chunk/ChunkFace.h"
 
-FChunkFace FChunkFace::CreateFrontFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
-{
+FChunkFace FChunkFace::CreateFrontFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght){
 	return FChunkFace(Voxel,
 		InitialPosition,
 		 InitialPosition + FIntVector(0, RunLenght, 0),
@@ -9,7 +8,7 @@ FChunkFace FChunkFace::CreateFrontFace(const FIntVector& InitialPosition, const 
 		InitialPosition + FIntVector(0, 0, 1));
 }
 
-FChunkFace FChunkFace::CreateBackFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateBackFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght)
 {
 	return FChunkFace(Voxel,
 		InitialPosition + FIntVector(1, RunLenght, 0),
@@ -18,7 +17,7 @@ FChunkFace FChunkFace::CreateBackFace(const FIntVector& InitialPosition, const i
 		InitialPosition + FIntVector(1, RunLenght, 1));
 }
 
-FChunkFace FChunkFace::CreateLeftFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateLeftFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght)
 {
 	return FChunkFace(Voxel,
 		InitialPosition + FIntVector(0, RunLenght, 0),
@@ -27,7 +26,7 @@ FChunkFace FChunkFace::CreateLeftFace(const FIntVector& InitialPosition, const i
 		InitialPosition + FIntVector(0, RunLenght, 1));
 }
 
-FChunkFace FChunkFace::CreateRightFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateRightFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght)
 {
 	return FChunkFace(Voxel,
 		InitialPosition + FIntVector(1, 0, 0),
@@ -36,7 +35,7 @@ FChunkFace FChunkFace::CreateRightFace(const FIntVector& InitialPosition, const 
 		InitialPosition + FIntVector(1, 0, 1));
 }
 
-FChunkFace FChunkFace::CreateTopFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateTopFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght)
 {
 	return FChunkFace(Voxel,
 		InitialPosition + FIntVector(0, 0, 1),
@@ -45,7 +44,7 @@ FChunkFace FChunkFace::CreateTopFace(const FIntVector& InitialPosition, const in
 		InitialPosition + FIntVector(1, 0, 1));
 }
 
-FChunkFace FChunkFace::CreateBottomFace(const FIntVector& InitialPosition, const int RunLenght, const FVoxel& Voxel)
+FChunkFace FChunkFace::CreateBottomFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght)
 {
 	return FChunkFace(Voxel,
 		InitialPosition + FIntVector(0, RunLenght, 0),

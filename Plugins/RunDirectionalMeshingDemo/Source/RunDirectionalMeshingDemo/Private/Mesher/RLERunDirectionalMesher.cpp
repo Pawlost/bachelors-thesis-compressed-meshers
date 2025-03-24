@@ -85,32 +85,32 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 				auto localVoxelId = MeshVars.VoxelIdToLocalVoxelMap[RLEVoxel.Voxel.VoxelId];
 				
 				// Front
-				FChunkFace NewFace = FChunkFace::CreateFrontFace(initialPosition, lenght, RLEVoxel.Voxel);
+				FChunkFace NewFace = FChunkFace::CreateFrontFace(RLEVoxel.Voxel, initialPosition, lenght);
 				auto FaceContainerIndex = static_cast<uint8>(FFaceToDirection::FrontDirection.FaceSide);
 				MeshVars.Faces[FaceContainerIndex][localVoxelId]->Push(NewFace);
 
 				// Back
-				NewFace = FChunkFace::CreateBackFace(initialPosition, lenght, RLEVoxel.Voxel);
+				NewFace = FChunkFace::CreateBackFace(RLEVoxel.Voxel, initialPosition, lenght);
 				FaceContainerIndex = static_cast<uint8>(FFaceToDirection::BackDirection.FaceSide);
 				MeshVars.Faces[FaceContainerIndex][localVoxelId]->Push(NewFace);
 
 				// Top
-				NewFace = FChunkFace::CreateTopFace(initialPosition, lenght, RLEVoxel.Voxel);
+				NewFace = FChunkFace::CreateTopFace(RLEVoxel.Voxel, initialPosition, lenght);
 				FaceContainerIndex = static_cast<uint8>(FFaceToDirection::TopDirection.FaceSide);
 				MeshVars.Faces[FaceContainerIndex][localVoxelId]->Push(NewFace);
 
 				// Bottom
-				NewFace = FChunkFace::CreateBottomFace(initialPosition, lenght, RLEVoxel.Voxel);
+				NewFace = FChunkFace::CreateBottomFace(RLEVoxel.Voxel, initialPosition, lenght);
 				FaceContainerIndex = static_cast<uint8>(FFaceToDirection::BackDirection.FaceSide);
 				MeshVars.Faces[FaceContainerIndex][localVoxelId]->Push(NewFace);
 
 				// Right
-				NewFace = FChunkFace::CreateRightFace(initialPosition, lenght, RLEVoxel.Voxel);
+				NewFace = FChunkFace::CreateRightFace(RLEVoxel.Voxel, initialPosition, lenght);
 				FaceContainerIndex = static_cast<uint8>(FFaceToDirection::RightDirection.FaceSide);
 				MeshVars.Faces[FaceContainerIndex][localVoxelId]->Push(NewFace);
 
 				// Left
-				NewFace = FChunkFace::CreateLeftFace(initialPosition, lenght, RLEVoxel.Voxel);
+				NewFace = FChunkFace::CreateLeftFace(RLEVoxel.Voxel, initialPosition, lenght);
 				FaceContainerIndex = static_cast<uint8>(FFaceToDirection::LeftDirection.FaceSide);
 				MeshVars.Faces[FaceContainerIndex][localVoxelId]->Push(NewFace);
 

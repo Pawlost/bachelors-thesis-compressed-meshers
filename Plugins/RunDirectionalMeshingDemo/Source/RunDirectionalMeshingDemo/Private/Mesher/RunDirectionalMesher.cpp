@@ -5,6 +5,7 @@
 #include "Mesh/RealtimeMeshBuilder.h"
 #include "Mesher/MeshingUtils/MesherVariables.h"
 #include "Spawner/ChunkSpawnerBase.h"
+#include "Voxel/Grid/VoxelGrid.h"
 
 class URealtimeMeshSimple;
 
@@ -25,9 +26,18 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 #if CPUPROFILERTRACE_ENABLED
 	TRACE_CPUPROFILER_EVENT_SCOPE("Mesh generation")
 #endif
+
+	const auto VoxelGridPtr = Cast<UVoxelGrid>(MeshVars.ChunkParams.OriginalChunk->VoxelGrid);
+    
+	if (VoxelGridPtr == nullptr)
+    {
+    	return;
+    }
+
+	auto& VoxelGrid = *VoxelGridPtr;
 	
 	InitFaceContainers(MeshVars);
-	FaceGeneration(MeshVars);
+	FaceGeneration(VoxelGrid, MeshVars);
 	DirectionalGreedyMeshing(MeshVars);
 	GenerateMeshFromFaces(MeshVars);
 }
@@ -75,7 +85,7 @@ void URunDirectionalMesher::InitFaceContainers(FMesherVariables& MeshVars) const
 	}
 }
 
-void URunDirectionalMesher::FaceGeneration(FMesherVariables& faceParams) const
+void URunDirectionalMesher::FaceGeneration(UVoxelGrid& VoxelGridObject, FMesherVariables& faceParams) const
 {
 #if CPUPROFILERTRACE_ENABLED
 	TRACE_CPUPROFILER_EVENT_SCOPE("Run lenght meshing generation")
@@ -108,11 +118,11 @@ void URunDirectionalMesher::FaceGeneration(FMesherVariables& faceParams) const
 				* Indices are same for face and reversed face.
 				*/
 				IncrementRun(x, y, z, XAxisIndex, bMinBorder, bMaxBorder, FrontFaceTemplate, BackFaceTemplate,
-				             faceParams);
+				             faceParams, VoxelGridObject);
 				IncrementRun(y, x, z, YAxisIndex, bMinBorder, bMaxBorder, RightFaceTemplate, LeftFaceTemplate,
-				             faceParams);
+				             faceParams, VoxelGridObject);
 				IncrementRun(z, y, x, ZAxisIndex, bMinBorder, bMaxBorder, BottomFaceTemplate, TopFaceTemplate,
-				             faceParams);
+				             faceParams, VoxelGridObject);
 			}
 		}
 	}
@@ -121,31 +131,31 @@ void URunDirectionalMesher::FaceGeneration(FMesherVariables& faceParams) const
 void URunDirectionalMesher::IncrementRun(const int X, const int Y, const int Z, const int32 AxisVoxelIndex, const bool bIsMinBorder, const bool bIsMaxBorder,
                                     const FMeshingDirections& FaceTemplate,
                                     const FMeshingDirections& ReversedFaceTemplate,
-                                    FMesherVariables& MeshVars) const
+                                    FMesherVariables& MeshVars, UVoxelGrid& VoxelGridObject) const
 {
-	// // Get voxel at current position of the run.
-	// const auto Position = FIntVector(X, Y, Z);
-	// const int32 Index = VoxelGenerator->CalculateVoxelIndex(Position);
-	// const FVoxel Voxel = MeshVars.ChunkParams.OriginalChunk->VoxelGrid[Index];
-	//
-	// // If voxel is empty, no mesh should be generated
-	// if (!Voxel.IsEmptyVoxel())
-	// {
-	// 	// Get correct face containers
-	// 	auto OriginalChunk = MeshVars.ChunkParams.OriginalChunk;
-	// 	const auto LocalVoxelId = MeshVars.VoxelIdToLocalVoxelMap[Voxel.VoxelId];
-	// 	const auto FaceContainerIndex = static_cast<uint8>(FaceTemplate.StaticMeshingData.FaceSide);
-	// 	const auto FaceContainerVoxelIndex = static_cast<uint8>(ReversedFaceTemplate.StaticMeshingData.FaceSide);
-	//
-	// 	// Generate face for each direction
-	// 	AddFace(FaceTemplate, bIsMinBorder, Index, Position, Voxel, AxisVoxelIndex,
-	// 	        MeshVars.Faces[FaceContainerIndex][LocalVoxelId], MeshVars.ChunkParams);
-	// 	AddFace(ReversedFaceTemplate, bIsMaxBorder, Index, Position, Voxel, AxisVoxelIndex,
-	// 	        MeshVars.Faces[FaceContainerVoxelIndex][LocalVoxelId], MeshVars.ChunkParams);
-	// }
+	// Get voxel at current position of the run.
+	const auto Position = FIntVector(X, Y, Z);
+	const int32 Index = VoxelGenerator->CalculateVoxelIndex(Position);
+	const FVoxel Voxel = VoxelGridObject.VoxelGrid[Index];
+	
+	// If voxel is empty, no mesh should be generated
+	if (!Voxel.IsEmptyVoxel())
+	{
+		// Get correct face containers
+		auto OriginalChunk = MeshVars.ChunkParams.OriginalChunk;
+		const auto LocalVoxelId = MeshVars.VoxelIdToLocalVoxelMap[Voxel.VoxelId];
+		const auto FaceContainerIndex = static_cast<uint8>(FaceTemplate.StaticMeshingData.FaceSide);
+		const auto FaceContainerVoxelIndex = static_cast<uint8>(ReversedFaceTemplate.StaticMeshingData.FaceSide);
+	
+		// Generate face for each direction
+		AddFace(VoxelGridObject, FaceTemplate, bIsMinBorder, Index, Position, Voxel, AxisVoxelIndex,
+		        MeshVars.Faces[FaceContainerIndex][LocalVoxelId], MeshVars.ChunkParams);
+		AddFace(VoxelGridObject, ReversedFaceTemplate, bIsMaxBorder, Index, Position, Voxel, AxisVoxelIndex,
+		        MeshVars.Faces[FaceContainerVoxelIndex][LocalVoxelId], MeshVars.ChunkParams);
+	}
 }
 
-void URunDirectionalMesher::AddFace(const FMeshingDirections& FaceTemplate, const bool bIsBorder,
+void URunDirectionalMesher::AddFace(const UVoxelGrid& VoxelGridObject, const FMeshingDirections& FaceTemplate, const bool bIsBorder,
                                const int32& Index, const FIntVector& Position, const FVoxel& Voxel,
                                const int32& AxisVoxelIndex,
                                const TSharedPtr<TArray<FChunkFace>>& ChunkFaces, const FChunkParams& ChunkParams)
@@ -162,18 +172,10 @@ void URunDirectionalMesher::AddFace(const FMeshingDirections& FaceTemplate, cons
 	};
 
 	// Check if face should be generated
-	if (IsBorderVoxelVisible(VoxelIndexParams, ChunkParams) || IsVoxelVisible(VoxelIndexParams, ChunkParams))
+	if (IsBorderVoxelVisible(VoxelIndexParams, ChunkParams) || IsVoxelVisible(VoxelGridObject, VoxelIndexParams, ChunkParams))
 	{
 		// Generate new face with coordinates
-		const FChunkFace NewFace = FChunkFace();
-		// TODO: fix
-		/*{
-			Voxel,
-			FaceTemplate.StaticMeshingData.FaceTemplate.StartVertexDown + Position,
-			FaceTemplate.StaticMeshingData.FaceTemplate.EndVertexDown + Position,
-			FaceTemplate.StaticMeshingData.FaceTemplate.EndVertexUp + Position,
-			FaceTemplate.StaticMeshingData.FaceTemplate.StartVertexUp + Position,
-		};*/
+		const FChunkFace NewFace = FaceTemplate.StaticMeshingData.FaceCreator(Voxel, Position, 1);
 
 		if (!ChunkFaces->IsEmpty())
 		{
@@ -193,30 +195,30 @@ void URunDirectionalMesher::AddFace(const FMeshingDirections& FaceTemplate, cons
 
 bool URunDirectionalMesher::IsBorderVoxelVisible(const FVoxelIndexParams& FaceData, const FChunkParams& ChunkStruct)
 {
-	// if (FaceData.IsBorder)
-	// {
-	// 	// Check voxel visibility in side chunk (crosschunk)
-	// 	const auto FaceContainerIndex = static_cast<uint8>(FaceData.FaceDirection);
-	// 	const auto SideChunk = ChunkStruct.SideChunks[FaceContainerIndex];
-	// 	if (SideChunk != nullptr)
-	// 	{
-	// 		const auto NextVoxel = SideChunk->VoxelGrid[FaceData.CurrentVoxelIndex];
-	// 		return NextVoxel.IsTransparent() && NextVoxel != FaceData.CurrentVoxel;
-	// 	}
-	//
-	// 	return SideChunk == nullptr && ChunkStruct.ShowBorders;
-	// }
+	if (FaceData.IsBorder)
+	{
+		// Check voxel visibility in side chunk (crosschunk)
+		const auto FaceContainerIndex = static_cast<uint8>(FaceData.FaceDirection);
+		const auto SideChunk = ChunkStruct.SideChunks[FaceContainerIndex];
+		if (SideChunk != nullptr)
+		{
+			const auto& NextVoxel =  SideChunk->VoxelGrid->GetVoxelAtIndex(FaceData.CurrentVoxelIndex);
+			return NextVoxel.IsTransparent() && NextVoxel != FaceData.CurrentVoxel;
+		}
+	
+		return SideChunk == nullptr && ChunkStruct.ShowBorders;
+	}
 	return false;
 }
 
-bool URunDirectionalMesher::IsVoxelVisible(const FVoxelIndexParams& FaceData, const FChunkParams& ChunkStruct)
+bool URunDirectionalMesher::IsVoxelVisible(const UVoxelGrid& VoxelGridObject, const FVoxelIndexParams& FaceData, const FChunkParams& ChunkStruct)
 {
-	// if (!FaceData.IsBorder && ChunkStruct.OriginalChunk->VoxelGrid.IsValidIndex(FaceData.ForwardVoxelIndex))
-	// {
-	// 	// Check if next voxel is visible based on calculated index
-	// 	const auto NextVoxel = ChunkStruct.OriginalChunk->VoxelGrid[FaceData.ForwardVoxelIndex];
-	// 	return NextVoxel.IsTransparent() && NextVoxel != FaceData.CurrentVoxel;
-	// }
+	if (!FaceData.IsBorder && VoxelGridObject.VoxelGrid.IsValidIndex(FaceData.ForwardVoxelIndex))
+	{
+		// Check if next voxel is visible based on calculated index
+		const auto NextVoxel = VoxelGridObject.VoxelGrid[FaceData.ForwardVoxelIndex];
+		return NextVoxel.IsTransparent() && NextVoxel != FaceData.CurrentVoxel;
+	}
 	return false;
 }
 

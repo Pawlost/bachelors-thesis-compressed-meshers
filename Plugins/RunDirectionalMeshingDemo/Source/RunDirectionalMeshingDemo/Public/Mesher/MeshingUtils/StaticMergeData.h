@@ -6,7 +6,8 @@ struct FStaticMergeData
 {
 	const EFaceDirection FaceSide;
 	const TFunctionRef<bool(FChunkFace& PrevFace, const FChunkFace& NewFace)> RunDirectionFaceMerge;
-
+	const TFunctionRef<FChunkFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght)> FaceCreator;
+	
 	static FStaticMergeData FrontFaceData;
 	static FStaticMergeData BackFaceData;
 	static FStaticMergeData LeftFaceData;

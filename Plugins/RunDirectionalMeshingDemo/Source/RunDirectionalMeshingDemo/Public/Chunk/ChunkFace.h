@@ -30,13 +30,13 @@ struct RUNDIRECTIONALMESHINGDEMO_API FChunkFace
 	{
 	}
 
-	// TODO: Switch voxel parameter
-	static FChunkFace CreateFrontFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
-	static FChunkFace CreateBackFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
-	static FChunkFace CreateLeftFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
-	static FChunkFace CreateRightFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
-	static FChunkFace CreateTopFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
-	static FChunkFace CreateBottomFace(const FIntVector& InitialPosition, const int RunLenght = 1, const FVoxel& Voxel = FVoxel());
+	// TODO: change runlenght type
+	static FChunkFace CreateFrontFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght = 1);
+	static FChunkFace CreateBackFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght = 1);
+	static FChunkFace CreateLeftFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght = 1);
+	static FChunkFace CreateRightFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght = 1);
+	static FChunkFace CreateTopFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght = 1);
+	static FChunkFace CreateBottomFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght = 1);
 
 	static bool MergeFaceEnd(FChunkFace& PrevFace, const FChunkFace& NewFace);
 	static bool MergeFaceStart(FChunkFace& PrevFace, const FChunkFace& NewFace);
