@@ -19,15 +19,15 @@ struct RUNDIRECTIONALMESHINGDEMO_API FRLEVoxel
 	// Saving voxels is not implemented in this demo, but a property specifier for saving has been added.
 	UPROPERTY(SaveGame)
 	uint32 RunLenght;
-	FVoxel voxel;
+	FVoxel Voxel;
 	
 	FORCEINLINE bool IsEmptyVoxel() const
 	{
-		return voxel.IsEmptyVoxel();
+		return Voxel.IsEmptyVoxel();
 	}
 
 	FORCEINLINE bool IsTransparent() const
 	{
-		 return voxel.IsTransparent();
+		 return Voxel.IsTransparent();
 	}
 };

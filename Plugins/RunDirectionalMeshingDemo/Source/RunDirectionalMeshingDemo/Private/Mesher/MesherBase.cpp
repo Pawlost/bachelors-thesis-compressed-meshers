@@ -9,11 +9,11 @@ void UMesherBase::SetVoxelGenerator(const TObjectPtr<UVoxelGeneratorBase>& Voxel
 	UpdateAllFacesParams();
 }
 
-void UMesherBase::CompressVoxelGrid(FMesherVariables& MeshVars, TArray<FVoxel>& VoxelGrid)
+void UMesherBase::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 {
 	auto VoxelGridObject = NewObject<UVoxelGrid>(this);
 	VoxelGridObject->VoxelGrid = VoxelGrid;
-	MeshVars.ChunkParams.OriginalChunk->VoxelGrid = VoxelGridObject;
+	Chunk.VoxelGrid = VoxelGridObject;
 }
 
 const UMesherBase::FNormalsAndTangents UMesherBase::FaceNormalsAndTangents[] = {

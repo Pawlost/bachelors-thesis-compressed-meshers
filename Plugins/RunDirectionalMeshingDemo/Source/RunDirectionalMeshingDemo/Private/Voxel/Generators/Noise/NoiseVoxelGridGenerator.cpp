@@ -1,6 +1,7 @@
 ﻿#include "Voxel/Generator/Noise/NoiseVoxelGridGenerator.h"
 
 #include "Chunk/Chunk.h"
+#include "Mesher/MesherBase.h"
 #include "Voxel/Generator/Noise/NoiseSurfaceGenerator.h"
 
 void UNoiseVoxelGridGenerator::BeginPlay()
@@ -50,6 +51,10 @@ void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 		return;
 	}
 
+	//TODO: cast to VoxelGrid, assign not compress if true
+	TArray<FVoxel> VoxelGrid;
+	VoxelGrid.SetNum(GetVoxelCountPerChunk());
+
 	// Iteration through voxel grid (voxel model)
 	for (uint16 x = 0; x < ChunkDimension; x++)
 	{
@@ -60,10 +65,11 @@ void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 				const auto Index = CalculateVoxelIndex(x, y, z);
 				// In case no voxel is added make it empty
 				// This is important in case of reusing chunks
-				Chunk.VoxelGrid[Index] = FVoxel();
+				//	VoxelGrid[Index] = FVoxel();
 
 				// VoxelId is given by position of surface generator in array.
 				// Generators keep rewriting position and last Voxel will rewrite the rest
+				auto TestVoxel = false;
 				for (int32 VoxelId = 0; VoxelId < VoxelTypeCount; VoxelId++)
 				{
 					auto SurfaceGenerator = SurfaceGenerators[VoxelId];
@@ -89,12 +95,11 @@ void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 
 					// Always get surface elevation
 					const double Elevation = ComputeSurfaceGradient(PosX, PosY, SurfaceGenerator.SurfaceGenerator,
-					                                                SurfaceGenerator.VoxelType.Surface_Elevation,
-					                                                SurfaceGenerator.VoxelType.
-					                                                Surface_DistanceFromSeaLevel);
-
+																	SurfaceGenerator.VoxelType.Surface_Elevation,
+																	SurfaceGenerator.VoxelType.
+																	Surface_DistanceFromSeaLevel);
 					bool AddVoxel;
-
+					
 					if (SurfaceGenerator.VoxelType.bGenerateReversedSurface)
 					{
 						if (!IsValid(SurfaceGenerator.ReverseSurfaceGenerator))
@@ -118,13 +123,24 @@ void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 
 					if (AddVoxel)
 					{
+						TestVoxel = true;
 						// Rewrite voxel at index from previous value
-						ChangeKnownVoxelAtIndex(Chunk, Index, Voxel);
+						ChangeKnownVoxelAtIndex(VoxelGrid, Chunk.ChunkVoxelIdTable, Index, Voxel);
+				//		break;
+					}
+				}
+
+				if (Index == 608){
+					if (TestVoxel == false)
+					{
+						auto lol = "here";
 					}
 				}
 			}
 		}
 	}
+
+	Mesher->CompressVoxelGrid(Chunk,VoxelGrid);
 }
 
 double UNoiseVoxelGridGenerator::GetHighestElevationAtLocation(const FVector& Location)

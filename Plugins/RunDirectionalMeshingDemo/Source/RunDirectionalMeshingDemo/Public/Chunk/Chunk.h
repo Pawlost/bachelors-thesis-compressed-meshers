@@ -26,9 +26,6 @@ struct RUNDIRECTIONALMESHINGDEMO_API FChunk
 	FIntVector GridPosition = FIntVector(0, 0, 0);
 
 	UPROPERTY(VisibleInstanceOnly)
-	bool bIsInitialized = false;
-
-	UPROPERTY(VisibleInstanceOnly)
 	bool bHasMesh = false;
 
 	UPROPERTY(VisibleInstanceOnly)

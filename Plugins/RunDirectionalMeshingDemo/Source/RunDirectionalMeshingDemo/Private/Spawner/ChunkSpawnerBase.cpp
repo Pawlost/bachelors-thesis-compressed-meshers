@@ -75,14 +75,7 @@ void AChunkSpawnerBase::AddChunkToGrid(TSharedPtr<FChunk>& Chunk,
                                   const FIntVector& GridPosition, TSharedFuture<void>* AsyncExecution) const
 {
 	Chunk->GridPosition = GridPosition;
-
-	if (!Chunk->bIsInitialized)
-	{
-		// Initialize and request memory for voxel grid
-		Chunk->VoxelGrid.SetNum(VoxelGenerator->GetVoxelCountPerChunk());
-	}
-
-	Chunk->bIsInitialized = true;
+	
 	if (AsyncExecution != nullptr)
 	{
 		// Generate voxels on async thread if promise is expected

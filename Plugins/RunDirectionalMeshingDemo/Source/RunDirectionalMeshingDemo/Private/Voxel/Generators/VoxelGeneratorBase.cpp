@@ -28,18 +28,18 @@ void UVoxelGeneratorBase::BeginPlay()
 	}
 }
 
-void UVoxelGeneratorBase::ChangeKnownVoxelAtIndex(FChunk& Chunk, const uint32& Index,
+void UVoxelGeneratorBase::ChangeKnownVoxelAtIndex(TArray<FVoxel>& VoxelGrid, TMap<int32, uint32>& VoxelTable, const uint32& Index,
                                                   const FVoxel& Voxel)
 {
 	// NOTICE: Code here is optimized because voxel grid generation is not main topic of this bachelor's thesis 
 	FScopeLock Lock(&Mutex);
-	const auto PrevVoxel = Chunk.VoxelGrid[Index];
-	RemoveVoxelFromChunkTable(Chunk, PrevVoxel);
+	const auto PrevVoxel = VoxelGrid[Index];
+	RemoveVoxelFromChunkTable(VoxelTable, PrevVoxel);
 
 	// Replace the voxel
-	Chunk.VoxelGrid[Index] = Voxel;
+	VoxelGrid[Index] = Voxel;
 
-	const auto VoxelTypeAmountInChunk = Chunk.ChunkVoxelIdTable.Find(Voxel.VoxelId);
+	const auto VoxelTypeAmountInChunk = VoxelTable.Find(Voxel.VoxelId);
 	if (VoxelTypeAmountInChunk != nullptr)
 	{
 		//Increase amount of added voxel
@@ -48,14 +48,14 @@ void UVoxelGeneratorBase::ChangeKnownVoxelAtIndex(FChunk& Chunk, const uint32& I
 	else
 	{
 		//If voxel is unique, start new count
-		Chunk.ChunkVoxelIdTable.Add(Voxel.VoxelId, 1);
+		VoxelTable.Add(Voxel.VoxelId, 1);
 	}
 }
 
 bool UVoxelGeneratorBase::ChangeUnknownVoxelIdInChunk(const TSharedPtr<FChunk>& Chunk, const FIntVector& VoxelPosition,
                                                       const FName& VoxelName)
 {
-	const auto Index = CalculateVoxelIndex(VoxelPosition);
+	/*const auto Index = CalculateVoxelIndex(VoxelPosition);
 	const auto VoxelId = GetVoxelByName(VoxelName);
 
 	// Check if chunk and position is valid.
@@ -77,7 +77,7 @@ bool UVoxelGeneratorBase::ChangeUnknownVoxelIdInChunk(const TSharedPtr<FChunk>& 
 		}
 		return true;
 	}
-
+*/
 	return false;
 }
 
@@ -126,9 +126,9 @@ double UVoxelGeneratorBase::GetHighestElevationAtLocation(const FVector& Locatio
 	return GetChunkAxisSize();
 }
 
-void UVoxelGeneratorBase::RemoveVoxelFromChunkTable(FChunk& Chunk, const FVoxel& Voxel)
+void UVoxelGeneratorBase::RemoveVoxelFromChunkTable(TMap<int32, uint32>& VoxelTable, const FVoxel& Voxel)
 {
-	const auto VoxelTypeAmountInChunk = Chunk.ChunkVoxelIdTable.Find(Voxel.VoxelId);
+	const auto VoxelTypeAmountInChunk = VoxelTable.Find(Voxel.VoxelId);
 	if (VoxelTypeAmountInChunk != nullptr && !Voxel.IsEmptyVoxel())
 	{
 		auto& VoxelTypeAmountInChunkRef = *VoxelTypeAmountInChunk;
@@ -139,7 +139,7 @@ void UVoxelGeneratorBase::RemoveVoxelFromChunkTable(FChunk& Chunk, const FVoxel&
 		if (VoxelTypeAmountInChunkRef < 1)
 		{
 			// Remove id from a table if there is no voxel representation
-			Chunk.ChunkVoxelIdTable.Remove(Voxel.VoxelId);
+			VoxelTable.Remove(Voxel.VoxelId);
 		}
 	}
 }

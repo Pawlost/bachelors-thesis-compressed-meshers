@@ -19,7 +19,7 @@ class RUNDIRECTIONALMESHINGDEMO_API UMesherBase : public UActorComponent
 public:
 	void SetVoxelGenerator(const TObjectPtr<UVoxelGeneratorBase>& VoxelGeneratorBase);
 	virtual void GenerateMesh(FMesherVariables& MesherVariables) PURE_VIRTUAL(UMesherBase::GenerateMesh)
-	virtual void CompressVoxelGrid(FMesherVariables& MeshVars, TArray<FVoxel>& VoxelGrid);
+	virtual void CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid);
 
 protected:
 	FMeshingDirections FrontFaceTemplate = FMeshingDirections(FStaticMergeData::FrontFaceData);

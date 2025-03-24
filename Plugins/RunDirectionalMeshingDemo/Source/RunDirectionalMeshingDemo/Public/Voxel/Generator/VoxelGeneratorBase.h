@@ -31,7 +31,8 @@ public:
 		meta=(ToolTip="Size of a single voxel in world coordinates.", MinClamp="0"))
 	double VoxelSize = 20;
 
-	void ChangeKnownVoxelAtIndex(FChunk& Chunk, const uint32& Index, const FVoxel& Voxel);
+	void ChangeKnownVoxelAtIndex(TArray<FVoxel>& VoxelGrid, TMap<int32, uint32>& VoxelTable, const uint32& Index,
+												  const FVoxel& Voxel);
 
 	/**
 	 * @return True if chunk position are valid and voxel was changed.
@@ -74,7 +75,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	static void RemoveVoxelFromChunkTable(FChunk& Chunk, const FVoxel& Voxel);
+	static void RemoveVoxelFromChunkTable(TMap<int32, uint32>& VoxelTable, const FVoxel& Voxel);
 
 	double ChunkSize = 0.0, InternalVoxelSize = 0.0;
 	int32 VoxelCountY = 0, VoxelCountYZ = 0, VoxelCountXYZ = 0;

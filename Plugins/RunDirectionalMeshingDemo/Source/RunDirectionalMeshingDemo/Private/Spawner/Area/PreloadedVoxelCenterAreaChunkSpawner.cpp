@@ -68,6 +68,10 @@ void APreloadedVoxelCenterAreaChunkSpawner::GenerateArea()
 	}
 
 	WaitForAllTasks(Tasks);
+	
+	if(!IsValid(this)){
+		return;
+	}
 
 	//Foreach visited and spawned chunk create mesh
 	FMesherVariables MeshVars;

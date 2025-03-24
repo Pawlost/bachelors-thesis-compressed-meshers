@@ -31,10 +31,6 @@
 		{
 			"Name": "RunDirectionalMeshingDemo",
 			"Enabled": true
-		},
-		{
-			"Name": "RLERunDirectionalMeshingDemo",
-			"Enabled": true
 		}
 	]
 }
