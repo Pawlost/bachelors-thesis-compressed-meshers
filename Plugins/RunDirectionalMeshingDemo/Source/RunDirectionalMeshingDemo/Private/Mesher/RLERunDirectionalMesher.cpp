@@ -38,9 +38,9 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 	
 	InitFaceContainers(MeshVars);
 
-	int32 globalIndex = 0;
+	int32 globalIndex = -1;
 	auto RLEVoxel = VoxelGridObject.VoxelGrid[0];
-	auto size = 0;
+	auto size = RLEVoxel.RunLenght;
 	auto lenght = 0;
 
 	const auto ChunkDimension = VoxelGenerator->GetVoxelCountPerChunkDimension();
@@ -58,22 +58,21 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 				{
 					globalIndex += 1;
 					RLEVoxel = VoxelGridObject.VoxelGrid[globalIndex];
-					size= RLEVoxel.RunLenght;
-					lenght = size;
+					lenght = RLEVoxel.RunLenght;
+					size = 0;
 				}else
 				{
 					lenght = RLEVoxel.RunLenght - size;
-					size += lenght;
 				}
 
-				if (startIndex + RLEVoxel.RunLenght > ChunkDimension)
+				if (startIndex + lenght > ChunkDimension)
 				{
-					size = ChunkDimension - startIndex;
-					lenght = size;
+					lenght = ChunkDimension  - startIndex;
 				}
 				
 				if (RLEVoxel.IsEmptyVoxel())
 				{
+					size += lenght;
 					startIndex += lenght;
 					continue;
 				}
@@ -114,7 +113,8 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 				FaceContainerIndex = static_cast<uint8>(FFaceToDirection::LeftDirection.FaceSide);
 				MeshVars.Faces[FaceContainerIndex][localVoxelId]->Push(NewFace);
 
-				startIndex += size;
+				size += lenght;
+				startIndex += lenght;
 			}
 		}
 	}
