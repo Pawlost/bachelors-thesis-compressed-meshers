@@ -11,7 +11,7 @@ void UMesherBase::SetVoxelGenerator(const TObjectPtr<UVoxelGeneratorBase>& Voxel
 
 void UMesherBase::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 {
-	auto VoxelGridObject = NewObject<UVoxelGrid>(this);
+	auto VoxelGridObject = NewObject<UVoxelGrid>();
 	VoxelGridObject->VoxelGrid = VoxelGrid;
 	Chunk.VoxelGrid = VoxelGridObject;
 }

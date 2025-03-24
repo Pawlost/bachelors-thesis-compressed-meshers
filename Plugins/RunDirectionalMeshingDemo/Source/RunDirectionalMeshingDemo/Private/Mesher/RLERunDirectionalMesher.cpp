@@ -123,7 +123,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 
 void URLERunDirectionalMesher::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 {
-	auto VoxelGridObject = NewObject<URLEVoxelGrid>(this);
+	auto VoxelGridObject = NewObject<URLEVoxelGrid>();
 	VoxelGridObject->VoxelGrid.Reserve(Chunk.ChunkVoxelIdTable.Num());
 	
 	VoxelGridObject->VoxelGrid.Emplace(1, VoxelGrid[0]);
