@@ -1,11 +1,11 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-#pragma once
+﻿#pragma once
 #include "CoreMinimal.h"
 #include "MeshingUtils/FaceDirection.h"
 #include "MeshingUtils/MeshingDirections.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 #include "MesherBase.generated.h"
 
+struct FVoxelChange;
 struct FMesherVariables;
 
 /**
@@ -18,7 +18,7 @@ class RUNDIRECTIONALMESHINGDEMO_API UMesherBase : public UActorComponent
 
 public:
 	void SetVoxelGenerator(const TObjectPtr<UVoxelGeneratorBase>& VoxelGeneratorBase);
-	virtual void GenerateMesh(FMesherVariables& MesherVariables) PURE_VIRTUAL(UMesherBase::GenerateMesh)
+	virtual void GenerateMesh(FMesherVariables& MesherVariables, FVoxelChange* VoxelChange) PURE_VIRTUAL(UMesherBase::GenerateMesh)
 	virtual void CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid);
 
 protected:

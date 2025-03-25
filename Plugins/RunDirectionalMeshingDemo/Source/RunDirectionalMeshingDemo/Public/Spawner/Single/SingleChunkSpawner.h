@@ -10,5 +10,5 @@ class RUNDIRECTIONALMESHINGDEMO_API ASingleChunkSpawner : public ASingleChunkSpa
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void StartMeshing() override;
+	virtual void StartMeshing(FVoxelChange* VoxelChange) override;
 };

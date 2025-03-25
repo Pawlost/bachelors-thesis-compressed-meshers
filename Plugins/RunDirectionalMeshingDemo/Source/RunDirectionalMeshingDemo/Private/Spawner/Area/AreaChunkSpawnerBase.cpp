@@ -1,9 +1,10 @@
 ﻿#include "Spawner/Area/AreaChunkSpawnerBase.h"
 #include "Mesher/MeshingUtils/MesherVariables.h"
+#include "Mesher/MeshingUtils/VoxelChange.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 
 void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
-                                               const FName& VoxelId)
+                                               const FName& VoxelName)
 {
 	if (EditHandle.IsValid() && !EditHandle.IsReady())
 	{
@@ -21,13 +22,13 @@ void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPositi
 
 		auto Chunk = *FoundChunk;
 
-		VoxelGenerator->ChangeUnknownVoxelIdInChunk(Chunk, VoxelPosition, VoxelId);
 
-		EditHandle = Async(EAsyncExecution::ThreadPool, [this, Chunk]()
+		EditHandle = Async(EAsyncExecution::ThreadPool, [this, Chunk, VoxelPosition, VoxelName]()
 		{
 			FMesherVariables MesherVars;
 			Chunk->bIsActive = false;
-			GenerateChunkMesh(MesherVars, Chunk->GridPosition);
+			FVoxelChange Modification(VoxelName, VoxelPosition);
+			GenerateChunkMesh(MesherVars, Chunk->GridPosition, &Modification);
 			FMesherVariables SideMesherVars;
 
 			for (int32 s = 0; s < CHUNK_FACE_COUNT; s++)
@@ -66,7 +67,7 @@ void AAreaChunkSpawnerBase::BeginPlay()
 }
 
 //Running on main thread may cause deadlock
-void AAreaChunkSpawnerBase::GenerateChunkMesh(FMesherVariables& MesherVars, const FIntVector& ChunkGridPosition)
+void AAreaChunkSpawnerBase::GenerateChunkMesh(FMesherVariables& MesherVars, const FIntVector& ChunkGridPosition, FVoxelChange* VoxelChange)
 {
 #if CPUPROFILERTRACE_ENABLED
 	TRACE_CPUPROFILER_EVENT_SCOPE("Area Mesh generation prepartion")
@@ -102,7 +103,7 @@ void AAreaChunkSpawnerBase::GenerateChunkMesh(FMesherVariables& MesherVars, cons
 	}
 
 	//Mesh could be spawned on a Async Thread similarly to voxel models but it is not done so to showcase real time speed of mesh generation (requirement for bachelor thesis)
-	VoxelGenerator->GenerateMesh(MesherVars);
+	VoxelGenerator->GenerateMesh(MesherVars, VoxelChange);
 
 	if (!Chunk->bHasMesh)
 	{

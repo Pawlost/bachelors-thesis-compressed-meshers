@@ -4,13 +4,15 @@
 #include "Mesher/MeshingUtils/FaceDirection.h"
 #include "SingleBorderlessChunkSpawner.generated.h"
 
+struct FVoxelChange;
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class RUNDIRECTIONALMESHINGDEMO_API ASingleBorderlessChunkSpawner : public ASingleChunkSpawnerBase
 {
 	GENERATED_BODY()
 	
 protected:
-	virtual void StartMeshing() override;
+	virtual void StartMeshing(FVoxelChange* VoxelChange) override;
 	
 private:
 	TSharedPtr<FChunk> SideChunk[CHUNK_FACE_COUNT];

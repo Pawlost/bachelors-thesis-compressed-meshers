@@ -9,7 +9,7 @@
 #include "Voxel/RLEVoxel.h"
 #include "Voxel/Grid/RLEVoxelGrid.h"
 
-void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
+void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChange* VoxelChange)
 {
 	MeshVars.ChunkParams.OriginalChunk->bHasMesh = false;
 
@@ -26,7 +26,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 #if CPUPROFILERTRACE_ENABLED
 	TRACE_CPUPROFILER_EVENT_SCOPE("Mesh generation")
 #endif
-	
+
 	auto VoxelGridPtr = Cast<URLEVoxelGrid>(MeshVars.ChunkParams.OriginalChunk->VoxelGrid);
 
 	if (VoxelGridPtr == nullptr)
@@ -34,55 +34,87 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 		return;
 	}
 
-	auto& VoxelGridObject  = *VoxelGridPtr;
-	
+	auto& VoxelGrid = VoxelGridPtr->VoxelGrid;
+
+	TObjectPtr<URLEVoxelGrid> NewVoxelGridObject = nullptr;
+	FVoxel EditVoxel;
+	if (VoxelChange != nullptr)
+	{
+		NewVoxelGridObject = NewObject<URLEVoxelGrid>();
+		NewVoxelGridObject->VoxelGrid.Reserve(VoxelGrid.Num() + 1);
+		EditVoxel = VoxelGenerator->GetVoxelByName(VoxelChange->VoxelName);
+	}
+
 	InitFaceContainers(MeshVars);
 
 	int32 globalIndex = -1;
-	auto RLEVoxel = VoxelGridObject.VoxelGrid[0];
+	auto RLEVoxel = VoxelGrid[0];
 	auto size = RLEVoxel.RunLenght;
 	auto lenght = 0;
 
-	const auto ChunkDimension = VoxelGenerator->GetVoxelCountPerChunkDimension();
-	
+	const int ChunkDimension = VoxelGenerator->GetVoxelCountPerChunkDimension();
+
 	// Traverse through voxel grid
-	for (uint32 x = 0; x < ChunkDimension; x++)
+	for (int x = 0; x < ChunkDimension; x++)
 	{
-		for (uint32 z = 0; z < ChunkDimension; z++)
+		for (int z = 0; z < ChunkDimension; z++)
 		{
-			uint32 startIndex = 0;
+			int startIndex = 0;
 
 			while (startIndex < ChunkDimension)
 			{
 				if (size == RLEVoxel.RunLenght)
 				{
 					globalIndex += 1;
-					RLEVoxel = VoxelGridObject.VoxelGrid[globalIndex];
+					RLEVoxel = VoxelGrid[globalIndex];
+
+					if (VoxelChange != nullptr)
+					{
+						if (x == VoxelChange->VoxelPosition.X && z == VoxelChange->VoxelPosition.Z &&
+							startIndex < VoxelChange->VoxelPosition.Y && startIndex + RLEVoxel.RunLenght > VoxelChange->
+							VoxelPosition.Y)
+						{
+							//TODO: fix first time generation of mesh, not regeneration
+							FRLEVoxel SplitRLE(VoxelChange->VoxelPosition.Y - startIndex, RLEVoxel.Voxel);
+							NewVoxelGridObject->VoxelGrid.Add(SplitRLE);
+							FRLEVoxel NewRLE(1, EditVoxel);
+							NewVoxelGridObject->VoxelGrid.Add(NewRLE);
+							FRLEVoxel LastRLE(startIndex + RLEVoxel.RunLenght - VoxelChange->VoxelPosition.Y - 1, RLEVoxel.Voxel);
+							NewVoxelGridObject->VoxelGrid.Add(LastRLE);
+						}
+						else
+						{
+							NewVoxelGridObject->VoxelGrid.Add(RLEVoxel);
+						}
+					}
+					
 					lenght = RLEVoxel.RunLenght;
 					size = 0;
-				}else
+				}
+				
+				else
 				{
 					lenght = RLEVoxel.RunLenght - size;
 				}
 
 				if (startIndex + lenght > ChunkDimension)
 				{
-					lenght = ChunkDimension  - startIndex;
+					lenght = ChunkDimension - startIndex;
 				}
-				
+
 				if (RLEVoxel.IsEmptyVoxel())
 				{
 					size += lenght;
 					startIndex += lenght;
 					continue;
 				}
-				
+
 				auto initialPosition = FIntVector(x, startIndex, z);
 
 				// Generate new face with coordinates
 
 				auto localVoxelId = MeshVars.VoxelIdToLocalVoxelMap[RLEVoxel.Voxel.VoxelId];
-				
+
 				// Front
 				FChunkFace NewFace = FChunkFace::CreateFrontFace(RLEVoxel.Voxel, initialPosition, lenght);
 				auto FaceContainerIndex = static_cast<uint8>(FFaceToDirection::FrontDirection.FaceSide);
@@ -119,27 +151,33 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
 		}
 	}
 	GenerateMeshFromFaces(MeshVars);
+
+	if (VoxelChange != nullptr)
+	{
+		MeshVars.ChunkParams.OriginalChunk->VoxelGrid = NewVoxelGridObject;
+	}
 }
 
 void URLERunDirectionalMesher::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 {
 	auto VoxelGridObject = NewObject<URLEVoxelGrid>();
 	VoxelGridObject->VoxelGrid.Reserve(Chunk.ChunkVoxelIdTable.Num());
-	
+
 	VoxelGridObject->VoxelGrid.Emplace(1, VoxelGrid[0]);
-	
+
 	for (int32 x = 1; x < VoxelGrid.Num(); x++)
 	{
-		auto Voxel = VoxelGrid[x];
+		const FVoxel Voxel = VoxelGrid[x];
 		if (VoxelGridObject->VoxelGrid.Last().Voxel == Voxel)
 		{
 			VoxelGridObject->VoxelGrid.Last().RunLenght++;
-		}else
+		}
+		else
 		{
 			VoxelGridObject->VoxelGrid.Emplace(1, Voxel);
 		}
 	}
-	
+
 	// VoxelGrid;
 	Chunk.VoxelGrid = VoxelGridObject;
 }

@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "Mesh/RealtimeMeshDataStream.h"
 #include "Mesher/MesherBase.h"
+#include "MeshingUtils/VoxelChange.h"
 #include "Voxel/RLEVoxel.h"
 #include "RLERunDirectionalMesher.generated.h"
 
@@ -13,7 +14,7 @@ class RUNDIRECTIONALMESHINGDEMO_API URLERunDirectionalMesher : public UMesherBas
 	GENERATED_BODY()
 
 public:
-	virtual void GenerateMesh(FMesherVariables& MeshVars) override;
+	virtual void GenerateMesh(FMesherVariables& MeshVars, FVoxelChange* VoxelChange) override;
 	virtual void CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid) override;
 
 private:

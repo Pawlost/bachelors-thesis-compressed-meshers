@@ -3,7 +3,7 @@
 #include "Mesher/MeshingUtils/MesherVariables.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 
-void ASingleBorderlessChunkSpawner::StartMeshing()
+void ASingleBorderlessChunkSpawner::StartMeshing(FVoxelChange* VoxelChange)
 {
 	FMesherVariables ChunkParams;
 	ChunkParams.ChunkParams.SpawnerPtr = this;
@@ -17,7 +17,7 @@ void ASingleBorderlessChunkSpawner::StartMeshing()
 	SpawnSideChunk(ChunkParams, FFaceToDirection::RightDirection);
 	SpawnSideChunk(ChunkParams, FFaceToDirection::LeftDirection);
 
-	VoxelGenerator->GenerateMesh(ChunkParams);
+	VoxelGenerator->GenerateMesh(ChunkParams, VoxelChange);
 }
 
 void ASingleBorderlessChunkSpawner::SpawnSideChunk(FMesherVariables& MeshVars, const FFaceToDirection& FaceDirection )

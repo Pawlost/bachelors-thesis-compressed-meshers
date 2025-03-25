@@ -1,7 +1,5 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 #include "Voxel/Generator/VoxelGeneratorBase.h"
-
-#include "Chunk/Chunk.h"
 #include "Mesher/MesherBase.h"
 
 void UVoxelGeneratorBase::BeginPlay()
@@ -52,35 +50,6 @@ void UVoxelGeneratorBase::ChangeKnownVoxelAtIndex(TArray<FVoxel>& VoxelGrid, TMa
 	}
 }
 
-bool UVoxelGeneratorBase::ChangeUnknownVoxelIdInChunk(const TSharedPtr<FChunk>& Chunk, const FIntVector& VoxelPosition,
-                                                      const FName& VoxelName)
-{
-	/*const auto Index = CalculateVoxelIndex(VoxelPosition);
-	const auto VoxelId = GetVoxelByName(VoxelName);
-
-	// Check if chunk and position is valid.
-	if (Chunk.IsValid() && Chunk->VoxelGrid.IsValidIndex(Index))
-	{
-		// Default unknown voxels are empty
-		if (VoxelId.IsEmptyVoxel())
-		{
-			const FVoxel RemovedVoxel = Chunk->VoxelGrid[Index];
-			RemoveVoxelFromChunkTable(*Chunk, RemovedVoxel);
-
-			// Make previous voxel position empty.
-			Chunk->VoxelGrid[Index] = VoxelId;
-		}
-		else
-		{
-			// If voxel is known we get specific Id
-			ChangeKnownVoxelAtIndex(*Chunk, Index, VoxelId);
-		}
-		return true;
-	}
-*/
-	return false;
-}
-
 uint32 UVoxelGeneratorBase::CalculateVoxelIndex(const int32 X, const int32 Y, const int32 Z) const
 {
 	return Y + (Z * VoxelCountY) + (X * VoxelCountYZ);
@@ -116,9 +85,9 @@ uint32 UVoxelGeneratorBase::GetVoxelCountPerChunk() const
 	return VoxelCountXYZ;
 }
 
-void UVoxelGeneratorBase::GenerateMesh(FMesherVariables& MesherVariables) const
+void UVoxelGeneratorBase::GenerateMesh(FMesherVariables& MesherVariables, FVoxelChange* VoxelChange) const
 {
-	Mesher->GenerateMesh(MesherVariables);
+	Mesher->GenerateMesh(MesherVariables, VoxelChange);
 }
 
 double UVoxelGeneratorBase::GetHighestElevationAtLocation(const FVector& Location)

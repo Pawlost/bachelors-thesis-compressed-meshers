@@ -5,6 +5,7 @@
 #include "Voxel/VoxelType.h"
 #include "VoxelGeneratorBase.generated.h"
 
+struct FVoxelChange;
 struct FMesherVariables;
 class UMesherBase;
 
@@ -33,12 +34,6 @@ public:
 
 	void ChangeKnownVoxelAtIndex(TArray<FVoxel>& VoxelGrid, TMap<int32, uint32>& VoxelTable, const uint32& Index,
 												  const FVoxel& Voxel);
-
-	/**
-	 * @return True if chunk position are valid and voxel was changed.
-	 */
-	bool ChangeUnknownVoxelIdInChunk(const TSharedPtr<FChunk>& Chunk, const FIntVector& VoxelPosition,
-	                                 const FName& VoxelName);
 	
 	/**
 	 * Calculate voxel index in chunk grid from grid coordinates.
@@ -55,7 +50,7 @@ public:
 	uint32 GetVoxelCountPerChunkDimension() const;
 	uint32 GetVoxelCountPerChunkLayer() const;
 	uint32 GetVoxelCountPerChunk() const;
-	void GenerateMesh(FMesherVariables& MesherVariables) const;
+	void GenerateMesh(FMesherVariables& MesherVariables, FVoxelChange* VoxelChange = nullptr) const;
 
 	UFUNCTION(BlueprintCallable)
 	virtual double GetHighestElevationAtLocation(const FVector& Location);
@@ -68,15 +63,14 @@ public:
 		UVoxelGeneratorBase::GetVoxelByName, return FVoxel();)
 
 	virtual void GenerateVoxels(FChunk& Chunk) PURE_VIRTUAL(UVoxelGeneratorBase::GenerateVoxels)
-
+	static void RemoveVoxelFromChunkTable(TMap<int32, uint32>& VoxelTable, const FVoxel& Voxel);
+	
 protected:
 	UPROPERTY()
 	TObjectPtr<UMesherBase> Mesher;
 	virtual void BeginPlay() override;
 
 private:
-	static void RemoveVoxelFromChunkTable(TMap<int32, uint32>& VoxelTable, const FVoxel& Voxel);
-
 	double ChunkSize = 0.0, InternalVoxelSize = 0.0;
 	int32 VoxelCountY = 0, VoxelCountYZ = 0, VoxelCountXYZ = 0;
 	FCriticalSection Mutex;

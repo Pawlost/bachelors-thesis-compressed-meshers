@@ -3,6 +3,7 @@
 #include "Spawner/ChunkSpawnerBase.h"
 #include "AreaChunkSpawnerBase.generated.h"
 
+struct FVoxelChange;
 struct FFaceToDirection;
 class AChunkRMCActor;
 
@@ -19,7 +20,7 @@ public:
 	bool SpawnCenterChunk = true;
 
 	virtual void ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
-	                                const FName& VoxelId) override;
+	                                const FName& VoxelName) override;
 
 protected:
 	TMap<FIntVector, TSharedPtr<FChunk>> ChunkGrid;
@@ -29,8 +30,7 @@ protected:
 	TQueue<TWeakObjectPtr<AChunkRMCActor>, EQueueMode::Mpsc> UnusedActors;
 
 	virtual void GenerateArea() PURE_VIRTUAL(AAreaChunkSpawnerBase::GenerateArea)
-
-	void GenerateChunkMesh(FMesherVariables& MesherVars, const FIntVector& ChunkGridPosition);
+	void GenerateChunkMesh(FMesherVariables& MesherVars, const FIntVector& ChunkGridPosition, FVoxelChange* VoxelChange = nullptr);
 	virtual void SpawnChunk(const FIntVector& ChunkGridPosition, TSharedFuture<void>* OutAsyncExecution = nullptr);
 
 	virtual void SpawnChunks() override;

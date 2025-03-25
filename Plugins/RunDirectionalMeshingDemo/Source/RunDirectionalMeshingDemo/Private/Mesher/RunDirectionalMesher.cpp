@@ -4,12 +4,13 @@
 #include "RealtimeMeshSimple.h"
 #include "Mesh/RealtimeMeshBuilder.h"
 #include "Mesher/MeshingUtils/MesherVariables.h"
+#include "Mesher/MeshingUtils/VoxelChange.h"
 #include "Spawner/ChunkSpawnerBase.h"
 #include "Voxel/Grid/VoxelGrid.h"
 
 class URealtimeMeshSimple;
 
-void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
+void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChange* VoxelChange)
 {
 	MeshVars.ChunkParams.OriginalChunk->bHasMesh = false;
 	
@@ -33,14 +34,21 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars)
     {
     	return;
     }
-
+	
 	auto& VoxelGrid = *VoxelGridPtr;
+
+	if (VoxelChange != nullptr)
+	{
+		ChangeVoxelId(VoxelGrid, MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable, *VoxelChange);
+	}
 	
 	InitFaceContainers(MeshVars);
 	FaceGeneration(VoxelGrid, MeshVars);
 	DirectionalGreedyMeshing(MeshVars);
 	GenerateMeshFromFaces(MeshVars);
 }
+
+
 
 void URunDirectionalMesher::InitFaceContainers(FMesherVariables& MeshVars) const
 {
@@ -172,7 +180,7 @@ void URunDirectionalMesher::AddFace(const UVoxelGrid& VoxelGridObject, const FMe
 	};
 
 	// Check if face should be generated
-	if (IsBorderVoxelVisible(VoxelIndexParams, ChunkParams) || IsVoxelVisible(VoxelGridObject, VoxelIndexParams, ChunkParams))
+	if (IsBorderVoxelVisible(VoxelIndexParams, ChunkParams) || IsVoxelVisible(VoxelGridObject, VoxelIndexParams))
 	{
 		// Generate new face with coordinates
 		const FChunkFace NewFace = FaceTemplate.StaticMeshingData.FaceCreator(Voxel, Position, 1);
@@ -211,7 +219,7 @@ bool URunDirectionalMesher::IsBorderVoxelVisible(const FVoxelIndexParams& FaceDa
 	return false;
 }
 
-bool URunDirectionalMesher::IsVoxelVisible(const UVoxelGrid& VoxelGridObject, const FVoxelIndexParams& FaceData, const FChunkParams& ChunkStruct)
+bool URunDirectionalMesher::IsVoxelVisible(const UVoxelGrid& VoxelGridObject, const FVoxelIndexParams& FaceData)
 {
 	if (!FaceData.IsBorder && VoxelGridObject.VoxelGrid.IsValidIndex(FaceData.ForwardVoxelIndex))
 	{
@@ -369,9 +377,34 @@ void URunDirectionalMesher::GenerateMeshFromFaces(const FMesherVariables& MeshVa
 	MeshVars.ChunkParams.OriginalChunk->bHasMesh = true;
 }
 
+void URunDirectionalMesher::ChangeVoxelId(UVoxelGrid& VoxelGridObject, TMap<int32, uint32>& VoxelTable, const FVoxelChange& VoxelChange) const
+{
+	const auto Index = VoxelGenerator->CalculateVoxelIndex(VoxelChange.VoxelPosition);
+	const FVoxel VoxelId = VoxelGenerator->GetVoxelByName(VoxelChange.VoxelName);
+
+	// Check if chunk and position is valid.
+	if (VoxelGridObject.VoxelGrid.IsValidIndex(Index))
+	{
+		// Default unknown voxels are empty
+		if (VoxelId.IsEmptyVoxel())
+		{
+			const FVoxel RemovedVoxel = VoxelGridObject.VoxelGrid[Index];
+			VoxelGenerator->RemoveVoxelFromChunkTable(VoxelTable, RemovedVoxel);
+
+			// Make previous voxel position empty.
+			VoxelGridObject.VoxelGrid[Index] = VoxelId;
+		}
+		else
+		{
+			// If voxel is known we get specific Id
+			VoxelGenerator->ChangeKnownVoxelAtIndex(VoxelGridObject.VoxelGrid, VoxelTable, Index, VoxelId);
+		}
+	}
+}
+
 void URunDirectionalMesher::GenerateActorMesh(const TMap<uint32, uint16>& LocalVoxelTable,
-                                         const FRealtimeMeshStreamSet& StreamSet,
-                                         const TSharedPtr<FChunkParams>& ChunkParams) const
+                                              const FRealtimeMeshStreamSet& StreamSet,
+                                              const TSharedPtr<FChunkParams>& ChunkParams) const
 {
 	const auto World = GetWorld();
 	if (!IsValid(World))

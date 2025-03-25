@@ -1,5 +1,6 @@
 ﻿#include "Spawner/Single/SingleChunkSpawnerBase.h"
 
+#include "Mesher/MeshingUtils/VoxelChange.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 
 void ASingleChunkSpawnerBase::BeginPlay()
@@ -22,7 +23,7 @@ void ASingleChunkSpawnerBase::BeginPlay()
 }
 
 void ASingleChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
-	const FName& VoxelId)
+	const FName& VoxelName)
 {
 	if (ChunkGridPosition != SingleChunkGridPosition)
 	{
@@ -30,12 +31,12 @@ void ASingleChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPosi
 		return;
 	}
 
-	AsyncTask(ENamedThreads::BackgroundThreadPriority, [this, VoxelPosition, VoxelId]()
+	AsyncTask(ENamedThreads::BackgroundThreadPriority, [this, VoxelPosition, VoxelName]()
 	{
 		FScopeLock Lock(&CritSection);
 		
 		// Modify voxel at hit position
-		VoxelGenerator->ChangeUnknownVoxelIdInChunk(SingleChunk, VoxelPosition, VoxelId);
-		StartMeshing();
+		FVoxelChange Modification(VoxelName, VoxelPosition);
+		StartMeshing(&Modification);
 	});
 }

@@ -9,7 +9,7 @@ void ASingleChunkSpawner::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ASingleChunkSpawner::StartMeshing()
+void ASingleChunkSpawner::StartMeshing(FVoxelChange* VoxelChange)
 {
 	FMesherVariables MeshVar;
 	MeshVar.ChunkParams.SpawnerPtr = this;
@@ -22,5 +22,5 @@ void ASingleChunkSpawner::StartMeshing()
 	AddSideChunk(MeshVar, EFaceDirection::Left, nullptr);
 	MeshVar.ChunkParams.ShowBorders = true;
 	MeshVar.ChunkParams.WorldTransform = UseWorldCenter;
-	VoxelGenerator->GenerateMesh(MeshVar);
+	VoxelGenerator->GenerateMesh(MeshVar, VoxelChange);
 }
