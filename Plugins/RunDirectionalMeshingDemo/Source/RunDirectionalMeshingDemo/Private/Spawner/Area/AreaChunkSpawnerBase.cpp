@@ -23,14 +23,16 @@ void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPositi
 		auto Chunk = *FoundChunk;
 
 
-		EditHandle = Async(EAsyncExecution::ThreadPool, [this, Chunk, VoxelPosition, VoxelName]()
-		{
-			FMesherVariables MesherVars;
-			Chunk->bIsActive = false;
-			FVoxelChange Modification(VoxelName, VoxelPosition);
-			GenerateChunkMesh(MesherVars, Chunk->GridPosition, &Modification);
-			FMesherVariables SideMesherVars;
 
+		FMesherVariables MesherVars;
+		Chunk->bIsActive = false;
+		FVoxelChange Modification(VoxelName, VoxelPosition);
+		GenerateChunkMesh(MesherVars, Chunk->GridPosition, &Modification);
+
+		
+		EditHandle = Async(EAsyncExecution::ThreadPool, [this, MesherVars]()
+		{
+			FMesherVariables SideMesherVars;
 			for (int32 s = 0; s < CHUNK_FACE_COUNT; s++)
 			{
 				auto SideChunk = MesherVars.ChunkParams.SideChunks[s];

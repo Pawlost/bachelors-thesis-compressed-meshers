@@ -30,13 +30,8 @@ void ASingleChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPosi
 		// Return if adding to single chunk border
 		return;
 	}
-
-	AsyncTask(ENamedThreads::BackgroundThreadPriority, [this, VoxelPosition, VoxelName]()
-	{
-		FScopeLock Lock(&CritSection);
-		
-		// Modify voxel at hit position
-		FVoxelChange Modification(VoxelName, VoxelPosition);
-		StartMeshing(&Modification);
-	});
+	
+	// Modify voxel at hit position
+	FVoxelChange Modification(VoxelName, VoxelPosition);
+	StartMeshing(&Modification);
 }

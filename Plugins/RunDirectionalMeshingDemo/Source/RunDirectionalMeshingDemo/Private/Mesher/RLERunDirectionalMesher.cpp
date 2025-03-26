@@ -11,8 +11,6 @@
 
 void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChange* VoxelChange)
 {
-	FScopeLock Lock(&Mutex);
-
 	MeshVars.ChunkParams.OriginalChunk->bHasMesh = false;
 
 	if (MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable.IsEmpty())
@@ -100,20 +98,24 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 				
 					if (size == 0)
 					{
+						//Add only full runs
 						NewVoxelGridObject->VoxelGrid.Add(RLEVoxel);
 					}
-				
+
 					if (edited == false && x == VoxelChange->VoxelPosition.X && z == VoxelChange->VoxelPosition.Z &&
 						startIndex <= VoxelChange->VoxelPosition.Y && startIndex + lenght >= VoxelChange->
 						VoxelPosition.Y)
 					{
+						UE_LOG(LogTemp, Log, TEXT("Change X %d, Y %d, Z %d"),  VoxelChange->VoxelPosition.X, VoxelChange->VoxelPosition.Y, VoxelChange->VoxelPosition.Z);
+						UE_LOG(LogTemp, Log, TEXT("Position X %d, Y %d, Z %d"),  x, startIndex, z);
+						UE_LOG(LogTemp, Log, TEXT("Voxel Id %d"),  RLEVoxel.Voxel.VoxelId);
+
 						edited = true;
 
 						if (startIndex + lenght == VoxelChange->VoxelPosition.Y && RLEVoxel.Voxel ==
 							EditVoxel)
 						{
 							auto& lastRLE = NewVoxelGridObject->VoxelGrid.Last();
-
 							lastRLE.RunLenght++;
 
 							if (VoxelGrid.IsValidIndex(globalIndex + 1))
@@ -124,9 +126,9 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 								{
 									globalIndex++;
 
-									if (VoxelGrid.IsValidIndex(globalIndex + 2))
+									if (VoxelGrid.IsValidIndex(globalIndex + 1))
 									{
-										nextRLEVoxel = VoxelGrid[globalIndex + 2];
+										nextRLEVoxel = VoxelGrid[globalIndex + 1];
 										if (nextRLEVoxel.Voxel == lastRLE.Voxel)
 										{
 											globalIndex ++;
@@ -140,103 +142,51 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 							RLEVoxel = lastRLE;
 							lenght = RLEVoxel.RunLenght - size;
 						}
-						else if (startIndex + lenght - 1 == VoxelChange->VoxelPosition.Y)
-						{
-							FRLEVoxel* NextRLE = nullptr;
-							if (VoxelGrid.IsValidIndex(globalIndex + 1))
-							{
-								NextRLE = &VoxelGrid[globalIndex + 1];
-								if (NextRLE->Voxel == EditVoxel)
-								{
-									NextRLE->RunLenght++;
-								}
-								else
-								{
-									FRLEVoxel NewRLE(1, EditVoxel);
-									NewVoxelGridObject->VoxelGrid.Add(NewRLE);
-								}
-							}
-
-							RLEVoxel.RunLenght--;
-
-							if (RLEVoxel.RunLenght > 0)
-							{
-								NewVoxelGridObject->VoxelGrid.RemoveAt(NewVoxelGridObject->VoxelGrid.Num() - 1);
-								NewVoxelGridObject->VoxelGrid.Add(RLEVoxel);
-							}else
-							{
-								globalIndex++;
-								auto& prevRLEVoxel = NewVoxelGridObject->VoxelGrid.Last();
-								size = prevRLEVoxel.RunLenght;
-								if (NextRLE != nullptr && NextRLE->Voxel == prevRLEVoxel.Voxel)
-								{
-									prevRLEVoxel.RunLenght += NextRLE->RunLenght;	
-								}
-								RLEVoxel = prevRLEVoxel;
-								continue;
-							}
-							lenght = RLEVoxel.RunLenght - size;
-
-							if (lenght == 0)
-							{
-								continue;	
-							}
-						}
 						else
 						{
-							int newRunLenght = 0;
-							if (size == 0)
+							auto& lastRLE = NewVoxelGridObject->VoxelGrid.Last();
+							auto newRunLenght = size + VoxelChange->VoxelPosition.Y - startIndex;
+							lastRLE.RunLenght = newRunLenght;
+							
+							FRLEVoxel NewRLE(1, EditVoxel);
+							FRLEVoxel nextRLE(RLEVoxel.RunLenght - lastRLE.RunLenght - 1, RLEVoxel.Voxel);
+							
+							RLEVoxel = lastRLE;	
+							
+							if (nextRLE.RunLenght > 0)
 							{
-								newRunLenght = VoxelChange->VoxelPosition.Y - startIndex;
-							}else
-							{
-								newRunLenght = size + VoxelChange->VoxelPosition.Y;
-								NewVoxelGridObject->VoxelGrid.RemoveAt(NewVoxelGridObject->VoxelGrid.Num() - 1);
-							}
-
-							FRLEVoxel FirstRLE(newRunLenght, RLEVoxel.Voxel);
-							FRLEVoxel* PrevRLE = nullptr;
-							if (newRunLenght > 0)
-							{
-								PrevRLE = &FirstRLE;
-								NewVoxelGridObject->VoxelGrid.Add(FirstRLE);
-							}else
-							{
-								PrevRLE = &NewVoxelGridObject->VoxelGrid.Last();
-								size += PrevRLE->RunLenght;
-							}
-
-							if (PrevRLE->Voxel == EditVoxel)
-							{
-								PrevRLE->RunLenght += 1;
-								size+=2;
-							}else
-							{
-								FRLEVoxel NewRLE(1, EditVoxel);
 								NewVoxelGridObject->VoxelGrid.Add(NewRLE);	
-							}
-							
-							FRLEVoxel LastRLE(RLEVoxel.RunLenght - FirstRLE.RunLenght - 1, RLEVoxel.Voxel);
-							NewVoxelGridObject->VoxelGrid.Add(LastRLE);
-							if (size == 0 || PrevRLE->RunLenght >= size){
+								NewVoxelGridObject->VoxelGrid.Add(nextRLE);
 								editIndex = 2;
-								RLEVoxel = *PrevRLE;
-								lenght = RLEVoxel.RunLenght - size;
-								if (lenght == 0)
+							}else{
+								bool add = true;
+								if (VoxelGrid.IsValidIndex(globalIndex + 1))
 								{
-									continue;
+									auto& nextRLEVoxel = VoxelGrid[globalIndex + 1];
+									if (nextRLEVoxel.Voxel == NewRLE.Voxel)
+									{
+										nextRLEVoxel.RunLenght++;
+										add = false;
+									}
 								}
-							}else
-							{
-								editIndex = 1;
-								RLEVoxel = *PrevRLE;
-								size = 0;
+
+								if (add)
+								{
+									NewVoxelGridObject->VoxelGrid.Add(NewRLE);
+									editIndex = 1;
+								}
 							}
+
 							
-							if (PrevRLE->Voxel == EditVoxel)
+							if (RLEVoxel.RunLenght <= 0 && editIndex > 0){
+								RLEVoxel = NewVoxelGridObject->VoxelGrid[NewVoxelGridObject->VoxelGrid.Num() - editIndex];
+								editIndex--;
+							}
+
+							lenght = RLEVoxel.RunLenght - size;
+							if (lenght == 0)
 							{
-								size = PrevRLE->RunLenght - 1;
-								lenght = 1;
+								continue;
 							}
 						}
 					}

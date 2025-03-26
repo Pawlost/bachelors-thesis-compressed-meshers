@@ -26,7 +26,4 @@ protected:
 	virtual void StartMeshing(FVoxelChange* VoxelChange = nullptr) PURE_VIRTUAL(ASingleChunkSpawnerBase::StartMeshing)
 	
 	TSharedPtr<FChunk> SingleChunk;
-
-private:
-	FCriticalSection CritSection;
 };
