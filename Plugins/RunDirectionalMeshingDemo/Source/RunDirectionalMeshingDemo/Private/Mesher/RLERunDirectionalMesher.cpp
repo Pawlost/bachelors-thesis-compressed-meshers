@@ -11,6 +11,9 @@
 
 void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChange* VoxelChange)
 {
+
+	Mutex.Lock();
+	
 	MeshVars.ChunkParams.OriginalChunk->bHasMesh = false;
 
 	if (MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable.IsEmpty())
@@ -35,9 +38,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 	}
 
 	auto& VoxelGrid = VoxelGridPtr->VoxelGrid;
-
-	UE_LOG(LogTemp, Warning, TEXT("Mesh start"));
-
+	
 	TObjectPtr<URLEVoxelGrid> NewVoxelGridObject = nullptr;
 	FVoxel EditVoxel;
 	if (VoxelChange != nullptr)
@@ -45,8 +46,14 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 		NewVoxelGridObject = NewObject<URLEVoxelGrid>();
 		NewVoxelGridObject->VoxelGrid.Reserve(VoxelGrid.Num() + 1);
 		EditVoxel = VoxelGenerator->GetVoxelByName(VoxelChange->VoxelName);
-		UE_LOG(LogTemp, Warning, TEXT("Edit Location: X %d, Y: %d, Z: %d"), VoxelChange->VoxelPosition.X,
-		       VoxelChange->VoxelPosition.Y, VoxelChange->VoxelPosition.Z);
+
+		if (!EditVoxel.IsEmptyVoxel() && MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable.Contains(EditVoxel.VoxelId))
+		{
+			 MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable[EditVoxel.VoxelId]++;	
+		}else
+		{
+			MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable.Add(EditVoxel.VoxelId, 1);	
+		}
 	}
 
 	InitFaceContainers(MeshVars);
@@ -106,22 +113,30 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 						startIndex <= VoxelChange->VoxelPosition.Y && startIndex + lenght >= VoxelChange->
 						VoxelPosition.Y)
 					{
-						UE_LOG(LogTemp, Log, TEXT("Change X %d, Y %d, Z %d"),  VoxelChange->VoxelPosition.X, VoxelChange->VoxelPosition.Y, VoxelChange->VoxelPosition.Z);
-						UE_LOG(LogTemp, Log, TEXT("Position X %d, Y %d, Z %d"),  x, startIndex, z);
-						UE_LOG(LogTemp, Log, TEXT("Voxel Id %d"),  RLEVoxel.Voxel.VoxelId);
-
 						edited = true;
 
-						if (startIndex + lenght == VoxelChange->VoxelPosition.Y && RLEVoxel.Voxel ==
-							EditVoxel)
+						if (startIndex + lenght == VoxelChange->VoxelPosition.Y)
 						{
 							auto& lastRLE = NewVoxelGridObject->VoxelGrid.Last();
-							lastRLE.RunLenght++;
-
+							if (RLEVoxel.Voxel == EditVoxel)
+							{
+								lastRLE.RunLenght++;
+							}else
+							{
+								FRLEVoxel NewRLE(1, EditVoxel);
+								NewVoxelGridObject->VoxelGrid.Add(NewRLE);
+								editIndex = 1;
+							}
+							
 							if (VoxelGrid.IsValidIndex(globalIndex + 1))
 							{
 								auto& nextRLEVoxel = VoxelGrid[globalIndex + 1];
 								nextRLEVoxel.RunLenght--;
+								if (nextRLEVoxel.Voxel.VoxelId >= 0)
+								{
+									MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable[nextRLEVoxel.Voxel.VoxelId]--;
+								}
+								
 								if (nextRLEVoxel.RunLenght <= 0)
 								{
 									globalIndex++;
@@ -129,10 +144,10 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 									if (VoxelGrid.IsValidIndex(globalIndex + 1))
 									{
 										nextRLEVoxel = VoxelGrid[globalIndex + 1];
-										if (nextRLEVoxel.Voxel == lastRLE.Voxel)
+										if (nextRLEVoxel.Voxel == NewVoxelGridObject->VoxelGrid.Last().Voxel)
 										{
 											globalIndex ++;
-											lastRLE.RunLenght += nextRLEVoxel.RunLenght;
+											NewVoxelGridObject->VoxelGrid.Last().RunLenght += nextRLEVoxel.RunLenght;
 										}
 									}
 								}
@@ -150,8 +165,18 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 							
 							FRLEVoxel NewRLE(1, EditVoxel);
 							FRLEVoxel nextRLE(RLEVoxel.RunLenght - lastRLE.RunLenght - 1, RLEVoxel.Voxel);
+				
+							if (nextRLE.Voxel.VoxelId >= 0)
+							{
+								MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable[nextRLE.Voxel.VoxelId]--;
+							}
 							
-							RLEVoxel = lastRLE;	
+							RLEVoxel = lastRLE;
+
+							if (lastRLE.RunLenght <= 0)
+							{
+								NewVoxelGridObject->VoxelGrid.RemoveAt(NewVoxelGridObject->VoxelGrid.Num() - 1);
+							}
 							
 							if (nextRLE.RunLenght > 0)
 							{
@@ -208,6 +233,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 
 				// Generate new face with coordinates
 
+
 				auto localVoxelId = MeshVars.VoxelIdToLocalVoxelMap[RLEVoxel.Voxel.VoxelId];
 
 				// Front
@@ -250,7 +276,18 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 	if (VoxelChange != nullptr)
 	{
 		MeshVars.ChunkParams.OriginalChunk->VoxelGrid = NewVoxelGridObject;
+		TArray<int32> Keys;
+		MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable.GetKeys(Keys);
+		for (auto Element : Keys)
+		{
+			if (MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable[Element] <= 0)
+			{
+				MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable.Remove(Element);
+			}
+		}
 	}
+	
+	Mutex.Unlock();
 }
 
 void URLERunDirectionalMesher::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)

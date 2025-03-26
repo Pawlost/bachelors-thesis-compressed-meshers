@@ -34,4 +34,6 @@ private:
 	void GenerateActorMesh(const TMap<uint32, uint16>& LocalVoxelTable,
 	                       const RealtimeMesh::FRealtimeMeshStreamSet& StreamSet,
 	                       const TSharedPtr<FChunkParams>& ChunkParams) const;
+
+	FCriticalSection Mutex;
 };
