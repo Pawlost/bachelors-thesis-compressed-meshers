@@ -21,14 +21,11 @@ void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPositi
 		}
 
 		auto Chunk = *FoundChunk;
-
-
-
+		
 		FMesherVariables MesherVars;
 		Chunk->bIsActive = false;
 		FVoxelChange Modification(VoxelName, VoxelPosition);
 		GenerateChunkMesh(MesherVars, Chunk->GridPosition, &Modification);
-
 		
 		EditHandle = Async(EAsyncExecution::ThreadPool, [this, MesherVars]()
 		{
