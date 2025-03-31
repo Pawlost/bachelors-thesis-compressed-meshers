@@ -6,6 +6,13 @@
 void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
                                                const FName& VoxelName)
 {
+	int ChunkDimensions = VoxelGenerator->GetVoxelCountPerChunkDimension();
+	if (ChunkGridPosition.X < 0 || ChunkGridPosition.Y < 0 || ChunkGridPosition.Z < 0 ||
+		ChunkGridPosition.X >= ChunkDimensions || ChunkGridPosition.Y >= ChunkDimensions || ChunkGridPosition.Z >= ChunkDimensions)
+	{
+		return;
+	}
+	
 	if (EditHandle.IsValid() && !EditHandle.IsReady())
 	{
 		return;
