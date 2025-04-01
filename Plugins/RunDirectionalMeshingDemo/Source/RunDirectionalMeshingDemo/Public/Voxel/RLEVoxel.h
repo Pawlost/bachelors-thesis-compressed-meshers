@@ -28,6 +28,11 @@ struct RUNDIRECTIONALMESHINGDEMO_API FRLEVoxel
 
 	FORCEINLINE bool IsTransparent() const
 	{
-		 return Voxel.IsTransparent();
+		return Voxel.IsTransparent();
+	}
+
+	FORCEINLINE bool IsRunEmpty() const
+	{
+		return RunLenght <= 0;
 	}
 };
