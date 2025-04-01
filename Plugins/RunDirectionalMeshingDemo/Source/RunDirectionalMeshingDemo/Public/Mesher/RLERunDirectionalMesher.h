@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
-#include "Mesh/RealtimeMeshDataStream.h"
 #include "Mesher/MesherBase.h"
-#include "MeshingUtils/VoxelChange.h"
 #include "Voxel/RLEVoxel.h"
 #include "RLERunDirectionalMesher.generated.h"
 
@@ -27,11 +25,12 @@ private:
 		FRLEVoxel CurrentVoxel;
 		EFaceDirection FaceDirection;
 	};
-
-	void InitFaceContainers(FMesherVariables& MeshVars) const;
-	void GenerateMeshFromFaces(const FMesherVariables& MeshVars) const;
 	
-	void GenerateActorMesh(const TMap<uint32, uint16>& LocalVoxelTable,
-	                       const RealtimeMesh::FRealtimeMeshStreamSet& StreamSet,
-	                       const TSharedPtr<FChunkParams>& ChunkParams) const;
+	static void CreateFace(FMesherVariables& MeshVars, const FStaticMergeData& StaticData, const FIntVector& InitialPosition, const FRLEVoxel& RLEVoxel, const int YEnd);
+	
+	static bool CalculateEditIndexMidRun(int& size, TArray<FRLEVoxel>& NewVoxelGrid, FRLEVoxel& RLEVoxel, const FVoxelChange* VoxelChange, int& startIndex,
+	                                     int& lenght, const FVoxel& EditVoxel, int& editIndex, TArray<FRLEVoxel>& VoxelGrid, int& globalIndex, FVoxel& ReplacedVoxel, bool& end);
+
+	static void CalculateEditIndexEndRun(const FVoxelChange* VoxelChange, bool& edited, int x, int z, TArray<FRLEVoxel>& NewVoxelGrid, int& size, FVoxel& EditVoxel, FRLEVoxel& RLEVoxel,
+	                                     FVoxel& ReplacedVoxel, int& editIndex, TArray<FRLEVoxel>& VoxelGrid, int& globalIndex);
 };

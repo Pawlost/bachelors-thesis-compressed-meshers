@@ -2,10 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include "VoxelData.generated.h"
+#include "VoxelModel.generated.h"
 
 UCLASS()
-class RUNDIRECTIONALMESHINGDEMO_API UVoxelData : public UObject
+class RUNDIRECTIONALMESHINGDEMO_API UVoxelModel : public UObject
 {
 	GENERATED_BODY()
 

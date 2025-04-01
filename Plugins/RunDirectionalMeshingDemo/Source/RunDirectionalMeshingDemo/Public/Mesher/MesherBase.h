@@ -5,6 +5,13 @@
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 #include "MesherBase.generated.h"
 
+struct FChunkParams;
+
+namespace RealtimeMesh
+{
+	struct FRealtimeMeshStreamSet;
+}
+
 struct FVoxelChange;
 struct FMesherVariables;
 
@@ -50,7 +57,17 @@ protected:
 	void UpdateAllFacesParams();
 	void UpdateFaceParams(FMeshingDirections& Face, FIntVector ForwardVoxelIndexVector,
 						  FIntVector PreviousVoxelIndexVector, FIntVector ChunkBorderIndexVector) const;
+
+	static bool EmptyActor(const FMesherVariables& MeshVars);
 	
+	void InitFaceContainers(FMesherVariables& MeshVars) const;
+	
+	void GenerateActorMesh(const TMap<uint32, uint16>& LocalVoxelTable,
+					   const RealtimeMesh::FRealtimeMeshStreamSet& StreamSet,
+					   const TSharedPtr<FChunkParams>& ChunkParams) const;
+	
+	void GenerateMeshFromFaces(const FMesherVariables& MeshVars) const;
+
 	UPROPERTY()
 	TObjectPtr<UVoxelGeneratorBase> VoxelGenerator;
 };

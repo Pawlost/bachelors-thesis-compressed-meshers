@@ -1,9 +1,9 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
 #include "ChunkRMCActor.h"
-#include "RunDirectionalMeshingDemo/Public/Voxel/Voxel.h"
-#include "Voxel/Grid/VoxelData.h"
 #include "Chunk.generated.h"
+
+class UVoxelModel;
 
 USTRUCT()
 struct RUNDIRECTIONALMESHINGDEMO_API FChunk
@@ -15,8 +15,8 @@ struct RUNDIRECTIONALMESHINGDEMO_API FChunk
 
 	// Saving voxel grids is not implemented in this demo, but a property specifier for saving has been added.
 
-	UPROPERTY(SaveGame)
-	TObjectPtr<UVoxelData> VoxelGrid;
+	UPROPERTY()
+	TObjectPtr<UVoxelModel> VoxelModel;
 
 	//Key: voxel ID; Value: voxel count
 	UPROPERTY()
