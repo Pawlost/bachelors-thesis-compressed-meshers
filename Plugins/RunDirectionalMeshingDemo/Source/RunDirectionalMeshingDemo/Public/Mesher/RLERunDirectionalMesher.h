@@ -26,11 +26,12 @@ private:
 		EFaceDirection FaceDirection;
 	};
 	
-	static void CreateFace(FMesherVariables& MeshVars, const FStaticMergeData& StaticData, const FIntVector& InitialPosition, const FRLEVoxel* RLEVoxel, const int YEnd);
-	
-	static bool CalculateEditIndexMidRun(const int& TraversedRun, TArray<FRLEVoxel>& NewVoxelGrid, FRLEVoxel& CurrentRLERun, const FVoxelChange* VoxelChange, int& YStart,
+	static void CreateFace(FMesherVariables& MeshVars, const FStaticMergeData& StaticData, const FIntVector& InitialPosition, const FRLEVoxel& RLEVoxel, const int YEnd);
+
+	//TODO: Types
+	static bool CalculateEditIndexMidRun(const int TraversedRun, TArray<FRLEVoxel>& NewVoxelGrid, FRLEVoxel& CurrentRLERun, const FVoxelChange* VoxelChange, const int YStart,
 	                                     int RunEnd, const FVoxel& EditVoxel, int& EditAreaIndex, TArray<FRLEVoxel>& VoxelGrid, int& RunIndex, FVoxel& ReplacedVoxel);
 
-	static bool CalculateEditIndexEndRun(const FVoxelChange* VoxelChange, bool& edited, int x, int z, TArray<FRLEVoxel>& NewVoxelGrid, int& size, FVoxel& EditVoxel, FRLEVoxel& RLEVoxel,
-	                                     FVoxel& ReplacedVoxel, int& editIndex, TArray<FRLEVoxel>& VoxelGrid, int& globalIndex);
+	static bool CalculateEditIndexEndRun(TArray<FRLEVoxel>& NewVoxelGrid, int& TraversedRun, FVoxel& EditVoxel, FRLEVoxel& RLEVoxel,
+	                                     FVoxel& ReplacedVoxel, int& EditAreaIndex, TArray<FRLEVoxel>& VoxelGrid, int& RunIndex);
 };

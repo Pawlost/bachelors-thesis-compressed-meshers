@@ -21,7 +21,7 @@ struct RUNDIRECTIONALMESHINGDEMO_API FRLEVoxel
 	int RunLenght;
 	FVoxel Voxel;
 	
-	FORCEINLINE bool IsEmptyVoxel() const
+	FORCEINLINE bool IsVoxelEmpty() const
 	{
 		return Voxel.IsEmptyVoxel();
 	}
