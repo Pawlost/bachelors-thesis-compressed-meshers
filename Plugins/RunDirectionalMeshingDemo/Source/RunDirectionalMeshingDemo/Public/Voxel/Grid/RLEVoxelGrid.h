@@ -11,5 +11,5 @@ class RUNDIRECTIONALMESHINGDEMO_API URLEVoxelGrid : public UVoxelModel
 	GENERATED_BODY()
 
 public:
-	TArray<FRLEVoxel> VoxelGrid;
+	TSharedPtr<TArray<FRLEVoxel>> RLEVoxelGrid;
 };

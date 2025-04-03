@@ -25,13 +25,30 @@ private:
 		FRLEVoxel CurrentVoxel;
 		EFaceDirection FaceDirection;
 	};
+
+	struct FIndexParams
+	{
+		TSharedPtr<TArray<FRLEVoxel>> NewVoxelGrid;
+		TSharedPtr<TArray<FRLEVoxel>> VoxelGrid;
+		
+		int TraversedRun;
+		int YStart;
+		FVoxel EditVoxel;
+		FRLEVoxel RLEVoxel;
+		FVoxel ReplacedVoxel;
+		int32 EditAreaIndex;
+		int32 RunIndex;
+		
+		FRLEVoxel CurrentRLERun;
+		FVoxelChange* VoxelChange = nullptr; 
+	};
 	
 	static void CreateFace(FMesherVariables& MeshVars, const FStaticMergeData& StaticData, const FIntVector& InitialPosition, const FRLEVoxel& RLEVoxel, const int YEnd);
 
 	//TODO: Types
-	static bool CalculateEditIndexMidRun(const int TraversedRun, TArray<FRLEVoxel>& NewVoxelGrid, FRLEVoxel& CurrentRLERun, const FVoxelChange* VoxelChange, const int YStart,
-	                                     int RunEnd, const FVoxel& EditVoxel, int& EditAreaIndex, TArray<FRLEVoxel>& VoxelGrid, int& RunIndex, FVoxel& ReplacedVoxel);
+	static bool CalculateMidRunEditIndex(FIndexParams& IndexParams, int RunEnd);
 
-	static bool CalculateEditIndexEndRun(TArray<FRLEVoxel>& NewVoxelGrid, int& TraversedRun, FVoxel& EditVoxel, FRLEVoxel& RLEVoxel,
-	                                     FVoxel& ReplacedVoxel, int& EditAreaIndex, TArray<FRLEVoxel>& VoxelGrid, int& RunIndex);
+	static bool CalculateEndRunEditIndex(FIndexParams& IndexParams);
+
+	static void CalculateSplitRun(const FRLEVoxel& SplitRLERun, FIndexParams& IndexParams);
 };

@@ -12,11 +12,10 @@ class RUNDIRECTIONALMESHINGDEMO_API UVoxelGrid : public UVoxelModel
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere)
-	TArray<FVoxel> VoxelGrid;
+	TSharedPtr<TArray<FVoxel>> VoxelGrid;
 
 	virtual FVoxel GetVoxelAtIndex(const int32 Index) override
 	{
-		return VoxelGrid[Index];		
+		return (*VoxelGrid)[Index];		
 	}
 };

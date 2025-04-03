@@ -33,7 +33,7 @@ private:
 
 	void IncrementRun(int X, int Y, int Z, int32 AxisVoxelIndex, bool bIsMinBorder, bool bIsMaxBorder,
 	                  const FMeshingDirections& FaceTemplate, const FMeshingDirections& ReversedFaceTemplate,
-	                  FMesherVariables& MeshVars, UVoxelGrid& VoxelGridObject) const;
+	                  FMesherVariables& MeshVars, const UVoxelGrid& VoxelGridObject) const;
 
 	static void AddFace(const UVoxelGrid& VoxelGridObject,const FMeshingDirections& FaceTemplate, bool bIsBorder,
 	                    const int32& Index, const FIntVector& Position, const FVoxel& Voxel,
@@ -43,5 +43,5 @@ private:
 	void FaceGeneration(UVoxelGrid& VoxelGridObject, FMesherVariables& MeshVars) const;
 	static void DirectionalGreedyMeshing(const FMesherVariables& MeshVars);
 
-	void ChangeVoxelId(UVoxelGrid& VoxelGridObject, TMap<int32, uint32>& VoxelTable, const FVoxelChange& VoxelChange) const;
+	void ChangeVoxelId(const UVoxelGrid& VoxelGridObject, TMap<int32, uint32>& VoxelTable, const FVoxelChange& VoxelChange) const;
 };

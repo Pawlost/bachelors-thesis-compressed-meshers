@@ -1,11 +1,7 @@
 ﻿#include "Mesher/RunDirectionalMesher.h"
 
-#include "RealtimeMeshComponent.h"
-#include "RealtimeMeshSimple.h"
-#include "Mesh/RealtimeMeshBuilder.h"
 #include "Mesher/MeshingUtils/MesherVariables.h"
 #include "Mesher/MeshingUtils/VoxelChange.h"
-#include "Spawner/ChunkSpawnerBase.h"
 #include "Voxel/Grid/VoxelGrid.h"
 
 class URealtimeMeshSimple;
@@ -87,12 +83,12 @@ void URunDirectionalMesher::FaceGeneration(UVoxelGrid& VoxelGridObject, FMesherV
 void URunDirectionalMesher::IncrementRun(const int X, const int Y, const int Z, const int32 AxisVoxelIndex, const bool bIsMinBorder, const bool bIsMaxBorder,
                                     const FMeshingDirections& FaceTemplate,
                                     const FMeshingDirections& ReversedFaceTemplate,
-                                    FMesherVariables& MeshVars, UVoxelGrid& VoxelGridObject) const
+                                    FMesherVariables& MeshVars, const UVoxelGrid& VoxelGridObject) const
 {
 	// Get voxel at current position of the run.
 	const auto Position = FIntVector(X, Y, Z);
 	const int32 Index = VoxelGenerator->CalculateVoxelIndex(Position);
-	const FVoxel Voxel = VoxelGridObject.VoxelGrid[Index];
+	const FVoxel Voxel = VoxelGridObject.VoxelGrid->GetData()[Index];
 	
 	// If voxel is empty, no mesh should be generated
 	if (!Voxel.IsEmptyVoxel())
@@ -169,10 +165,10 @@ bool URunDirectionalMesher::IsBorderVoxelVisible(const FVoxelIndexParams& FaceDa
 
 bool URunDirectionalMesher::IsVoxelVisible(const UVoxelGrid& VoxelGridObject, const FVoxelIndexParams& FaceData)
 {
-	if (!FaceData.IsBorder && VoxelGridObject.VoxelGrid.IsValidIndex(FaceData.ForwardVoxelIndex))
+	if (!FaceData.IsBorder && VoxelGridObject.VoxelGrid->IsValidIndex(FaceData.ForwardVoxelIndex))
 	{
 		// Check if next voxel is visible based on calculated index
-		const auto NextVoxel = VoxelGridObject.VoxelGrid[FaceData.ForwardVoxelIndex];
+		const auto NextVoxel = VoxelGridObject.VoxelGrid->GetData()[FaceData.ForwardVoxelIndex];
 		return NextVoxel.IsTransparent() && NextVoxel != FaceData.CurrentVoxel;
 	}
 	return false;
@@ -228,27 +224,27 @@ void URunDirectionalMesher::DirectionalGreedyMeshing(const FMesherVariables& Mes
 	}
 }
 
-void URunDirectionalMesher::ChangeVoxelId(UVoxelGrid& VoxelGridObject, TMap<int32, uint32>& VoxelTable, const FVoxelChange& VoxelChange) const
+void URunDirectionalMesher::ChangeVoxelId(const UVoxelGrid& VoxelGridObject, TMap<int32, uint32>& VoxelTable, const FVoxelChange& VoxelChange) const
 {
 	const auto Index = VoxelGenerator->CalculateVoxelIndex(VoxelChange.VoxelPosition);
 	const FVoxel VoxelId = VoxelGenerator->GetVoxelByName(VoxelChange.VoxelName);
-
+	
 	// Check if chunk and position is valid.
-	if (VoxelGridObject.VoxelGrid.IsValidIndex(Index))
+	if (VoxelGridObject.VoxelGrid->IsValidIndex(Index))
 	{
 		// Default unknown voxels are empty
 		if (VoxelId.IsEmptyVoxel())
 		{
-			const FVoxel RemovedVoxel = VoxelGridObject.VoxelGrid[Index];
+			const FVoxel RemovedVoxel = VoxelGridObject.VoxelGrid->GetData()[Index];
 			VoxelGenerator->RemoveVoxelFromChunkTable(VoxelTable, RemovedVoxel);
 
 			// Make previous voxel position empty.
-			VoxelGridObject.VoxelGrid[Index] = VoxelId;
+			VoxelGridObject.VoxelGrid->GetData()[Index] = VoxelId;
 		}
 		else
 		{
 			// If voxel is known we get specific Id
-			VoxelGenerator->ChangeKnownVoxelAtIndex(VoxelGridObject.VoxelGrid, VoxelTable, Index, VoxelId);
+			VoxelGenerator->ChangeKnownVoxelAtIndex(*VoxelGridObject.VoxelGrid, VoxelTable, Index, VoxelId);
 		}
 	}
 }
