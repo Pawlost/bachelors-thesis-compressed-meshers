@@ -31,15 +31,14 @@ private:
 		TSharedPtr<TArray<FRLEVoxel>> NewVoxelGrid;
 		TSharedPtr<TArray<FRLEVoxel>> VoxelGrid;
 		
-		int TraversedRun;
-		int YStart;
+		int TraversedRun = 0;
+		int YStart = 0;
 		FVoxel EditVoxel;
-		FRLEVoxel RLEVoxel;
-		FVoxel ReplacedVoxel;
-		int32 EditAreaIndex;
-		int32 RunIndex;
-		
 		FRLEVoxel CurrentRLERun;
+		FVoxel ReplacedVoxel = FVoxel();
+		int32 EditAreaIndex = 0;
+		int32 RunIndex = -1;
+		
 		FVoxelChange* VoxelChange = nullptr; 
 	};
 	
@@ -50,5 +49,8 @@ private:
 
 	static bool CalculateEndRunEditIndex(FIndexParams& IndexParams);
 
-	static void CalculateSplitRun(const FRLEVoxel& SplitRLERun, FIndexParams& IndexParams);
+	static bool FirstRunEditIndex(FIndexParams& IndexParams);
+
+	
+	static void CalculateSplitRun(const int MidRunLenght, const int EndRunLength, FIndexParams& IndexParams);
 };
