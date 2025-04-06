@@ -17,6 +17,7 @@ void UMesherBase::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 {
 	auto VoxelGridObject = NewObject<UVoxelGrid>();
 	VoxelGridObject->VoxelGrid = MakeShared<TArray<FVoxel>>();
+	VoxelGridObject->VoxelGrid->Append(VoxelGrid);
 	Chunk.VoxelModel = VoxelGridObject;
 }
 
