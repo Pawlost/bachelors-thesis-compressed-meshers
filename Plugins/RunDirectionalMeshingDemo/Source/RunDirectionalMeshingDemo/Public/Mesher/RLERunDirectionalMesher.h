@@ -47,10 +47,10 @@ private:
 	//TODO: Types
 	static bool CalculateMidRunEditIndex(FIndexParams& IndexParams, int RunEnd);
 
-	static bool CalculateEndRunEditIndex(FIndexParams& IndexParams);
+	static bool CalculateBorderRunEditIndex(FIndexParams& IndexParams);
 
-	static bool FirstRunEditIndex(FIndexParams& IndexParams);
+	static void FirstRunEditIndex(FIndexParams& IndexParams);
 
 	
-	static void CalculateSplitRun(const int MidRunLenght, const int EndRunLength, FIndexParams& IndexParams);
+	static void CalculateMidRun(const int MidRunLenght, const int EndRunLength, FIndexParams& IndexParams);
 };

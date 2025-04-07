@@ -51,28 +51,13 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 
 	FIndexParams IndexParams;
 	IndexParams.VoxelGrid = VoxelGridPtr->RLEVoxelGrid;
-
-	//Measure---
-	int voxelCount = 0;
-	//---
-
+	
 	if (VoxelChange != nullptr)
 	{
 		IndexParams.VoxelChange = VoxelChange;
 		IndexParams.NewVoxelGrid = MakeShared<TArray<FRLEVoxel>>();
 		IndexParams.NewVoxelGrid->Reserve(IndexParams.VoxelGrid->Num() + 1);
 		IndexParams.EditVoxel = VoxelGenerator->GetVoxelByName(VoxelChange->VoxelName);
-
-
-		// Measure---
-		UE_LOG(LogTemp, Warning, TEXT("Edit Voxel: %d, Position: X %d,  Y %d, Z %d,"), IndexParams.EditVoxel.VoxelId,
-		       VoxelChange->VoxelPosition.X, VoxelChange->VoxelPosition.Y, VoxelChange->VoxelPosition.Z);
-
-		for (auto count : MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable)
-		{
-			voxelCount += count.Value;
-		}
-		//----
 
 		if (!IndexParams.EditVoxel.IsEmptyVoxel())
 		{
@@ -164,16 +149,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 						}
 					}
 				}
-
-				//MEASURE--------
-				if (IndexParams.NewVoxelGrid != nullptr && IndexParams.NewVoxelGrid->Num() > 1 && IndexParams.
-					NewVoxelGrid->Last().Voxel == IndexParams.NewVoxelGrid->GetData()[IndexParams.NewVoxelGrid->Num() -
-						2].Voxel)
-				{
-					UE_LOG(LogTemp, Error, TEXT("HERE"));
-				}
-				//-----
-
+				
 				// Step to end
 				if (IndexParams.YStart + YEnd > ChunkDimension)
 				{
@@ -223,7 +199,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 				// Calculated once per meshing
 				bEdited = true;
 
-				if (!CalculateEndRunEditIndex(IndexParams))
+				if (!CalculateBorderRunEditIndex(IndexParams))
 				{
 					return;
 				}
@@ -235,50 +211,9 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 
 	if (VoxelChange != nullptr)
 	{
-		int VoxelDimension = VoxelGenerator->GetVoxelCountPerChunk();
-		int TestRunIndex = 0;
-
-		//MEASURE ----
-		for (int i = IndexParams.NewVoxelGrid->Num() - 1; i > 0; i--)
-		{
-			const auto RunAtIndex = IndexParams.NewVoxelGrid->GetData()[i];
-			const auto RunAtPrevIndex = IndexParams.NewVoxelGrid->GetData()[i - 1];
-
-			TestRunIndex += RunAtIndex.RunLenght;
-
-			if (RunAtIndex.RunLenght <= 0)
-			{
-				UE_LOG(LogTemp, Error, TEXT("Wrong run: %d"), RunAtIndex.RunLenght);
-			}
-
-			if (RunAtIndex.Voxel == RunAtPrevIndex.Voxel)
-			{
-				auto FirstRun = RunAtIndex;
-				auto SecondRun = RunAtPrevIndex;
-				UE_LOG(LogTemp, Error, TEXT("Grid Index1: %d, Grid Index2: %d"), i, i-1);
-				UE_LOG(LogTemp, Error, TEXT("Voxel: %d"), FirstRun.Voxel.VoxelId);
-				UE_LOG(LogTemp, Error, TEXT("First Run: %d"), FirstRun.RunLenght);
-				UE_LOG(LogTemp, Error, TEXT("Second Run: %d"), SecondRun.RunLenght);
-				UE_LOG(LogTemp, Error, TEXT("Reversed Run Index: %d"), TestRunIndex);
-			}
-		}
-		
-		TestRunIndex += IndexParams.NewVoxelGrid->GetData()[0].RunLenght;
-
-		if (VoxelDimension != TestRunIndex)
-		{
-			UE_LOG(LogTemp, Error, TEXT("Run lenght does not match: %d; Dimension %d"), TestRunIndex, VoxelDimension);
-		}
-		//-----
-
 		if (!IndexParams.EditVoxel.IsEmptyVoxel())
 		{
 			MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable[IndexParams.EditVoxel.VoxelId]++;
-		}
-		else
-		{
-			//MEASURE ----
-			voxelCount--;
 		}
 
 		if (!IndexParams.ReplacedVoxel.IsEmptyVoxel())
@@ -290,25 +225,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 				MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable.Remove(IndexParams.ReplacedVoxel.VoxelId);
 			}
 		}
-		else
-		{
-			//MEASURE ----
-			voxelCount++;
-		}
 
-		//MEASURE ----
-		int Count = 0;
-		for (auto count : MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable)
-		{
-			Count += count.Value;
-		}
-
-		if (Count != voxelCount)
-		{
-			UE_LOG(LogTemp, Error, TEXT("Voxel count is incorrect, original count: %d; Count %d"), voxelCount, Count);
-		}
-		//------
-		
 		VoxelGridPtr->RLEVoxelGrid = IndexParams.NewVoxelGrid;
 	}
 }
@@ -338,7 +255,7 @@ bool URLERunDirectionalMesher::CalculateMidRunEditIndex(FIndexParams& IndexParam
 			IndexParams.EditAreaIndex = 1;
 		}
 
-		auto NextRunIndex = IndexParams.RunIndex + 1;
+		const auto NextRunIndex = IndexParams.RunIndex + 1;
 
 		if (IndexParams.VoxelGrid->IsValidIndex(NextRunIndex))
 		{
@@ -356,20 +273,17 @@ bool URLERunDirectionalMesher::CalculateMidRunEditIndex(FIndexParams& IndexParam
 	}
 	else if (IndexParams.CurrentRLERun.Voxel != IndexParams.EditVoxel)
 	{
+		//This code is activated only for first voxel in voxel model at position 0, 0, 0
 		if (IndexParams.VoxelChange->VoxelPosition.Y == 0)
 		{
-			//This code is activated only for first voxel in voxel model at position 0, 0, 0
 			auto& LastRLERun = IndexParams.NewVoxelGrid->Last();
 			auto TempRun = LastRLERun;
+			IndexParams.ReplacedVoxel = TempRun.Voxel;
 			LastRLERun.RunLenght = 1;
 			LastRLERun.Voxel = IndexParams.EditVoxel;
-			IndexParams.ReplacedVoxel = TempRun.Voxel;
-			TempRun.RunLenght --;
+			TempRun.RunLenght--;
 
-			if (!TempRun.IsRunEmpty()){
-				IndexParams.NewVoxelGrid->Push(TempRun);
-				IndexParams.EditAreaIndex = 1;
-			}else
+			if (TempRun.IsRunEmpty())
 			{
 				auto NextRLERun = IndexParams.VoxelGrid->GetData()[IndexParams.RunIndex + 1];
 				if (NextRLERun.Voxel == IndexParams.EditVoxel)
@@ -378,14 +292,21 @@ bool URLERunDirectionalMesher::CalculateMidRunEditIndex(FIndexParams& IndexParam
 					LastRLERun.RunLenght += NextRLERun.RunLenght;
 				}
 			}
-			
+			else
+			{
+				IndexParams.NewVoxelGrid->Push(TempRun);
+				IndexParams.EditAreaIndex = 1;
+			}
+
 			IndexParams.CurrentRLERun = LastRLERun;
-		}else{
+		}
+		else
+		{
 			const auto MidRunLenght = IndexParams.TraversedRun + IndexParams.VoxelChange->VoxelPosition.Y - IndexParams.
 				YStart;
 			const int EndRunLength = IndexParams.NewVoxelGrid->Last().RunLenght - MidRunLenght - 1;
 
-			CalculateSplitRun(MidRunLenght, EndRunLength, IndexParams);
+			CalculateMidRun(MidRunLenght, EndRunLength, IndexParams);
 		}
 	}
 	else
@@ -396,7 +317,7 @@ bool URLERunDirectionalMesher::CalculateMidRunEditIndex(FIndexParams& IndexParam
 	return true;
 }
 
-bool URLERunDirectionalMesher::CalculateEndRunEditIndex(FIndexParams& IndexParams)
+bool URLERunDirectionalMesher::CalculateBorderRunEditIndex(FIndexParams& IndexParams)
 {
 	auto& LastRLERun = IndexParams.NewVoxelGrid->Last();
 
@@ -407,7 +328,7 @@ bool URLERunDirectionalMesher::CalculateEndRunEditIndex(FIndexParams& IndexParam
 			return false;
 		}
 
-		CalculateSplitRun(IndexParams.TraversedRun, LastRLERun.RunLenght - IndexParams.TraversedRun - 1, IndexParams);
+		CalculateMidRun(IndexParams.TraversedRun, LastRLERun.RunLenght - IndexParams.TraversedRun - 1, IndexParams);
 	}
 	else
 	{
@@ -418,8 +339,8 @@ bool URLERunDirectionalMesher::CalculateEndRunEditIndex(FIndexParams& IndexParam
 		}
 		else if (IndexParams.VoxelGrid->IsValidIndex(IndexParams.RunIndex + 1))
 		{
-			auto& NextRLERun = IndexParams.VoxelGrid->GetData()[IndexParams.RunIndex + 1];
-			
+			const auto& NextRLERun = IndexParams.VoxelGrid->GetData()[IndexParams.RunIndex + 1];
+
 			if (NextRLERun.Voxel == IndexParams.EditVoxel)
 			{
 				return false;
@@ -430,14 +351,14 @@ bool URLERunDirectionalMesher::CalculateEndRunEditIndex(FIndexParams& IndexParam
 
 			FirstRunEditIndex(IndexParams);
 		}
-		
+
 		IndexParams.CurrentRLERun = LastRLERun;
 	}
-	
+
 	return true;
 }
 
-void URLERunDirectionalMesher::CalculateSplitRun(const int MidRunLenght, const int EndRunLength,
+void URLERunDirectionalMesher::CalculateMidRun(const int MidRunLenght, const int EndRunLength,
                                                  FIndexParams& IndexParams)
 {
 	auto& LastRLERun = IndexParams.NewVoxelGrid->Last();
@@ -468,26 +389,26 @@ void URLERunDirectionalMesher::CalculateSplitRun(const int MidRunLenght, const i
 	}
 }
 
-bool URLERunDirectionalMesher::FirstRunEditIndex(FIndexParams& IndexParams)
+void URLERunDirectionalMesher::FirstRunEditIndex(FIndexParams& IndexParams)
 {
 	auto& NextRLERun = IndexParams.VoxelGrid->GetData()[IndexParams.RunIndex + 1];
 	auto& LastRLERun = IndexParams.NewVoxelGrid->Last();
 
 	IndexParams.ReplacedVoxel = NextRLERun.Voxel;
 	NextRLERun.RunLenght--;
-	
+
 	if (NextRLERun.IsRunEmpty())
 	{
 		IndexParams.RunIndex++;
 		const auto NextNextIndex = IndexParams.RunIndex + 1;
-		if (IndexParams.VoxelGrid->IsValidIndex(NextNextIndex) && IndexParams.VoxelGrid->GetData()[
-			NextNextIndex].Voxel == LastRLERun.Voxel)
+		if (IndexParams.VoxelGrid->IsValidIndex(NextNextIndex))
 		{
-			IndexParams.RunIndex++;
-			LastRLERun.RunLenght += IndexParams.VoxelGrid->GetData()[NextNextIndex].RunLenght;
-			return false;
+			const auto& NextNextRLERun = IndexParams.VoxelGrid->GetData()[NextNextIndex];
+			if(NextNextRLERun.Voxel == LastRLERun.Voxel)
+			{
+				IndexParams.RunIndex++;
+				LastRLERun.RunLenght += NextNextRLERun.RunLenght;
+			}
 		}
 	}
-
-	return true;
 }
