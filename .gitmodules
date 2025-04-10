@@ -1,0 +1,3 @@
+[submodule "Plugins/VoxelPluginFreeLegacy"]
+	path = Plugins/VoxelPluginFreeLegacy
+	url = git@github.com:Pawlost/VoxelPluginFreeLegacy.git
