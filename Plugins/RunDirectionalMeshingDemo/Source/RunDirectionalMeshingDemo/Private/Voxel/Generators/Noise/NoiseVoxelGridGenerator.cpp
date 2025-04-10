@@ -69,7 +69,6 @@ void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 
 				// VoxelId is given by position of surface generator in array.
 				// Generators keep rewriting position and last Voxel will rewrite the rest
-				auto TestVoxel = false;
 				for (int32 VoxelId = 0; VoxelId < VoxelTypeCount; VoxelId++)
 				{
 					auto SurfaceGenerator = SurfaceGenerators[VoxelId];
@@ -123,17 +122,8 @@ void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 
 					if (AddVoxel)
 					{
-						TestVoxel = true;
 						// Rewrite voxel at index from previous value
 						ChangeKnownVoxelAtIndex(VoxelGrid, Chunk.ChunkVoxelIdTable, Index, Voxel);
-				//		break;
-					}
-				}
-
-				if (Index == 608){
-					if (TestVoxel == false)
-					{
-						auto lol = "here";
 					}
 				}
 			}
