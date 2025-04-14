@@ -28,7 +28,7 @@ public:
 	void ChangeGridCenterToPosition(const FVector& NewPosition);
 
 	UFUNCTION()
-	virtual void DespawnChunks();
+	virtual void StartChunkDespawningAsync();
 	
 
 protected:

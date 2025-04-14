@@ -10,8 +10,8 @@ void ADespawnChunkSpawnerBase::ChangeGridCenterToPosition(const FVector& NewPosi
 	if (CenterGridPosition != NewGridPosition)
 	{
 		CenterGridPosition = NewGridPosition;
-		SpawnChunks();
-		DespawnChunks();
+		StartChunkSpawningAsync();
+		StartChunkDespawningAsync();
 	}
 }
 
@@ -21,7 +21,7 @@ void ADespawnChunkSpawnerBase::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ADespawnChunkSpawnerBase::DespawnChunks()
+void ADespawnChunkSpawnerBase::StartChunkDespawningAsync()
 {
 	if (DespawnHandle.IsValid() && !DespawnHandle.IsReady())
 	{

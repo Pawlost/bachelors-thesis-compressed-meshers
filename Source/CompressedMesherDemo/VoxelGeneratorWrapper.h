@@ -1,12 +1,13 @@
-// Copyright Voxel Plugin SAS. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FastNoise/VoxelFastNoise.h"
 #include "VoxelGenerators/VoxelGenerator.h"
 #include "VoxelGenerators/VoxelGeneratorHelpers.h"
 #include "VoxelGeneratorWrapper.generated.h"
+
+class AChunkSpawnerBase;
+class UVoxelGeneratorBase;
+class APreloadedVoxelCenterAreaChunkSpawner;
 
 UCLASS(Blueprintable)
 class UVoxelGeneratorWrapper : public UVoxelGenerator
@@ -14,12 +15,16 @@ class UVoxelGeneratorWrapper : public UVoxelGenerator
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generator")
-	float NoiseHeight = 10.f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generator")
-	int32 Seed = 1337;
+	TObjectPtr<APreloadedVoxelCenterAreaChunkSpawner> ChunkSpawner;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowAbstract="false", BlueprintBaseOnly), NoClear,
+		Category="Chunk")
+	TSubclassOf<UVoxelGeneratorBase> VoxelGeneratorBlueprint = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowAbstract="false", BlueprintBaseOnly), NoClear,
+		Category="Chunk")
+	TSubclassOf<AChunkSpawnerBase> ChunkSpawnerBlueprint = nullptr;
+	
 	//~ Begin UVoxelGenerator Interface
 	virtual TVoxelSharedRef<FVoxelGeneratorInstance> GetInstance() override;
 	//~ End UVoxelGenerator Interface
@@ -44,7 +49,7 @@ public:
 	//~ End FVoxelGeneratorInstance Interface
 
 private:
-	const float NoiseHeight;
-	const int32 Seed;
-	FVoxelFastNoise Noise;
+	TSubclassOf<UVoxelGeneratorBase> VoxelGeneratorBlueprint = nullptr;
+	TSubclassOf<AChunkSpawnerBase> ChunkSpawnerBlueprint = nullptr;
+	TObjectPtr<APreloadedVoxelCenterAreaChunkSpawner> ChunkSpawnerPtr;
 };
