@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
+#include "Voxel/VoxelPosition.h"
 #include "ChunkSpawnerBase.generated.h"
 
+struct FVoxelPosition;
 enum class EFaceDirection : uint8;
 struct FChunk;
 struct FMesherVariables;
@@ -29,10 +31,16 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeVoxelAtHit(const FVector& HitPosition, const FVector& HitNormal,
 	                      const FName& VoxelName, bool bPick);
-
+	
 	UFUNCTION(BlueprintCallable)
-	virtual void ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
+	FName GetVoxelNameAtHit(const FVector& HitPosition, const FVector& HitNormal);
+	
+	UFUNCTION(BlueprintCallable)
+	virtual void ChangeVoxelInChunk(const FVoxelPosition& VoxelPosition,
 	                                const FName& VoxelName) PURE_VIRTUAL(AChunkSpawnerBase::ChangeVoxelInChunk)
+	
+	UFUNCTION(BlueprintCallable)
+	virtual FName GetVoxelFromChunk(const FVoxelPosition& VoxelPosition) PURE_VIRTUAL(AChunkSpawnerBase::GetVoxelFromChunk, return "";)
 
 	UFUNCTION(BlueprintCallable)
 	virtual void SpawnChunks() PURE_VIRTUAL(AChunkSpawnerBase::SpawnChunks)
@@ -50,6 +58,8 @@ protected:
 	TObjectPtr<UVoxelGeneratorBase> VoxelGenerator;
 
 	FIntVector WorldPositionToChunkGridPosition(const FVector& WorldPosition) const;
+
+	FVoxelPosition CalculateVoxelPosition(const FVector& HitPosition, const FVector& AdjustedNormal) const;
 	
 	// Wait for all futures
 	static void WaitForAllTasks(TArray<TSharedFuture<void>>& Tasks);

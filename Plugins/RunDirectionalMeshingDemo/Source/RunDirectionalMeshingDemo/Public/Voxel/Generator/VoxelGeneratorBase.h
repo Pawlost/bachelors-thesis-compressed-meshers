@@ -20,7 +20,7 @@ class RUNDIRECTIONALMESHINGDEMO_API UVoxelGeneratorBase : public UActorComponent
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowAbstract="false", BlueprintBaseOnly), NoClear,
 		Category="Voxels")
-	TSubclassOf<UMesherBase> MesherBlueprint = nullptr;
+	TSubclassOf<UMesherBase> VoxelMesherBlueprint = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Voxels",
 		meta=(ToolTip=
@@ -32,6 +32,10 @@ public:
 		meta=(ToolTip="Size of a single voxel in world coordinates.", MinClamp="0"))
 	double VoxelSize = 20;
 
+
+	UPROPERTY(EditAnywhere)
+	bool EnableVoxelMeshing = true;
+	
 	void ChangeKnownVoxelAtIndex(TArray<FVoxel>& VoxelGrid, TMap<int32, uint32>& VoxelTable, const uint32& Index,
 												  const FVoxel& Voxel);
 	
@@ -59,6 +63,10 @@ public:
 	virtual TTuple<FName, FVoxelType> GetVoxelTypeById(const int32& VoxelId) const PURE_VIRTUAL(
 		UVoxelGeneratorBase::GetVoxelType, return TTuple<FName, FVoxelType>();)
 
+	FORCEINLINE virtual TTuple<FName, FVoxelType> GetVoxelTypeById(const FVoxel& Voxel){
+		return GetVoxelTypeById(Voxel.VoxelId);
+	}
+	
 	virtual FVoxel GetVoxelByName(const FName& VoxelName) const PURE_VIRTUAL(
 		UVoxelGeneratorBase::GetVoxelByName, return FVoxel();)
 
@@ -67,7 +75,7 @@ public:
 	
 protected:
 	UPROPERTY()
-	TObjectPtr<UMesherBase> Mesher;
+	TObjectPtr<UMesherBase> VoxelMesher;
 	virtual void BeginPlay() override;
 
 private:

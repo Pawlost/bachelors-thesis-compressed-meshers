@@ -12,21 +12,22 @@ void UVoxelGeneratorBase::BeginPlay()
 
 	Super::BeginPlay();
 
-	checkf(MesherBlueprint, TEXT("Mesher blueprint must be set"));
-	if (MesherBlueprint)
+	checkf(VoxelMesherBlueprint, TEXT("Mesher blueprint must be set"));
+	if (VoxelMesherBlueprint)
 	{
 		// Register mesher
-		Mesher = NewObject<UMesherBase>(this, MesherBlueprint);
+		VoxelMesher = NewObject<UMesherBase>(this, VoxelMesherBlueprint);
 
-		if (Mesher)
+		if (VoxelMesher)
 		{
-			Mesher->SetVoxelGenerator(this);
-			Mesher->RegisterComponent();
+			VoxelMesher->SetVoxelGenerator(this);
+			VoxelMesher->RegisterComponent();
 		}
 	}
 }
 
-void UVoxelGeneratorBase::ChangeKnownVoxelAtIndex(TArray<FVoxel>& VoxelGrid, TMap<int32, uint32>& VoxelTable, const uint32& Index,
+void UVoxelGeneratorBase::ChangeKnownVoxelAtIndex(TArray<FVoxel>& VoxelGrid, TMap<int32, uint32>& VoxelTable,
+                                                  const uint32& Index,
                                                   const FVoxel& Voxel)
 {
 	// NOTICE: Code here is optimized because voxel grid generation is not main topic of this bachelor's thesis 
@@ -87,7 +88,10 @@ uint32 UVoxelGeneratorBase::GetVoxelCountPerChunk() const
 
 void UVoxelGeneratorBase::GenerateMesh(FMesherVariables& MesherVariables, FVoxelChange* VoxelChange) const
 {
-	Mesher->GenerateMesh(MesherVariables, VoxelChange);
+	if (EnableVoxelMeshing)
+	{
+		VoxelMesher->GenerateMesh(MesherVariables, VoxelChange);
+	}
 }
 
 double UVoxelGeneratorBase::GetHighestElevationAtLocation(const FVector& Location)

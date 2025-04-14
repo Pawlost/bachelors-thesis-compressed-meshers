@@ -40,7 +40,7 @@ private:
 	                    const int32& AxisVoxelIndex,
 	                    const TSharedPtr<TArray<FChunkFace>>& ChunkFaces, const FChunkParams& ChunkParams);
 
-	void FaceGeneration(UVoxelGrid& VoxelGridObject, FMesherVariables& MeshVars) const;
+	void FaceGeneration(const UVoxelGrid& VoxelGridObject, FMesherVariables& MeshVars) const;
 	static void DirectionalGreedyMeshing(const FMesherVariables& MeshVars);
 
 	void ChangeVoxelId(const UVoxelGrid& VoxelGridObject, TMap<int32, uint32>& VoxelTable, const FVoxelChange& VoxelChange) const;

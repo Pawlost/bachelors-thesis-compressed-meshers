@@ -130,7 +130,7 @@ void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 		}
 	}
 
-	Mesher->CompressVoxelGrid(Chunk,VoxelGrid);
+	VoxelMesher->CompressVoxelGrid(Chunk,VoxelGrid);
 }
 
 double UNoiseVoxelGridGenerator::GetHighestElevationAtLocation(const FVector& Location)

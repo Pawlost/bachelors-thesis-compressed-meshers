@@ -1,14 +1,16 @@
 ﻿#include "Spawner/Area/AreaChunkSpawnerBase.h"
 #include "Mesher/MeshingUtils/MesherVariables.h"
 #include "Mesher/MeshingUtils/VoxelChange.h"
+#include "Voxel/VoxelPosition.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
+#include "Voxel/Grid/VoxelModel.h"
 
-void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
+void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FVoxelPosition& VoxelPosition,
                                                const FName& VoxelName)
 {
 	int ChunkDimensions = VoxelGenerator->GetVoxelCountPerChunkDimension();
-	if (ChunkGridPosition.X < 0 || ChunkGridPosition.Y < 0 || ChunkGridPosition.Z < 0 ||
-		ChunkGridPosition.X >= ChunkDimensions || ChunkGridPosition.Y >= ChunkDimensions || ChunkGridPosition.Z >= ChunkDimensions)
+	if (VoxelPosition.VoxelPosition.X < 0 || VoxelPosition.VoxelPosition.Y < 0 || VoxelPosition.VoxelPosition.Z < 0 ||
+		VoxelPosition.VoxelPosition.X >= ChunkDimensions || VoxelPosition.VoxelPosition.Y >= ChunkDimensions || VoxelPosition.VoxelPosition.Z >= ChunkDimensions)
 	{
 		return;
 	}
@@ -18,9 +20,9 @@ void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPositi
 		return;
 	}
 
-	if (ChunkGrid.Contains(ChunkGridPosition))
+	if (ChunkGrid.Contains(VoxelPosition.ChunkGridPosition))
 	{
-		const auto FoundChunk = ChunkGrid.Find(ChunkGridPosition);
+		const auto FoundChunk = ChunkGrid.Find(VoxelPosition.ChunkGridPosition);
 
 		if (FoundChunk == nullptr || !FoundChunk->IsValid())
 		{
@@ -31,7 +33,7 @@ void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPositi
 		
 		FMesherVariables MesherVars;
 		Chunk->bIsActive = false;
-		FVoxelChange Modification(VoxelName, VoxelPosition);
+		FVoxelChange Modification(VoxelName, VoxelPosition.VoxelPosition);
 		GenerateChunkMesh(MesherVars, Chunk->GridPosition, &Modification);
 		
 		EditHandle = Async(EAsyncExecution::ThreadPool, [this, MesherVars]()
@@ -48,6 +50,31 @@ void AAreaChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPositi
 			}
 		}).Share();
 	}
+}
+
+FName AAreaChunkSpawnerBase::GetVoxelFromChunk(const FVoxelPosition& VoxelPosition)
+{
+	const auto ChunkPtr = ChunkGrid.Find(VoxelPosition.ChunkGridPosition);
+
+	if (ChunkPtr != nullptr){
+		const auto Chunk = *ChunkPtr;
+		const auto VoxelIndex = VoxelGenerator->CalculateVoxelIndex(VoxelPosition.VoxelPosition);
+		const auto Voxel = Chunk->VoxelModel->GetVoxelAtIndex(VoxelIndex);
+		const auto VoxelType = VoxelGenerator->GetVoxelTypeById(Voxel);
+		return VoxelType.Key;
+	}
+	
+	return "";
+}
+
+void AAreaChunkSpawnerBase::EnableChunkMeshing() const
+{
+	VoxelGenerator->EnableVoxelMeshing = true;
+}
+
+void AAreaChunkSpawnerBase::DisableChunkMeshing() const
+{
+	VoxelGenerator->EnableVoxelMeshing = true;
 }
 
 void AAreaChunkSpawnerBase::BeginPlay()
