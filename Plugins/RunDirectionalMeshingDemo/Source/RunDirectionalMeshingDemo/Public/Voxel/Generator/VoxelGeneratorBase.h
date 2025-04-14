@@ -33,8 +33,8 @@ public:
 	double VoxelSize = 20;
 
 
-	UPROPERTY(EditAnywhere)
-	bool EnableVoxelMeshing = true;
+	UPROPERTY(EditAnywhere, Category ="Voxels")
+	bool bEnableVoxelMeshing = true;
 	
 	void ChangeKnownVoxelAtIndex(TArray<FVoxel>& VoxelGrid, TMap<int32, uint32>& VoxelTable, const uint32& Index,
 												  const FVoxel& Voxel);

@@ -10,7 +10,7 @@ void ADespawnChunkSpawnerBase::ChangeGridCenterToPosition(const FVector& NewPosi
 	if (CenterGridPosition != NewGridPosition)
 	{
 		CenterGridPosition = NewGridPosition;
-		SpawnChunks();
+		SpawnChunksAsync();
 		DespawnChunks();
 	}
 }

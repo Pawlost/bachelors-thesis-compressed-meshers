@@ -28,7 +28,7 @@ void ACenterAreaChunkSpawner::GenerateArea()
 
 	FIntVector CenterPosition;
 
-	if (SpawnCenterChunk)
+	if (bSpawnCenterChunk)
 	{
 		VisitedSpawnPositions.Add(CenterGridPosition);
 	}

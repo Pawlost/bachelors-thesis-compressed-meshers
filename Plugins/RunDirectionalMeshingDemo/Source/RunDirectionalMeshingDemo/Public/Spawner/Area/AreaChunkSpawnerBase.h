@@ -18,16 +18,18 @@ public:
 	int32 SpawnZone = 2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chunk")
-	bool SpawnCenterChunk = true;
+	bool bSpawnCenterChunk = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chunk")
+	bool bEnableInitialChunkSpawn = true;
 
 	virtual void ChangeVoxelInChunk(const FVoxelPosition& VoxelPosition,
 	                                const FName& VoxelName) override;
 
 	virtual FName GetVoxelFromChunk(const FVoxelPosition& VoxelPosition) override;
 	
-	void EnableChunkMeshing() const;
-	void DisableChunkMeshing() const;
-
+	virtual TSharedFuture<void> SpawnChunksAsync() override;
+	
 protected:
 	TMap<FIntVector, TSharedPtr<FChunk>> ChunkGrid;
 	bool ShowChunkBorders = false;
@@ -39,7 +41,7 @@ protected:
 	void GenerateChunkMesh(FMesherVariables& MesherVars, const FIntVector& ChunkGridPosition, FVoxelChange* VoxelChange = nullptr);
 	virtual void SpawnChunk(const FIntVector& ChunkGridPosition, TSharedFuture<void>* OutAsyncExecution = nullptr);
 
-	virtual void SpawnChunks() override;
+
 
 private:
 	void AddChunkFromGrid(FMesherVariables& MesherVars, const FFaceToDirection& FaceDirection);

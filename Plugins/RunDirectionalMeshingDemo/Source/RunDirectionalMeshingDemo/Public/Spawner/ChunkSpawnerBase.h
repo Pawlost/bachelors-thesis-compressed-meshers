@@ -41,10 +41,10 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	virtual FName GetVoxelFromChunk(const FVoxelPosition& VoxelPosition) PURE_VIRTUAL(AChunkSpawnerBase::GetVoxelFromChunk, return "";)
+	
+	virtual TSharedFuture<void> SpawnChunksAsync() PURE_VIRTUAL(AChunkSpawnerBase::SpawnChunks, return TSharedFuture<void>();) 
 
-	UFUNCTION(BlueprintCallable)
-	virtual void SpawnChunks() PURE_VIRTUAL(AChunkSpawnerBase::SpawnChunks)
-
+	bool IsInitialized() const;
 protected:
 	virtual void BeginPlay() override;
 
@@ -63,4 +63,6 @@ protected:
 	
 	// Wait for all futures
 	static void WaitForAllTasks(TArray<TSharedFuture<void>>& Tasks);
+
+	bool bIsInitialized = false;
 };

@@ -60,21 +60,13 @@ FName AAreaChunkSpawnerBase::GetVoxelFromChunk(const FVoxelPosition& VoxelPositi
 		const auto Chunk = *ChunkPtr;
 		const auto VoxelIndex = VoxelGenerator->CalculateVoxelIndex(VoxelPosition.VoxelPosition);
 		const auto Voxel = Chunk->VoxelModel->GetVoxelAtIndex(VoxelIndex);
-		const auto VoxelType = VoxelGenerator->GetVoxelTypeById(Voxel);
-		return VoxelType.Key;
+		if (!Voxel.IsEmptyVoxel()){
+			const auto VoxelType = VoxelGenerator->GetVoxelTypeById(Voxel);
+			return VoxelType.Key;
+		}
 	}
 	
-	return "";
-}
-
-void AAreaChunkSpawnerBase::EnableChunkMeshing() const
-{
-	VoxelGenerator->EnableVoxelMeshing = true;
-}
-
-void AAreaChunkSpawnerBase::DisableChunkMeshing() const
-{
-	VoxelGenerator->EnableVoxelMeshing = true;
+	return FName();
 }
 
 void AAreaChunkSpawnerBase::BeginPlay()
@@ -87,16 +79,18 @@ void AAreaChunkSpawnerBase::BeginPlay()
 		CenterGridPosition = WorldPositionToChunkGridPosition(GetTransform().GetLocation());
 	}
 
-	if (SpawnCenterChunk)
-	{
-		//Spawn center chunk
-		SpawnChunk(CenterGridPosition);
-		FMesherVariables MesherVars;
-		MesherVars.ChunkParams.ExecutedOnMainThread = true;
-		GenerateChunkMesh(MesherVars, CenterGridPosition);
-	}
+	if (bEnableInitialChunkSpawn){
+		if (bSpawnCenterChunk)
+		{
+			//Spawn center chunk
+			SpawnChunk(CenterGridPosition);
+			FMesherVariables MesherVars;
+			MesherVars.ChunkParams.ExecutedOnMainThread = true;
+			GenerateChunkMesh(MesherVars, CenterGridPosition);
+		}
 
-	SpawnChunks();
+		SpawnChunksAsync();
+	}
 }
 
 //Running on main thread may cause deadlock
@@ -185,10 +179,10 @@ void AAreaChunkSpawnerBase::AddChunkFromGrid(FMesherVariables& MesherVars, const
 	}
 }
 
-void AAreaChunkSpawnerBase::SpawnChunks()
+TSharedFuture<void> AAreaChunkSpawnerBase::SpawnChunksAsync()
 {
-	Async(EAsyncExecution::Thread, [this]()
+	return Async(EAsyncExecution::Thread, [this]()
 	{
 		GenerateArea();
-	});
+	}).Share();
 }

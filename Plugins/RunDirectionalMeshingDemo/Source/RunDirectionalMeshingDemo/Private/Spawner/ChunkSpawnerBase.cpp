@@ -3,6 +3,11 @@
 #include "Mesher/MeshingUtils/MesherVariables.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 
+bool AChunkSpawnerBase::IsInitialized() const
+{
+	return bIsInitialized;
+}
+
 void AChunkSpawnerBase::BeginPlay()
 {
 	// Check if the template is valid
@@ -20,6 +25,8 @@ void AChunkSpawnerBase::BeginPlay()
 
 	checkf(VoxelGenerator, TEXT("Voxel generator must be valid"));
 
+	bIsInitialized = true;	
+	
 	Super::BeginPlay();
 }
 
@@ -29,7 +36,7 @@ double AChunkSpawnerBase::GetHighestElevationAtLocation(const FVector& Location)
 }
 
 void AChunkSpawnerBase::ChangeVoxelAtHit(const FVector& HitPosition, const FVector& HitNormal, const FName& VoxelName,
-                                      const bool bPick)
+                                         const bool bPick)
 {
 	FVector AdjustedNormal;
 	if (bPick)
@@ -52,21 +59,20 @@ void AChunkSpawnerBase::ChangeVoxelAtHit(const FVector& HitPosition, const FVect
 	ChangeVoxelInChunk(VoxelPosition, VoxelName);
 }
 
-FVoxelPosition AChunkSpawnerBase::CalculateVoxelPosition(const FVector& HitPosition, const FVector& AdjustedNormal) const
+FVoxelPosition AChunkSpawnerBase::CalculateVoxelPosition(const FVector& HitPosition,
+                                                         const FVector& AdjustedNormal) const
 {
-	
 	// Adjust position based on normal
 	FVector Position = HitPosition - AdjustedNormal * VoxelGenerator->GetVoxelSize();
-	
+
 	if (!UseWorldCenter)
 	{
 		// Transform hit position to local coordinates, if they are enabled
-		Position -= GetActorLocation();	
+		Position -= GetActorLocation();
 	}
 
-
 	FVoxelPosition FinalPosition;
-	
+
 	FinalPosition.ChunkGridPosition = WorldPositionToChunkGridPosition(Position);
 
 	// Precise voxel position in chunk
@@ -80,12 +86,12 @@ FVoxelPosition AChunkSpawnerBase::CalculateVoxelPosition(const FVector& HitPosit
 FName AChunkSpawnerBase::GetVoxelNameAtHit(const FVector& HitPosition, const FVector& HitNormal)
 {
 	FVector AdjustedNormal;
-	
+
 	// Inner Voxel position
 	AdjustedNormal.X = FMath::Clamp(HitNormal.X, 0, 1);
 	AdjustedNormal.Y = FMath::Clamp(HitNormal.Y, 0, 1);
 	AdjustedNormal.Z = FMath::Clamp(HitNormal.Z, 0, 1);
-	
+
 	const auto VoxelPosition = CalculateVoxelPosition(HitPosition, AdjustedNormal);
 
 	const auto VoxelName = GetVoxelFromChunk(VoxelPosition);
@@ -100,10 +106,10 @@ void AChunkSpawnerBase::AddSideChunk(FMesherVariables& MeshVar, EFaceDirection D
 }
 
 void AChunkSpawnerBase::AddChunkToGrid(TSharedPtr<FChunk>& Chunk,
-                                  const FIntVector& GridPosition, TSharedFuture<void>* AsyncExecution) const
+                                       const FIntVector& GridPosition, TSharedFuture<void>* AsyncExecution) const
 {
 	Chunk->GridPosition = GridPosition;
-	
+
 	if (AsyncExecution != nullptr)
 	{
 		// Generate voxels on async thread if promise is expected
@@ -111,8 +117,8 @@ void AChunkSpawnerBase::AddChunkToGrid(TSharedPtr<FChunk>& Chunk,
 		{
 			VoxelGenerator->GenerateVoxels(*Chunk.Get());
 		}).Share();
-
-	}else
+	}
+	else
 	{
 		VoxelGenerator->GenerateVoxels(*Chunk);
 	}

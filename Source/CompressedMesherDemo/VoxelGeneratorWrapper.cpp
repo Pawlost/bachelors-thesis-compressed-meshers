@@ -2,6 +2,8 @@
 #include "VoxelGeneratorWrapper.h"
 #include "FastNoise/VoxelFastNoise.inl"
 #include "VoxelMaterialBuilder.h"
+#include "VoxelWorld.h"
+#include "Spawner/Area/PreloadedVoxelCenterAreaChunkSpawner.h"
 
 TVoxelSharedRef<FVoxelGeneratorInstance> UVoxelGeneratorWrapper::GetInstance()
 {
@@ -11,30 +13,51 @@ TVoxelSharedRef<FVoxelGeneratorInstance> UVoxelGeneratorWrapper::GetInstance()
 ///////////////////////////////////////////////////////////////////////////////
 
 FVoxelGeneratorExampleInstance::FVoxelGeneratorExampleInstance(UVoxelGeneratorWrapper& MyGenerator)
-	: Super(&MyGenerator)
-	, NoiseHeight(MyGenerator.NoiseHeight)
-	, Seed(MyGenerator.Seed)
+	: Super(&MyGenerator), ChunkSpawnerBlueprint(MyGenerator.ChunkSpawnerBlueprint)
 {
 }
 
 void FVoxelGeneratorExampleInstance::Init(const FVoxelGeneratorInit& InitStruct)
 {
-	Noise.SetSeed(Seed);
+	if (ChunkSpawnerPtr == nullptr){
+		auto WorldPtr = InitStruct.World.Get()->GetWorld();
+	 
+		if (!IsValid(WorldPtr))
+		{
+			return;
+		}
+
+
+		ChunkSpawnerPtr = WorldPtr->SpawnActor<APreloadedVoxelCenterAreaChunkSpawner>(ChunkSpawnerBlueprint, FVector(),
+										 FRotator::ZeroRotator);
+	}
+	
+	if (ChunkSpawnerPtr != nullptr && ChunkSpawnerPtr->IsInitialized())
+	{
+		ChunkSpawnerPtr->SpawnChunksAsync().Wait();
+	}
 }
 
 v_flt FVoxelGeneratorExampleInstance::GetValueImpl(v_flt X, v_flt Y, v_flt Z, int32 LOD, const FVoxelItemStack& Items) const
 {
-	const float Height = Noise.GetPerlin_2D(X, Y, 0.01f) * NoiseHeight;
-	
-	// Positive value -> empty voxel
-	// Negative value -> full voxel
-	// Value positive when Z > Height, and negative Z < Height
-	float Value = Z - Height;
-	
-	// The voxel value is clamped between -1 and 1. That can result in a bad gradient/normal. To solve that we divide it
-	Value /= 5;
-
-	return Value;
+	v_flt Value = 1;
+ 
+	if (ChunkSpawnerPtr != nullptr && ChunkSpawnerPtr->IsInitialized())
+	{
+		// Positive value -> empty voxel
+		// Negative value -> full voxel
+		// Value positive when Z > Height, and negative Z < Height
+		
+		// The voxel value is clamped between -1 and 1. That can result in a bad gradient/normal. To solve that we divide it
+ 		
+		const auto VoxelName = ChunkSpawnerPtr->GetVoxelNameAtHit(FVector(X, Y, Z), FVector(0,0,0));
+		if (!VoxelName.IsNone())
+		{
+			Value = -1;
+		}
+	}
+ 	
+	return Value; 
 }
 
 FVoxelMaterial FVoxelGeneratorExampleInstance::GetMaterialImpl(v_flt X, v_flt Y, v_flt Z, int32 LOD, const FVoxelItemStack& Items) const
@@ -64,18 +87,6 @@ TVoxelRange<v_flt> FVoxelGeneratorExampleInstance::GetValueRangeImpl(const FVoxe
 	// Be careful, if wrong your world will have holes!
 	// By default return infinite range to be safe
 	return TVoxelRange<v_flt>::Infinite();
-
-	// Example for the GetValueImpl above
-
-	// Noise is between -1 and 1
-	const TVoxelRange<v_flt> Height = TVoxelRange<v_flt>(-1, 1) * NoiseHeight;
-
-	// Z can go from min to max
-	TVoxelRange<v_flt> Value = TVoxelRange<v_flt>(Bounds.Min.Z, Bounds.Max.Z) - Height;
-
-	Value /= 5;
-
-	return Value;
 }
 
 FVector FVoxelGeneratorExampleInstance::GetUpVector(v_flt X, v_flt Y, v_flt Z) const
