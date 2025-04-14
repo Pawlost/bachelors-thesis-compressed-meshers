@@ -4,6 +4,7 @@
 #include "Spawner/ChunkSpawnerBase.h"
 #include "SingleChunkSpawnerBase.generated.h"
 
+struct FVoxelPosition;
 struct FVoxelChange;
 
 UCLASS(ClassGroup=(ChunkSpawners), Abstract)
@@ -18,8 +19,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Chunk")
 	bool AlignGridPositionWithSpawner = true;
 
-	virtual void ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
+	virtual void ChangeVoxelInChunk(const FVoxelPosition& VoxelPosition,
 									const FName& VoxelId) override;
+	
+	virtual FName GetVoxelFromChunk(const FVoxelPosition& VoxelPosition) override;
 	
 protected:
 	virtual void BeginPlay() override;

@@ -12,5 +12,5 @@ void USingleVoxelGenerator::GenerateVoxels(FChunk& Chunk)
 	VoxelGridDensityArray.Init(VoxelFillIndex, VoxelGridDensity);
 	Chunk.ChunkVoxelIdTable.Add(VoxelFillIndex.VoxelId, VoxelGridDensity);
 
-	Mesher->CompressVoxelGrid(Chunk, VoxelGridDensityArray);
+	VoxelMesher->CompressVoxelGrid(Chunk, VoxelGridDensityArray);
 }

@@ -34,19 +34,29 @@ void AChunkSpawnerBase::ChangeVoxelAtHit(const FVector& HitPosition, const FVect
 	FVector AdjustedNormal;
 	if (bPick)
 	{
+		// Inner Voxel position
 		AdjustedNormal.X = FMath::Clamp(HitNormal.X, 0, 1);
 		AdjustedNormal.Y = FMath::Clamp(HitNormal.Y, 0, 1);
 		AdjustedNormal.Z = FMath::Clamp(HitNormal.Z, 0, 1);
 	}
 	else
 	{
+		// Outer Voxel position
 		AdjustedNormal.X = -FMath::Clamp(HitNormal.X, -1, 0);
 		AdjustedNormal.Y = -FMath::Clamp(HitNormal.Y, -1, 0);
 		AdjustedNormal.Z = -FMath::Clamp(HitNormal.Z, -1, 0);
 	}
 
+	const auto VoxelPosition = CalculateVoxelPosition(HitPosition, AdjustedNormal);
+
+	ChangeVoxelInChunk(VoxelPosition, VoxelName);
+}
+
+FVoxelPosition AChunkSpawnerBase::CalculateVoxelPosition(const FVector& HitPosition, const FVector& AdjustedNormal) const
+{
+	
 	// Adjust position based on normal
-	auto Position = HitPosition - AdjustedNormal * VoxelGenerator->GetVoxelSize();
+	FVector Position = HitPosition - AdjustedNormal * VoxelGenerator->GetVoxelSize();
 	
 	if (!UseWorldCenter)
 	{
@@ -54,14 +64,32 @@ void AChunkSpawnerBase::ChangeVoxelAtHit(const FVector& HitPosition, const FVect
 		Position -= GetActorLocation();	
 	}
 
-	const auto ChunkGridPosition = WorldPositionToChunkGridPosition(Position);
+
+	FVoxelPosition FinalPosition;
+	
+	FinalPosition.ChunkGridPosition = WorldPositionToChunkGridPosition(Position);
 
 	// Precise voxel position in chunk
-	const auto VoxelPosition = FIntVector(
-		(Position - FVector(ChunkGridPosition * VoxelGenerator->GetChunkAxisSize())) / VoxelGenerator
+	FinalPosition.VoxelPosition = FIntVector(
+		(Position - FVector(FinalPosition.ChunkGridPosition * VoxelGenerator->GetChunkAxisSize())) / VoxelGenerator
 		->GetVoxelSize());
 
-	ChangeVoxelInChunk(ChunkGridPosition, VoxelPosition, VoxelName);
+	return FinalPosition;
+}
+
+FName AChunkSpawnerBase::GetVoxelNameAtHit(const FVector& HitPosition, const FVector& HitNormal)
+{
+	FVector AdjustedNormal;
+	
+	// Inner Voxel position
+	AdjustedNormal.X = FMath::Clamp(HitNormal.X, 0, 1);
+	AdjustedNormal.Y = FMath::Clamp(HitNormal.Y, 0, 1);
+	AdjustedNormal.Z = FMath::Clamp(HitNormal.Z, 0, 1);
+	
+	const auto VoxelPosition = CalculateVoxelPosition(HitPosition, AdjustedNormal);
+
+	const auto VoxelName = GetVoxelFromChunk(VoxelPosition);
+	return VoxelName;
 }
 
 void AChunkSpawnerBase::AddSideChunk(FMesherVariables& MeshVar, EFaceDirection Direction,

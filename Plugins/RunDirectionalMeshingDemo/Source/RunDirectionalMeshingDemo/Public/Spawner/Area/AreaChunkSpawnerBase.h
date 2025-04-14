@@ -3,6 +3,7 @@
 #include "Spawner/ChunkSpawnerBase.h"
 #include "AreaChunkSpawnerBase.generated.h"
 
+struct FVoxelPosition;
 struct FVoxelChange;
 struct FFaceToDirection;
 class AChunkRMCActor;
@@ -19,8 +20,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chunk")
 	bool SpawnCenterChunk = true;
 
-	virtual void ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
+	virtual void ChangeVoxelInChunk(const FVoxelPosition& VoxelPosition,
 	                                const FName& VoxelName) override;
+
+	virtual FName GetVoxelFromChunk(const FVoxelPosition& VoxelPosition) override;
+	
+	void EnableChunkMeshing() const;
+	void DisableChunkMeshing() const;
 
 protected:
 	TMap<FIntVector, TSharedPtr<FChunk>> ChunkGrid;

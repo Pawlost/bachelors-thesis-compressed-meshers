@@ -21,5 +21,5 @@ void UFractionFillVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 		}
 	}
 
-	Mesher->CompressVoxelGrid(Chunk, VoxelGrid);
+	VoxelMesher->CompressVoxelGrid(Chunk, VoxelGrid);
 }

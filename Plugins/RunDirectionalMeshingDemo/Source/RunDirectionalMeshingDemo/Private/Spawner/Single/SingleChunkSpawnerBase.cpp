@@ -1,7 +1,9 @@
 ﻿#include "Spawner/Single/SingleChunkSpawnerBase.h"
 
 #include "Mesher/MeshingUtils/VoxelChange.h"
+#include "Voxel/VoxelPosition.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
+#include "Voxel/Grid/VoxelModel.h"
 
 void ASingleChunkSpawnerBase::BeginPlay()
 {
@@ -22,16 +24,24 @@ void ASingleChunkSpawnerBase::BeginPlay()
 	});
 }
 
-void ASingleChunkSpawnerBase::ChangeVoxelInChunk(const FIntVector& ChunkGridPosition, const FIntVector& VoxelPosition,
+void ASingleChunkSpawnerBase::ChangeVoxelInChunk(const FVoxelPosition& VoxelPosition,
 	const FName& VoxelName)
 {
-	if (ChunkGridPosition != SingleChunkGridPosition)
+	if (VoxelPosition.ChunkGridPosition != SingleChunkGridPosition)
 	{
 		// Return if adding to single chunk border
 		return;
 	}
 	
 	// Modify voxel at hit position
-	FVoxelChange Modification(VoxelName, VoxelPosition);
+	FVoxelChange Modification(VoxelName, VoxelPosition.VoxelPosition);
 	StartMeshing(&Modification);
+}
+
+FName ASingleChunkSpawnerBase::GetVoxelFromChunk(const FVoxelPosition& VoxelPosition)
+{
+	const auto VoxelIndex = VoxelGenerator->CalculateVoxelIndex(VoxelPosition.VoxelPosition);
+	const auto Voxel = SingleChunk->VoxelModel->GetVoxelAtIndex(VoxelIndex);
+	const auto VoxelType = VoxelGenerator->GetVoxelTypeById(Voxel);
+	return VoxelType.Key;
 }

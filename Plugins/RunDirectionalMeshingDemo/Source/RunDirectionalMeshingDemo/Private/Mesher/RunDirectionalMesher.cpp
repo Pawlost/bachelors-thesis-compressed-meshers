@@ -37,7 +37,7 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChang
 	GenerateMeshFromFaces(MeshVars);
 }
 
-void URunDirectionalMesher::FaceGeneration(UVoxelGrid& VoxelGridObject, FMesherVariables& faceParams) const
+void URunDirectionalMesher::FaceGeneration(const UVoxelGrid& VoxelGridObject, FMesherVariables& faceParams) const
 {
 #if CPUPROFILERTRACE_ENABLED
 	TRACE_CPUPROFILER_EVENT_SCOPE("Run lenght meshing generation")
@@ -152,7 +152,7 @@ bool URunDirectionalMesher::IsBorderVoxelVisible(const FVoxelIndexParams& FaceDa
 		// Check voxel visibility in side chunk (crosschunk)
 		const auto FaceContainerIndex = static_cast<uint8>(FaceData.FaceDirection);
 		const auto SideChunk = ChunkStruct.SideChunks[FaceContainerIndex];
-		if (SideChunk != nullptr)
+		if (SideChunk != nullptr && SideChunk->VoxelModel != nullptr)
 		{
 			const auto& NextVoxel =  SideChunk->VoxelModel->GetVoxelAtIndex(FaceData.CurrentVoxelIndex);
 			return NextVoxel.IsTransparent() && NextVoxel != FaceData.CurrentVoxel;
