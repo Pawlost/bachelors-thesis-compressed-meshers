@@ -19,15 +19,6 @@ class UVoxelGeneratorWrapper : public UVoxelGenerator
 	GENERATED_BODY()
 
 public:
-	TObjectPtr<APreloadedVoxelCenterAreaChunkSpawner> ChunkSpawner;
- 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowAbstract="false", BlueprintBaseOnly), NoClear,
-		Category="Chunk")
-	TSubclassOf<UVoxelGeneratorBase> VoxelGeneratorBlueprint = nullptr;
- 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowAbstract="false", BlueprintBaseOnly), NoClear,
-		Category="Chunk")
-	TSubclassOf<APreloadedVoxelCenterAreaChunkSpawner> ChunkSpawnerBlueprint = nullptr;
 	
 	//~ Begin UVoxelGenerator Interface
 	virtual TVoxelSharedRef<FVoxelGeneratorInstance> GetInstance() override;
@@ -53,7 +44,5 @@ public:
 	//~ End FVoxelGeneratorInstance Interface
 
 private:
-	TSubclassOf<UVoxelGeneratorBase> VoxelGeneratorBlueprint = nullptr;
-	TSubclassOf<APreloadedVoxelCenterAreaChunkSpawner> ChunkSpawnerBlueprint = nullptr;
-	TObjectPtr<APreloadedVoxelCenterAreaChunkSpawner> ChunkSpawnerPtr;
+	TObjectPtr<AChunkSpawnerBase> ChunkSpawnerPtr;
 };

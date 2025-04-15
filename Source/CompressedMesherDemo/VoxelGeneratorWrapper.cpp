@@ -13,23 +13,24 @@ TVoxelSharedRef<FVoxelGeneratorInstance> UVoxelGeneratorWrapper::GetInstance()
 ///////////////////////////////////////////////////////////////////////////////
 
 FVoxelGeneratorExampleInstance::FVoxelGeneratorExampleInstance(UVoxelGeneratorWrapper& MyGenerator)
-	: Super(&MyGenerator), ChunkSpawnerBlueprint(MyGenerator.ChunkSpawnerBlueprint)
+	: Super(&MyGenerator)
 {
 }
 
 void FVoxelGeneratorExampleInstance::Init(const FVoxelGeneratorInit& InitStruct)
 {
 	if (ChunkSpawnerPtr == nullptr){
-		auto WorldPtr = InitStruct.World.Get()->GetWorld();
-	 
-		if (!IsValid(WorldPtr))
+		TArray<AActor*> Children;
+		InitStruct.World->GetAttachedActors(Children);
+		for (const auto Child : Children)
 		{
-			return;
+			auto CastResult = Cast<AChunkSpawnerBase>(Child);
+
+			if (CastResult != nullptr)
+			{
+				ChunkSpawnerPtr = CastResult;
+			}
 		}
-
-
-		ChunkSpawnerPtr = WorldPtr->SpawnActor<APreloadedVoxelCenterAreaChunkSpawner>(ChunkSpawnerBlueprint, FVector(),
-										 FRotator::ZeroRotator);
 	}
 	
 	if (ChunkSpawnerPtr != nullptr && ChunkSpawnerPtr->IsInitialized())
