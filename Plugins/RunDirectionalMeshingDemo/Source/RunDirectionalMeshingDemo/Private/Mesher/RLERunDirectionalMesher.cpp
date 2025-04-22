@@ -85,9 +85,13 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 
 	const int ChunkDimension = VoxelGenerator->GetVoxelCountPerChunkDimension();
 
+	const int XIndex = VoxelGenerator->CalculateVoxelIndex(1,0,0);
+	const int ZIndex = VoxelGenerator->CalculateVoxelIndex(0,0,1);
+
 	// Traverse through voxel grid
 	for (int x = 0; x < ChunkDimension; x++)
 	{
+		const int CurrentIndexX = VoxelGenerator->CalculateVoxelIndex(x,0,0);
 		for (int z = 0; z < ChunkDimension; z++)
 		{
 			IndexParams.YStart = 0;
@@ -156,28 +160,35 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 				{
 					YEnd = ChunkDimension - IndexParams.YStart;
 				}
-
+				
 				if (!IndexParams.CurrentRLERun.IsVoxelEmpty())
 				{
 					// Generate run faces
 					auto InitialPosition = FIntVector(x, IndexParams.YStart, z);
 
+					// Tail culling
+					if (IndexParams.TraversedRun - XIndex < 0)
+					{
+						// Back
+						CreateFace(MeshVars, FStaticMergeData::BackFaceData, InitialPosition, IndexParams.CurrentRLERun,
+							   YEnd);
+					}
+
 					// Front
 					CreateFace(MeshVars, FStaticMergeData::FrontFaceData, InitialPosition, IndexParams.CurrentRLERun,
-					           YEnd);
-
-					// Back
-					CreateFace(MeshVars, FStaticMergeData::BackFaceData, InitialPosition, IndexParams.CurrentRLERun,
-					           YEnd);
-
+								   YEnd);	
+				
 					// Top
 					CreateFace(MeshVars, FStaticMergeData::TopFaceData, InitialPosition, IndexParams.CurrentRLERun,
 					           YEnd);
 
-					// Bottom
-					CreateFace(MeshVars, FStaticMergeData::BottomFaceData, InitialPosition, IndexParams.CurrentRLERun,
+					// Tail culling
+					if (z == 0 || IndexParams.TraversedRun - ZIndex < 0){
+						// Bottom
+						CreateFace(MeshVars, FStaticMergeData::BottomFaceData, InitialPosition, IndexParams.CurrentRLERun,
 					           YEnd);
-
+					}
+					
 					// Right
 					CreateFace(MeshVars, FStaticMergeData::RightFaceData, InitialPosition, IndexParams.CurrentRLERun,
 					           YEnd);
@@ -186,7 +197,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 					CreateFace(MeshVars, FStaticMergeData::LeftFaceData, InitialPosition, IndexParams.CurrentRLERun,
 					           YEnd);
 				}
-
+				
 				IndexParams.TraversedRun += YEnd;
 				IndexParams.YStart += YEnd;
 			}

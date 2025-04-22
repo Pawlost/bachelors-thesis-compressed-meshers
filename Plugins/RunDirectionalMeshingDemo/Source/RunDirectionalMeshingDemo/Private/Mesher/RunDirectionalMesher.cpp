@@ -33,7 +33,7 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChang
 	
 	InitFaceContainers(MeshVars);
 	FaceGeneration(VoxelGrid, MeshVars);
-//	DirectionalGreedyMeshing(MeshVars);
+	DirectionalGreedyMeshing(MeshVars);
 	GenerateMeshFromFaces(MeshVars);
 }
 
