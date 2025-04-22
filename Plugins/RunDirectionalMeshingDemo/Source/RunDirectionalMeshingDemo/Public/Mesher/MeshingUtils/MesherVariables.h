@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "FaceDirection.h"
-#include "Chunk/ChunkFace.h"
 #include "Chunk/Chunk.h"
 #include "MesherVariables.generated.h"
 
@@ -27,7 +26,7 @@ struct RUNDIRECTIONALMESHINGDEMO_API FMesherVariables
 {
 	GENERATED_BODY()
 
-	TArray<TSharedPtr<TArray<FChunkFace>>> Faces[CHUNK_FACE_COUNT];
+	TArray<TSharedPtr<TArray<FVoxelFace>>> Faces[CHUNK_FACE_COUNT];
 	FChunkParams ChunkParams;
 	TMap<uint16, uint16> VoxelIdToLocalVoxelMap; 
 };

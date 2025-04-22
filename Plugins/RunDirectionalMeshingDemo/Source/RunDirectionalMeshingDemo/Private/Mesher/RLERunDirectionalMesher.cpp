@@ -2,6 +2,7 @@
 #include "Mesher/RunDirectionalMesher.h"
 
 #include "Mesher/MeshingUtils/MesherVariables.h"
+#include "Mesher/MeshingUtils/VoxelChange.h"
 #include "Voxel/RLEVoxel.h"
 #include "Voxel/Grid/RLEVoxelGrid.h"
 
@@ -234,7 +235,7 @@ void URLERunDirectionalMesher::CreateFace(FMesherVariables& MeshVars, const FSta
                                           const FIntVector& InitialPosition, const FRLEVoxel& RLEVoxel, const int YEnd)
 {
 	const int LocalVoxelId = MeshVars.VoxelIdToLocalVoxelMap[RLEVoxel.Voxel.VoxelId];
-	const FChunkFace NewFace = StaticData.FaceCreator(RLEVoxel.Voxel, InitialPosition, YEnd);
+	const FVoxelFace NewFace = StaticData.FaceCreator(RLEVoxel.Voxel, InitialPosition, YEnd);
 	const auto FaceContainerIndex = static_cast<uint8>(StaticData.FaceSide);
 	MeshVars.Faces[FaceContainerIndex][LocalVoxelId]->Push(NewFace);
 }

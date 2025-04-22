@@ -22,10 +22,10 @@ void UMesherBase::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 }
 
 const UMesherBase::FNormalsAndTangents UMesherBase::FaceNormalsAndTangents[] = {
-	{FVector3f(-1.0f, 0.0f, 0.0f), FVector3f(0.0, 1.0, 0.0)}, //Front
-	{FVector3f(1.0f, 0.0f, 0.0f), FVector3f(0.0, 1.0, 0.0)}, //Back
-	{FVector3f(0.0f, -1.0f, 0.0f), FVector3f(1.0f, 0.0f, 0.0f)}, // Right 
-	{FVector3f(0.0f, 1.0f, 0.0f), FVector3f(1.0, 0.0, 0.0)}, // Left
+	{FVector3f(1.0f, 0.0f, 0.0f), FVector3f(0.0, 1.0, 0.0)}, //Front
+	{FVector3f(-1.0f, 0.0f, 0.0f), FVector3f(0.0, 1.0, 0.0)}, //Back
+	{FVector3f(0.0f, 1.0f, 0.0f), FVector3f(1.0f, 0.0f, 0.0f)}, // Right 
+	{FVector3f(0.0f, -1.0f, 0.0f), FVector3f(1.0, 0.0, 0.0)}, // Left
 	{FVector3f(0.0f, 0.0f, -1.0f), FVector3f(1.0f, 0.0f, 0.0f)}, //Bottom
 	{FVector3f(0.0f, 0.0f, 1.0f), FVector3f(1.0f, 0.0f, 0.0f)} //Top
 };
@@ -34,22 +34,22 @@ void UMesherBase::UpdateAllFacesParams()
 {
 	const auto ChunkDimension = VoxelGenerator->GetVoxelCountPerChunkDimension();
 	//Axis X
-	UpdateFaceParams(FrontFaceTemplate, FIntVector(-1, 0, 0),
-	                 FIntVector(ChunkDimension - 1, 0, 0),
-	                 FIntVector(0, -1, 0));
+	UpdateFaceParams(FrontFaceTemplate, FIntVector(1, 0, 0),
+					 FIntVector(0, 0, 0),
+					FIntVector(0, -1, 0));
 
-	UpdateFaceParams(BackFaceTemplate, FIntVector(1, 0, 0),
-	                 FIntVector(0, 0, 0),
-	                 FIntVector(0, -1, 0));
+	UpdateFaceParams(BackFaceTemplate, FIntVector(-1, 0, 0),
+				FIntVector(ChunkDimension - 1, 0, 0),
+				FIntVector(0, -1, 0));
 
 	//Axis Y
-	UpdateFaceParams(RightFaceTemplate, FIntVector(0, -1, 0),
-	                 FIntVector(0, ChunkDimension - 1, 0),
-	                 FIntVector(-1, 0, 0));
+	UpdateFaceParams(RightFaceTemplate, FIntVector(0, 1, 0),
+					 FIntVector(0, 0, 0),
+					 FIntVector(-1, 0, 0));
 
-	UpdateFaceParams(LeftFaceTemplate, FIntVector(0, 1, 0),
-	                 FIntVector(0, 0, 0),
-	                 FIntVector(-1, 0, 0));
+	UpdateFaceParams(LeftFaceTemplate,FIntVector(0, -1, 0),
+					 FIntVector(0, ChunkDimension - 1, 0),
+					 FIntVector(-1, 0, 0));
 
 	// Axis Z
 	UpdateFaceParams(BottomFaceTemplate, FIntVector(0, 0, -1),
@@ -114,7 +114,7 @@ void UMesherBase::InitFaceContainers(FMesherVariables& MeshVars) const
 			if (FaceArray == nullptr || !FaceArray.IsValid())
 			{
 				// In case voxel table is not available this code needs to be rewritten to add local voxels id dynamically during voxel grid traversal
-				FaceArray = MakeShared<TArray<FChunkFace>>();
+				FaceArray = MakeShared<TArray<FVoxelFace>>();
 				MeshVars.Faces[f][Voxel.Value] = FaceArray;
 			}
 			else

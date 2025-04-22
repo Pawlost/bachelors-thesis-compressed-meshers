@@ -33,7 +33,7 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChang
 	
 	InitFaceContainers(MeshVars);
 	FaceGeneration(VoxelGrid, MeshVars);
-	DirectionalGreedyMeshing(MeshVars);
+//	DirectionalGreedyMeshing(MeshVars);
 	GenerateMeshFromFaces(MeshVars);
 }
 
@@ -68,10 +68,12 @@ void URunDirectionalMesher::FaceGeneration(const UVoxelGrid& VoxelGridObject, FM
 				* Grid is only read from, it doesn't matter which coordinate is first
 				* Each voxel needs to be visited only once per face.
 				* Indices are same for face and reversed face.
+				*
+				* The run direction is from left to right, bottom to top and left to right.
 				*/
-				IncrementRun(x, y, z, XAxisIndex, bMinBorder, bMaxBorder, FrontFaceTemplate, BackFaceTemplate,
+				IncrementRun(x, y, z, XAxisIndex, bMinBorder, bMaxBorder, BackFaceTemplate, FrontFaceTemplate,
 				             faceParams, VoxelGridObject);
-				IncrementRun(y, x, z, YAxisIndex, bMinBorder, bMaxBorder, RightFaceTemplate, LeftFaceTemplate,
+				IncrementRun(y, x, z, YAxisIndex, bMinBorder, bMaxBorder, LeftFaceTemplate, RightFaceTemplate,
 				             faceParams, VoxelGridObject);
 				IncrementRun(z, y, x, ZAxisIndex, bMinBorder, bMaxBorder, BottomFaceTemplate, TopFaceTemplate,
 				             faceParams, VoxelGridObject);
@@ -110,7 +112,7 @@ void URunDirectionalMesher::IncrementRun(const int X, const int Y, const int Z, 
 void URunDirectionalMesher::AddFace(const UVoxelGrid& VoxelGridObject, const FMeshingDirections& FaceTemplate, const bool bIsBorder,
                                const int32& Index, const FIntVector& Position, const FVoxel& Voxel,
                                const int32& AxisVoxelIndex,
-                               const TSharedPtr<TArray<FChunkFace>>& ChunkFaces, const FChunkParams& ChunkParams)
+                               const TSharedPtr<TArray<FVoxelFace>>& ChunkFaces, const FChunkParams& ChunkParams)
 {
 	// Calculate indices need to check if face should be generated
 	const FVoxelIndexParams VoxelIndexParams =
@@ -127,12 +129,12 @@ void URunDirectionalMesher::AddFace(const UVoxelGrid& VoxelGridObject, const FMe
 	if (IsBorderVoxelVisible(VoxelIndexParams, ChunkParams) || IsVoxelVisible(VoxelGridObject, VoxelIndexParams))
 	{
 		// Generate new face with coordinates
-		const FChunkFace NewFace = FaceTemplate.StaticMeshingData.FaceCreator(Voxel, Position, 1);
+		const FVoxelFace NewFace = FaceTemplate.StaticMeshingData.FaceCreator(Voxel, Position, 1);
 
 		if (!ChunkFaces->IsEmpty())
 		{
 			// Tries to merge face coordinates into previous face. Because faces are sorted, the last one is always the correct one.
-			FChunkFace& PrevFace = ChunkFaces->Last();
+			FVoxelFace& PrevFace = ChunkFaces->Last();
 			
 			if (FaceTemplate.StaticMeshingData.RunDirectionFaceMerge(PrevFace, NewFace))
 			{
@@ -191,7 +193,7 @@ void URunDirectionalMesher::DirectionalGreedyMeshing(const FMesherVariables& Mes
 			// Iterate from last face
 			for (int32 i = LastElementIndex - 1; i >= 0; i--)
 			{
-				FChunkFace& NextFace = (*FaceContainer)[i + 1];
+				FVoxelFace& NextFace = (*FaceContainer)[i + 1];
 
 				int BackTrackIndex = i;
 
@@ -202,7 +204,7 @@ void URunDirectionalMesher::DirectionalGreedyMeshing(const FMesherVariables& Mes
 				 */
 				while (FaceContainer->IsValidIndex(BackTrackIndex))
 				{
-					FChunkFace& Face = (*FaceContainer)[BackTrackIndex];
+					FVoxelFace& Face = (*FaceContainer)[BackTrackIndex];
 
 					if (Face.StartVertexUp.Z < NextFace.StartVertexDown.Z)
 					{
@@ -210,7 +212,7 @@ void URunDirectionalMesher::DirectionalGreedyMeshing(const FMesherVariables& Mes
 						break;
 					}
 
-					if (FChunkFace::MergeFaceUp(Face, NextFace))
+					if (FVoxelFace::MergeFaceUp(Face, NextFace))
 					{
 						// Break the iteration if merge was found
 						FaceContainer->RemoveAt(i + 1, EAllowShrinking::No);

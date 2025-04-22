@@ -1,12 +1,12 @@
 ﻿#pragma once
 #include "FaceDirection.h"
-#include "Chunk/ChunkFace.h"
+#include "VoxelFace.h"
 
 struct FStaticMergeData
 {
 	const EFaceDirection FaceSide;
-	const TFunctionRef<bool(FChunkFace& PrevFace, const FChunkFace& NewFace)> RunDirectionFaceMerge;
-	const TFunctionRef<FChunkFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght)> FaceCreator;
+	const TFunctionRef<bool(FVoxelFace& PrevFace, const FVoxelFace& NewFace)> RunDirectionFaceMerge;
+	const TFunctionRef<FVoxelFace(const FVoxel& Voxel, const FIntVector& InitialPosition, const int RunLenght)> FaceCreator;
 	
 	static FStaticMergeData FrontFaceData;
 	static FStaticMergeData BackFaceData;

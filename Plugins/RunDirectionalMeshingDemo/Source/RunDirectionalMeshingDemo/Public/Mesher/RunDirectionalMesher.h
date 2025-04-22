@@ -1,9 +1,7 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
 #include "MesherBase.h"
-#include "Mesh/RealtimeMeshDataStream.h"
 #include "MeshingUtils/MeshingDirections.h"
-#include "MeshingUtils/VoxelChange.h"
 #include "RunDirectionalMesher.generated.h"
 
 class UVoxelGrid;
@@ -38,7 +36,7 @@ private:
 	static void AddFace(const UVoxelGrid& VoxelGridObject,const FMeshingDirections& FaceTemplate, bool bIsBorder,
 	                    const int32& Index, const FIntVector& Position, const FVoxel& Voxel,
 	                    const int32& AxisVoxelIndex,
-	                    const TSharedPtr<TArray<FChunkFace>>& ChunkFaces, const FChunkParams& ChunkParams);
+	                    const TSharedPtr<TArray<FVoxelFace>>& ChunkFaces, const FChunkParams& ChunkParams);
 
 	void FaceGeneration(const UVoxelGrid& VoxelGridObject, FMesherVariables& MeshVars) const;
 	static void DirectionalGreedyMeshing(const FMesherVariables& MeshVars);
