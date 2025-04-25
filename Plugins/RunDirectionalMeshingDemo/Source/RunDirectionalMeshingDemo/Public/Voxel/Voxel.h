@@ -34,7 +34,7 @@ struct RUNDIRECTIONALMESHINGDEMO_API FVoxel
 
 	FORCEINLINE bool operator==(const FVoxel& OtherVoxel) const
 	{
-		// Transparent is not considered because VoxelIds are the same.
+		// Transparent value is not considered during comparison because VoxelIds are the same.
 		return VoxelId == OtherVoxel.VoxelId;
 	}
 

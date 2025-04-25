@@ -99,13 +99,13 @@ void URunDirectionalMesher::IncrementRun(const int X, const int Y, const int Z, 
 		auto OriginalChunk = MeshVars.ChunkParams.OriginalChunk;
 		const auto LocalVoxelId = MeshVars.VoxelIdToLocalVoxelMap[Voxel.VoxelId];
 		const auto FaceContainerIndex = static_cast<uint8>(FaceTemplate.StaticMeshingData.FaceSide);
-		const auto FaceContainerVoxelIndex = static_cast<uint8>(ReversedFaceTemplate.StaticMeshingData.FaceSide);
+		const auto ReversedFaceContainerIndex = static_cast<uint8>(ReversedFaceTemplate.StaticMeshingData.FaceSide);
 	
 		// Generate face for each direction
 		AddFace(VoxelGridObject, FaceTemplate, bIsMinBorder, Index, Position, Voxel, AxisVoxelIndex,
 		        MeshVars.Faces[FaceContainerIndex][LocalVoxelId], MeshVars.ChunkParams);
 		AddFace(VoxelGridObject, ReversedFaceTemplate, bIsMaxBorder, Index, Position, Voxel, AxisVoxelIndex,
-		        MeshVars.Faces[FaceContainerVoxelIndex][LocalVoxelId], MeshVars.ChunkParams);
+		        MeshVars.Faces[ReversedFaceContainerIndex][LocalVoxelId], MeshVars.ChunkParams);
 	}
 }
 

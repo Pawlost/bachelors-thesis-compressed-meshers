@@ -24,6 +24,8 @@ public:
 	
 	virtual FName GetVoxelFromChunk(const FVoxelPosition& VoxelPosition) override;
 	
+	virtual TSharedFuture<void> SpawnChunksAsync() override;
+	
 protected:
 	virtual void BeginPlay() override;
 	virtual void StartMeshing(FVoxelChange* VoxelChange = nullptr) PURE_VIRTUAL(ASingleChunkSpawnerBase::StartMeshing)

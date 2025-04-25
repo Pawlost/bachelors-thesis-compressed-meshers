@@ -2,9 +2,11 @@
 
 #include "RealtimeMeshComponent.h"
 #include "RealtimeMeshSimple.h"
+#include "Log/VoxelMeshingProfilingLogger.h"
 #include "Mesh/RealtimeMeshBuilder.h"
 #include "Mesher/MeshingUtils/MesherVariables.h"
 #include "Spawner/ChunkSpawnerBase.h"
+#include "Voxel/RLEVoxel.h"
 #include "Voxel/Grid/VoxelGrid.h"
 
 void UMesherBase::SetVoxelGenerator(const TObjectPtr<UVoxelGeneratorBase>& VoxelGeneratorBase)
@@ -15,10 +17,22 @@ void UMesherBase::SetVoxelGenerator(const TObjectPtr<UVoxelGeneratorBase>& Voxel
 
 void UMesherBase::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 {
+
+#if CPUPROFILERTRACE_ENABLED
+	TRACE_CPUPROFILER_EVENT_SCOPE("Compression generation")
+#endif
+
+	// Unoptimized because it is out of scope for this thesis
 	auto VoxelGridObject = NewObject<UVoxelGrid>();
 	VoxelGridObject->VoxelGrid = MakeShared<TArray<FVoxel>>();
 	VoxelGridObject->VoxelGrid->Append(VoxelGrid);
 	Chunk.VoxelModel = VoxelGridObject;
+
+#ifdef UE_BUILD_DEBUG 
+	const FString MapName = GetWorld()->GetMapName();
+	FVoxelMeshingProfilingLogger::LogAllocatedMemory(MapName, VoxelGridObject->VoxelGrid->GetAllocatedSize());
+#endif
+	
 }
 
 const UMesherBase::FNormalsAndTangents UMesherBase::FaceNormalsAndTangents[] = {
@@ -138,7 +152,7 @@ void UMesherBase::GenerateMeshFromFaces(const FMesherVariables& MeshVars) const
 
 	auto StreamSet = MakeShared<RealtimeMesh::FRealtimeMeshStreamSet>();
 
-	RealtimeMesh::TRealtimeMeshBuilderLocal<int32> Builder(*StreamSet.ToWeakPtr().Pin());
+	TRealtimeMeshBuilderLocal<int32> Builder(*StreamSet.ToWeakPtr().Pin());
 
 	Builder.EnableTexCoords();
 	Builder.EnableColors();
@@ -208,6 +222,11 @@ void UMesherBase::GenerateMeshFromFaces(const FMesherVariables& MeshVars) const
 		return;
 	}
 
+#ifdef UE_BUILD_DEBUG 
+	const FString MapName = GetWorld()->GetMapName();
+	FVoxelMeshingProfilingLogger::LogGeneratedVertices(MapName, Builder.NumVertices());
+#endif
+	
 	auto Spawner = MakeShared<FChunkParams>(MeshVars.ChunkParams);
 
 	if (!MeshVars.ChunkParams.ExecutedOnMainThread)
@@ -228,8 +247,8 @@ void UMesherBase::GenerateMeshFromFaces(const FMesherVariables& MeshVars) const
 }
 
 void UMesherBase::GenerateActorMesh(const TMap<uint32, uint16>& LocalVoxelTable,
-                                              const RealtimeMesh::FRealtimeMeshStreamSet& StreamSet,
-                                              const TSharedPtr<FChunkParams>& ChunkParams) const
+                                    const RealtimeMesh::FRealtimeMeshStreamSet& StreamSet,
+                                    const TSharedPtr<FChunkParams>& ChunkParams) const
 {
 	const auto World = GetWorld();
 	if (!IsValid(World))
@@ -285,7 +304,7 @@ void UMesherBase::GenerateActorMesh(const TMap<uint32, uint16>& LocalVoxelTable,
 	ActorPtr->PrepareMesh();
 	const auto RealtimeMesh = ActorPtr->RealtimeMeshComponent->GetRealtimeMeshAs<
 		URealtimeMeshSimple>();
-
+	
 	// Fill actor with mesh
 	// Now we create the section group, since the stream set has polygroups, this will create the sections as well
 	RealtimeMesh->CreateSectionGroup(ActorPtr->GroupKey, StreamSet);

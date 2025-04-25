@@ -145,10 +145,8 @@ double UNoiseVoxelGridGenerator::GetHighestElevationAtLocation(const FVector& Lo
 		                                              SurfaceGenerator.VoxelType.Surface_DistanceFromSeaLevel);
 
 		// Generate gradients at position, since noise is pseudorandom number generator using seed the values will be the same
-		if (Elevation > MaxElevation)
-		{
-			MaxElevation = Elevation;
-		}
+
+		MaxElevation = FMath::Max(Elevation, MaxElevation);
 	}
 
 	return MaxElevation * VoxelSize;

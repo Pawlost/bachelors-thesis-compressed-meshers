@@ -1,4 +1,6 @@
 ﻿#include "Mesher/RLERunDirectionalMesher.h"
+
+#include "Log/VoxelMeshingProfilingLogger.h"
 #include "Mesher/RunDirectionalMesher.h"
 
 #include "Mesher/MeshingUtils/MesherVariables.h"
@@ -8,6 +10,11 @@
 
 void URLERunDirectionalMesher::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 {
+
+#if CPUPROFILERTRACE_ENABLED
+	TRACE_CPUPROFILER_EVENT_SCOPE("RLE compression generation")
+#endif
+	
 	auto VoxelGridObject = NewObject<URLEVoxelGrid>();
 
 	const auto RLEVoxelGrid = MakeShared<TArray<FRLEVoxel>>();
@@ -30,6 +37,11 @@ void URLERunDirectionalMesher::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& 
 
 	VoxelGridObject->RLEVoxelGrid = RLEVoxelGrid;
 	Chunk.VoxelModel = VoxelGridObject;
+
+#ifdef UE_BUILD_DEBUG 
+	const FString MapName = GetWorld()->GetMapName();
+	FVoxelMeshingProfilingLogger::LogAllocatedMemory(MapName, VoxelGridObject->RLEVoxelGrid->GetAllocatedSize());
+#endif
 }
 
 void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChange* VoxelChange)
@@ -91,7 +103,6 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 	// Traverse through voxel grid
 	for (int x = 0; x < ChunkDimension; x++)
 	{
-		const int CurrentIndexX = VoxelGenerator->CalculateVoxelIndex(x,0,0);
 		for (int z = 0; z < ChunkDimension; z++)
 		{
 			IndexParams.YStart = 0;
