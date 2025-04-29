@@ -186,13 +186,11 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 					}
 
 					// Front
-					CreateFace(MeshVars, FStaticMergeData::FrontFaceData, InitialPosition, IndexParams.CurrentRLERun,
-								   YEnd);	
-				
-					// Top
-					CreateFace(MeshVars, FStaticMergeData::TopFaceData, InitialPosition, IndexParams.CurrentRLERun,
-					           YEnd);
+					CreateFace(MeshVars, FStaticMergeData::FrontFaceData, InitialPosition, IndexParams.CurrentRLERun, YEnd);
 
+					// Top
+					CreateFace(MeshVars, FStaticMergeData::TopFaceData, InitialPosition, IndexParams.CurrentRLERun, YEnd);
+						
 					// Tail culling
 					if (z == 0 || IndexParams.TraversedRun - ZIndex < 0){
 						// Bottom
@@ -249,6 +247,11 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 			}
 		}
 
+#ifdef UE_BUILD_DEBUG 
+		const FString MapName = GetWorld()->GetMapName();
+		FVoxelMeshingProfilingLogger::LogAllocatedMemory(MapName, IndexParams.NewVoxelGrid->GetAllocatedSize());
+#endif
+		
 		VoxelGridPtr->RLEVoxelGrid = IndexParams.NewVoxelGrid;
 	}
 }

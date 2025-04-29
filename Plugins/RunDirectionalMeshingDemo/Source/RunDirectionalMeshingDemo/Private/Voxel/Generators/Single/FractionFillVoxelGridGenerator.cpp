@@ -8,6 +8,7 @@ void UFractionFillVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 	const auto ChunkDimension = GetVoxelCountPerChunkDimension();
 
 	TArray<FVoxel> VoxelGrid;
+	VoxelGrid.SetNum(GetVoxelCountPerChunk());
 
 	for (uint32 x = 0; x < ChunkDimension / XFraction; x++)
 	{

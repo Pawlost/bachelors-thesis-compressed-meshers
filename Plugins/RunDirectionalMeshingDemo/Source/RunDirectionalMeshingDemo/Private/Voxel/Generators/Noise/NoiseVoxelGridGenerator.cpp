@@ -51,7 +51,6 @@ void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 		return;
 	}
 
-	//TODO: cast to VoxelGrid, assign not compress if true
 	TArray<FVoxel> VoxelGrid;
 	VoxelGrid.SetNum(GetVoxelCountPerChunk());
 
