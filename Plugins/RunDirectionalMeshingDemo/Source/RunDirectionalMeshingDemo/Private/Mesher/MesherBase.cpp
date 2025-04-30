@@ -31,6 +31,14 @@ void UMesherBase::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 #ifdef UE_BUILD_DEBUG 
 	const FString MapName = GetWorld()->GetMapName();
 	FVoxelMeshingProfilingLogger::LogAllocatedMemory(MapName, VoxelGridObject->VoxelGrid->GetAllocatedSize());
+
+	const uint32 VoxelCount = VoxelGenerator->GetVoxelCountPerChunk();
+	uint32 OpaqueVoxelCount = 0;
+	for (const auto OpaqueVoxels : Chunk.ChunkVoxelIdTable)
+	{
+		OpaqueVoxelCount += OpaqueVoxels.Value;
+	}
+	FVoxelMeshingProfilingLogger::LogVoxelSparsity(MapName, OpaqueVoxelCount, VoxelCount - OpaqueVoxelCount);
 #endif
 	
 }

@@ -36,7 +36,7 @@ void UNoiseVoxelGridGenerator::BeginPlay()
 void UNoiseVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Noise Voxel generation");
+	TRACE_CPUPROFILER_EVENT_SCOPE("Noise Chunk generation");
 #endif
 
 	//NOTICE: This generation is unoptimized because it is not major part of my bachelor's thesis

@@ -13,3 +13,10 @@ void FVoxelMeshingProfilingLogger::LogGeneratedVertices(const FString& LevelName
 	UE_LOG(LogVoxelMeshingProfiling, Display, TEXT("Scenario name: %s; Vertices: %lld"), *LevelName,
 		   VerticesCount);
 }
+
+void FVoxelMeshingProfilingLogger::LogVoxelSparsity(const FString& LevelName, const uint32 OpaqueVoxelCount,
+	const uint32 TransparentVoxelCount)
+{
+	UE_LOG(LogVoxelMeshingProfiling, Display, TEXT("Scenario name: %s; OpaqueVoxelCount: %d; TransparentVoxelCount: %d"), *LevelName,
+		   OpaqueVoxelCount, TransparentVoxelCount);
+}
