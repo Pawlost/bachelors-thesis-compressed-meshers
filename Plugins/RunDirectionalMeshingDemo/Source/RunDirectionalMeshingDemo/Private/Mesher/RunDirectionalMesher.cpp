@@ -14,7 +14,7 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChang
 	}
 
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Mesh generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing generation")
 #endif
 
 	const auto VoxelGridPtr = Cast<UVoxelGrid>(MeshVars.ChunkParams.OriginalChunk->VoxelModel);
@@ -37,10 +37,10 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChang
 	GenerateMeshFromFaces(MeshVars);
 }
 
-void URunDirectionalMesher::FaceGeneration(const UVoxelGrid& VoxelGridObject, FMesherVariables& faceParams) const
+void URunDirectionalMesher::FaceGeneration(const UVoxelGrid& VoxelGridObject, FMesherVariables& FaceParams) const
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Run lenght meshing generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing from VoxelGrid generation")
 #endif
 
 	const auto ChunkDimension = VoxelGenerator->GetVoxelCountPerChunkDimension();
@@ -72,11 +72,11 @@ void URunDirectionalMesher::FaceGeneration(const UVoxelGrid& VoxelGridObject, FM
 				* The run direction is from left to right, bottom to top and left to right.
 				*/
 				IncrementRun(x, y, z, XAxisIndex, bMinBorder, bMaxBorder, BackFaceTemplate, FrontFaceTemplate,
-				             faceParams, VoxelGridObject);
+				             FaceParams, VoxelGridObject);
 				IncrementRun(y, x, z, YAxisIndex, bMinBorder, bMaxBorder, LeftFaceTemplate, RightFaceTemplate,
-				             faceParams, VoxelGridObject);
+				             FaceParams, VoxelGridObject);
 				IncrementRun(z, y, x, ZAxisIndex, bMinBorder, bMaxBorder, BottomFaceTemplate, TopFaceTemplate,
-				             faceParams, VoxelGridObject);
+				             FaceParams, VoxelGridObject);
 			}
 		}
 	}
@@ -179,7 +179,7 @@ bool URunDirectionalMesher::IsVoxelVisible(const UVoxelGrid& VoxelGridObject, co
 void URunDirectionalMesher::DirectionalGreedyMeshing(const FMesherVariables& MeshVars)
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Run directional greedy mesh generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing GreedyMesh generation")
 #endif
 
 	// Merge faces in sorted arrays

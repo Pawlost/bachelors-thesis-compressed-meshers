@@ -48,7 +48,7 @@ void ADespawnChunkSpawnerBase::DespawnChunks()
 				if (Chunk->ChunkMeshActor != nullptr)
 				{
 					Chunk->ChunkMeshActor->ClearMesh();
-					UnusedActors.Enqueue(Chunk->ChunkMeshActor);
+					UnusedActorsPool.Enqueue(Chunk->ChunkMeshActor);
 					Chunk->ChunkMeshActor = nullptr;
 				}
 

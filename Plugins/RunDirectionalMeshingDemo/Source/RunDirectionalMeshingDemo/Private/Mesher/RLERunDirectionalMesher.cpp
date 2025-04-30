@@ -44,49 +44,11 @@ void URLERunDirectionalMesher::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& 
 #endif
 }
 
-void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChange* VoxelChange)
+void URLERunDirectionalMesher::FaceGeneration(FIndexParams& IndexParams, FMesherVariables& MeshVars) const
 {
-	if (EmptyActor(MeshVars))
-	{
-		return;
-	}
-
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Mesh generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing from RLECompression generation")
 #endif
-
-	const auto VoxelGridPtr = Cast<URLEVoxelGrid>(MeshVars.ChunkParams.OriginalChunk->VoxelModel);
-
-	if (VoxelGridPtr == nullptr)
-	{
-		return;
-	}
-
-	FIndexParams IndexParams;
-	IndexParams.VoxelGrid = VoxelGridPtr->RLEVoxelGrid;
-	
-	if (VoxelChange != nullptr)
-	{
-		IndexParams.VoxelChange = VoxelChange;
-		IndexParams.NewVoxelGrid = MakeShared<TArray<FRLEVoxel>>();
-		IndexParams.NewVoxelGrid->Reserve(IndexParams.VoxelGrid->Num() + 1);
-		IndexParams.EditVoxel = VoxelGenerator->GetVoxelByName(VoxelChange->VoxelName);
-
-		if (!IndexParams.EditVoxel.IsEmptyVoxel())
-		{
-			auto& VoxelTable = MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable;
-			if (!VoxelTable.Contains(IndexParams.EditVoxel.VoxelId))
-			{
-				VoxelTable.Add(IndexParams.EditVoxel.VoxelId, 0);
-			}
-		}
-	}
-	else
-	{
-		IndexParams.NewVoxelGrid = nullptr;
-	}
-
-	InitFaceContainers(MeshVars);
 
 	bool bEdited = false;
 
@@ -137,7 +99,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 				}
 
 				// No action is need when in edit area, otherwise try to apply change and add next run to a new array
-				if (VoxelChange != nullptr)
+				if (IndexParams.VoxelChange != nullptr)
 				{
 					// Add only full runs
 					if (bIsNewRun)
@@ -147,11 +109,11 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 					}
 
 					//MID RUN EDIT
-					if (!bEdited && x == VoxelChange->VoxelPosition.X && z == VoxelChange->VoxelPosition.Z &&
-						IndexParams.YStart <= VoxelChange->VoxelPosition.Y)
+					if (!bEdited && x == IndexParams.VoxelChange->VoxelPosition.X && z == IndexParams.VoxelChange->VoxelPosition.Z &&
+						IndexParams.YStart <= IndexParams.VoxelChange->VoxelPosition.Y)
 					{
 						const auto RunEnd = IndexParams.YStart + YEnd;
-						if (RunEnd >= VoxelChange->VoxelPosition.Y)
+						if (RunEnd >= IndexParams.VoxelChange->VoxelPosition.Y)
 						{
 							// Calculated once per meshing
 							bEdited = true;
@@ -212,9 +174,9 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 			}
 
 			// END RUN EDIT
-			if (VoxelChange != nullptr && !bEdited && VoxelChange->VoxelPosition.Y == 0 && (x == VoxelChange->
+			if (IndexParams.VoxelChange != nullptr && !bEdited && IndexParams.VoxelChange->VoxelPosition.Y == 0 && (x == IndexParams.VoxelChange->
 				VoxelPosition.X && z + 1 ==
-				VoxelChange->VoxelPosition.Z || x + 1 == VoxelChange->VoxelPosition.X && VoxelChange->VoxelPosition.Z ==
+				IndexParams.VoxelChange->VoxelPosition.Z || x + 1 == IndexParams.VoxelChange->VoxelPosition.X && IndexParams.VoxelChange->VoxelPosition.Z ==
 				0 && z == ChunkDimension - 1))
 			{
 				// Calculated once per meshing
@@ -228,9 +190,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 		}
 	}
 
-	GenerateMeshFromFaces(MeshVars);
-
-	if (VoxelChange != nullptr)
+	if (IndexParams.VoxelChange != nullptr)
 	{
 		if (!IndexParams.EditVoxel.IsEmptyVoxel())
 		{
@@ -251,7 +211,59 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 		const FString MapName = GetWorld()->GetMapName();
 		FVoxelMeshingProfilingLogger::LogAllocatedMemory(MapName, IndexParams.NewVoxelGrid->GetAllocatedSize());
 #endif
-		
+	}
+}
+
+void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChange* VoxelChange)
+{
+	if (EmptyActor(MeshVars))
+	{
+		return;
+	}
+
+#if CPUPROFILERTRACE_ENABLED
+	TRACE_CPUPROFILER_EVENT_SCOPE("RLE RunDirectionalMeshing generation")
+#endif
+
+	const auto VoxelGridPtr = Cast<URLEVoxelGrid>(MeshVars.ChunkParams.OriginalChunk->VoxelModel);
+
+	if (VoxelGridPtr == nullptr)
+	{
+		return;
+	}
+
+	FIndexParams IndexParams;
+	IndexParams.VoxelGrid = VoxelGridPtr->RLEVoxelGrid;
+	
+	if (VoxelChange != nullptr)
+	{
+		IndexParams.VoxelChange = VoxelChange;
+		IndexParams.NewVoxelGrid = MakeShared<TArray<FRLEVoxel>>();
+		IndexParams.NewVoxelGrid->Reserve(IndexParams.VoxelGrid->Num() + 1);
+		IndexParams.EditVoxel = VoxelGenerator->GetVoxelByName(VoxelChange->VoxelName);
+
+		if (!IndexParams.EditVoxel.IsEmptyVoxel())
+		{
+			auto& VoxelTable = MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable;
+			if (!VoxelTable.Contains(IndexParams.EditVoxel.VoxelId))
+			{
+				VoxelTable.Add(IndexParams.EditVoxel.VoxelId, 0);
+			}
+		}
+	}
+	else
+	{
+		IndexParams.NewVoxelGrid = nullptr;
+	}
+
+	InitFaceContainers(MeshVars);
+
+	FaceGeneration(IndexParams, MeshVars);
+	
+	GenerateMeshFromFaces(MeshVars);
+	
+	if (IndexParams.VoxelChange != nullptr)
+	{
 		VoxelGridPtr->RLEVoxelGrid = IndexParams.NewVoxelGrid;
 	}
 }

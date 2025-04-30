@@ -19,7 +19,7 @@ void UMesherBase::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 {
 
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Compression generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Voxel compression generation")
 #endif
 
 	// Unoptimized because it is out of scope for this thesis
@@ -28,7 +28,7 @@ void UMesherBase::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& VoxelGrid)
 	VoxelGridObject->VoxelGrid->Append(VoxelGrid);
 	Chunk.VoxelModel = VoxelGridObject;
 
-#ifdef UE_BUILD_DEBUG 
+#if defined(UE_BUILD_DEBUG) || defined(UE_BUILD_DEVELOPMENT)
 	const FString MapName = GetWorld()->GetMapName();
 	FVoxelMeshingProfilingLogger::LogAllocatedMemory(MapName, VoxelGridObject->VoxelGrid->GetAllocatedSize());
 
@@ -112,7 +112,7 @@ bool UMesherBase::EmptyActor(const FMesherVariables& MeshVars)
 void UMesherBase::InitFaceContainers(FMesherVariables& MeshVars) const
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Mesh generation intialization")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Mesh generation preallocation")
 #endif
 
 	MeshVars.VoxelIdToLocalVoxelMap.Reserve(MeshVars.ChunkParams.OriginalChunk->ChunkVoxelIdTable.Num());
@@ -155,7 +155,7 @@ void UMesherBase::InitFaceContainers(FMesherVariables& MeshVars) const
 void UMesherBase::GenerateMeshFromFaces(const FMesherVariables& MeshVars) const
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Mesh stream generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing UE Buffer generation")
 #endif
 
 	auto StreamSet = MakeShared<RealtimeMesh::FRealtimeMeshStreamSet>();
@@ -230,7 +230,7 @@ void UMesherBase::GenerateMeshFromFaces(const FMesherVariables& MeshVars) const
 		return;
 	}
 
-#ifdef UE_BUILD_DEBUG 
+#if defined(UE_BUILD_DEBUG) || defined(UE_BUILD_DEVELOPMENT)
 	const FString MapName = GetWorld()->GetMapName();
 	FVoxelMeshingProfilingLogger::LogGeneratedVertices(MapName, Builder.NumVertices());
 #endif

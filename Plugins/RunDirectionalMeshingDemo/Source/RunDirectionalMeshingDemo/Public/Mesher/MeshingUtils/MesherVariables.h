@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "FaceDirection.h"
 #include "Chunk/Chunk.h"
+#include "Mesher/MeshingUtils/VoxelFace.h"
 #include "MesherVariables.generated.h"
 
 class AChunkSpawnerBase;

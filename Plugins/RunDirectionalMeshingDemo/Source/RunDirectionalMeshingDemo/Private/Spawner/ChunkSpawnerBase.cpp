@@ -115,11 +115,20 @@ void AChunkSpawnerBase::AddChunkToGrid(TSharedPtr<FChunk>& Chunk,
 		// Generate voxels on async thread if promise is expected
 		*AsyncExecution = Async(EAsyncExecution::ThreadPool, [this, Chunk]()
 		{
+			#if CPUPROFILERTRACE_ENABLED
+				TRACE_CPUPROFILER_EVENT_SCOPE("Voxel generation");
+			#endif
+
 			VoxelGenerator->GenerateVoxels(*Chunk.Get());
 		}).Share();
 	}
 	else
 	{
+		
+	#if CPUPROFILERTRACE_ENABLED
+			TRACE_CPUPROFILER_EVENT_SCOPE("Voxel generation");
+	#endif
+		
 		VoxelGenerator->GenerateVoxels(*Chunk);
 	}
 }

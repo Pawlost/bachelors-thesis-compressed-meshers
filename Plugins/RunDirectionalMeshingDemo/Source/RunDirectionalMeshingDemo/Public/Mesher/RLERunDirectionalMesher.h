@@ -4,6 +4,7 @@
 #include "Voxel/RLEVoxel.h"
 #include "RLERunDirectionalMesher.generated.h"
 
+class URLEVoxelGrid;
 struct FChunkParams;
 
 UCLASS(ClassGroup=(Meshers), Blueprintable)
@@ -50,7 +51,6 @@ private:
 	static bool CalculateBorderRunEditIndex(FIndexParams& IndexParams);
 
 	static void FirstRunEditIndex(FIndexParams& IndexParams);
-
-	
 	static void CalculateMidRun(const int MidRunLenght, const int EndRunLength, FIndexParams& IndexParams);
+	void FaceGeneration(FIndexParams& IndexParams, FMesherVariables& MeshVars) const;
 };

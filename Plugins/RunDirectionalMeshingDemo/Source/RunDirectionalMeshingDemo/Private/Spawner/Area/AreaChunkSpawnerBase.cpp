@@ -126,7 +126,7 @@ void AAreaChunkSpawnerBase::GenerateChunkMesh(FMesherVariables& MesherVars, cons
 
 	if (Chunk->ChunkMeshActor == nullptr)
 	{
-		UnusedActors.Dequeue(Chunk->ChunkMeshActor);
+		UnusedActorsPool.Dequeue(Chunk->ChunkMeshActor);
 	}
 
 	//Mesh could be spawned on a Async Thread similarly to voxel models but it is not done so to showcase real time speed of mesh generation (requirement for bachelor thesis)
@@ -134,7 +134,7 @@ void AAreaChunkSpawnerBase::GenerateChunkMesh(FMesherVariables& MesherVars, cons
 
 	if (!Chunk->bHasMesh)
 	{
-		UnusedActors.Enqueue(Chunk->ChunkMeshActor);
+		UnusedActorsPool.Enqueue(Chunk->ChunkMeshActor);
 		Chunk->ChunkMeshActor = nullptr;
 	}
 
@@ -152,6 +152,11 @@ void AAreaChunkSpawnerBase::GenerateChunkMesh(FMesherVariables& MesherVars, cons
 
 void AAreaChunkSpawnerBase::SpawnChunk(const FIntVector& ChunkGridPosition, TSharedFuture<void>* AsyncExecution)
 {
+#if CPUPROFILERTRACE_ENABLED
+	TRACE_CPUPROFILER_EVENT_SCOPE("Chunk spawning generation");
+#endif
+
+	
 	if (!IsValid(this) || ChunkGrid.Contains(ChunkGridPosition))
 	{
 		// Don't spawn chunk if there is one located at the grid position

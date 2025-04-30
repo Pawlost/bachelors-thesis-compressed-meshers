@@ -5,6 +5,7 @@
 #include "RunDirectionalMesher.generated.h"
 
 class UVoxelGrid;
+class URLEVoxelGrid;
 struct FChunkParams;
 
 UCLASS(ClassGroup=(Meshers), Blueprintable)
