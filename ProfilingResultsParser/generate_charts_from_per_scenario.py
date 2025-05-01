@@ -1,22 +1,45 @@
 import re
 import os
 import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
 
-def generate_fps_svg_chart(array, title, file_path):
+def generate_phase_svg_chart(output_file, title, dictionary):
+    
+    x_values = range(1, len(dictionary[1]) + 1)
+    
+    # Plot
+    plt.bar(x_values, dictionary[1], label='Inserting vertices to UE Buffer')
+    plt.bar(x_values, dictionary[2], bottom=dictionary[1], label='Voxel Meshing')
+    plt.bar(x_values, dictionary[3], bottom=np.array(dictionary[1]) + np.array(dictionary[2]), label='Other timings')
+
+    plt.xlabel('Scenario Number')
+    plt.ylabel('time [ms]')
+    plt.title(title)
+    plt.legend()
+    plt.xticks(x_values)
+
+    # Save as SVG
+    plt.tight_layout()  # Prevent label cutoff
+    plt.savefig(f"./Output/{output_file}", format='svg')
+    plt.close()  # Close the plot to free memory
+
+    print(f"{title} SVG graph saved as {output_file}")
+    
+def generate_fps_svg_chart(output_file, title, array):
     x_values = range(1, len(array) + 1)
     plt.bar(x_values, array, color='skyblue')
     plt.xlabel('Scenario Number')
     plt.ylabel('FPS')
     plt.title(title)
-    plt.grid(True)
     plt.xticks(x_values)
 
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
-    plt.savefig(file_path, format='svg')
+    plt.savefig(f"./Output/{output_file}", format='svg')
     plt.close()  # Close the plot to free memory
 
-    print(f"{title} SVG graph saved as {file_path}")
+    print(f"{title} SVG graph saved as {output_file}")
 
 def read_fps_file(log_file, fps_arr):
     if os.path.exists(log_file):
@@ -26,6 +49,85 @@ def read_fps_file(log_file, fps_arr):
             fps_arr.append(float(matches[0]))       
     else:
         fps_arr.append(0.0)
+        
+def read_csv_file_dictionary(csv_file, dictionary):
+    if os.path.exists(csv_file):
+
+        # Load the CSV
+        df = pd.read_csv(csv_file)
+
+        # Optional: convert times to floats if needed
+        df['StartTime'] = df['StartTime'].astype(float)
+        df['EndTime'] = df['EndTime'].astype(float)
+
+        # Calculate durations
+        df['Duration'] = (df['EndTime'] - df['StartTime']) * 1000
+        dictionary['mean'].append( df['Duration'].mean())
+        dictionary['median'].append( df['Duration'].median())
+        dictionary['min'].append( df['Duration'].min())
+        dictionary['max'].append( df['Duration'].max())
+    else:
+        dictionary['mean'].append(0)
+        dictionary['median'].append(0)
+        dictionary['min'].append(0)
+        dictionary['max'].append(0)
+
+def init_total_dictionary(dictionary):
+    dictionary['mean'] = []
+    dictionary['median'] = []
+    dictionary['min'] = []
+    dictionary['max'] = []
+    
+    
+def init_phase_dictionary(dictionary):
+    dictionary[0] = []
+    dictionary[1] = []
+    dictionary[2] = []
+    dictionary[3] = []
+    
+def read_phase(csv_file, array):
+    if os.path.exists(csv_file):
+
+        # Load the CSV
+        df = pd.read_csv(csv_file)
+
+        # Optional: convert times to floats if needed
+        df['StartTime'] = df['StartTime'].astype(float)
+        df['EndTime'] = df['EndTime'].astype(float)
+
+        # Calculate durations
+        df['Duration'] = (df['EndTime'] - df['StartTime']) * 1000
+        array.append( df['Duration'].sum())
+        print(f"{csv_file}: {array[-1]}")
+    else:
+        array.append(0)
+    
+def generate_total_time_chart(output_file, title, dictionary):
+    
+    for key, value in dictionary.items():
+        x_values = range(1, len(value) + 1)
+        plt.plot(x_values, value,  label=key)
+    
+    plt.xlabel('Scenario Number')
+    plt.ylabel('time [ms]')
+    plt.title(title)
+    plt.grid(True)
+    plt.legend()
+    plt.xticks(x_values)
+
+    # Save as SVG
+    plt.tight_layout()  # Prevent label cutoff
+    plt.savefig(f"./Output/{output_file}", format='svg')
+    plt.close()  # Close the plot to free memory
+
+    print(f"{title} SVG graph saved as {output_file}")
+    
+def read_phases(partial_path, phase_dict):
+    read_phase(f"{partial_path}_Total.csv", phase_dict[0])
+    read_phase(f"{partial_path}_Buffer.csv", phase_dict[1])
+    read_phase(f"{partial_path}.csv", phase_dict[2])
+    phase_dict[3].append(phase_dict[0][-1] - phase_dict[1][-1] - phase_dict[2][-1])
+    
     
 def generate_charts_interate_logs(folder_path, scenario_count):
     print("Reading scenario logs")
@@ -33,17 +135,58 @@ def generate_charts_interate_logs(folder_path, scenario_count):
     grid_fps_arr = []
     rle_fps_arr = []
     voxelplugin_fps_arr = []
+    #
+    voxelplugin_total_dict = {}
+    voxelplugin_phase_dict = {}
+
+    init_total_dictionary(voxelplugin_total_dict)
+    init_phase_dictionary(voxelplugin_phase_dict)
+    #
+    rle_total_dict = {}
+    rle_phase_dict = {}
+    init_total_dictionary(rle_total_dict)
+    init_phase_dictionary(rle_phase_dict)
+    #
+    grid_total_dict = {}
+    grid_phase_dict = {}
+    init_total_dictionary(grid_total_dict)
+    init_phase_dictionary(grid_phase_dict)
         
     for i in range(1, scenario_count):
         print(f"Reading Scenario{i}")
         read_fps_file(f"{folder_path}/{i}/Grid_FPS.log", grid_fps_arr)
         read_fps_file(f"{folder_path}/{i}/RLE_FPS.log", rle_fps_arr)
         read_fps_file(f"{folder_path}/{i}/VoxelPlugin_FPS.log", voxelplugin_fps_arr)
-         
-    print(grid_fps_arr)
-    print(rle_fps_arr)    
-    print(voxelplugin_fps_arr)
+        
+        #CSV
+        read_csv_file_dictionary(f"{folder_path}/{i}/VoxelPlugin_Meshing_Total.csv", voxelplugin_total_dict)
+        read_csv_file_dictionary(f"{folder_path}/{i}/RLE_Meshing_Total.csv", rle_total_dict)
+        read_csv_file_dictionary(f"{folder_path}/{i}/Grid_Meshing_Total.csv", grid_total_dict)
+        
+        #
+        read_phases(f"{folder_path}/{i}/Grid_Meshing", grid_phase_dict)
+        read_phases(f"{folder_path}/{i}/RLE_Meshing", rle_phase_dict)
+        read_phases(f"{folder_path}/{i}/VoxelPlugin_Meshing", voxelplugin_phase_dict)
+        voxelplugin_phase_dict[4] = []   
+        read_phase(f"{folder_path}/{i}/VoxelPlugin_Meshing_Octree.csv", voxelplugin_phase_dict[4])
+        voxelplugin_phase_dict[3][-1] -= voxelplugin_phase_dict[4][-1]
     
-    generate_fps_svg_chart(grid_fps_arr, "Run Directional Meshing FPS per Scenario", "./Output/grid_fps_plot.svg")
-    generate_fps_svg_chart(rle_fps_arr, "Run Directional Meshing FPS per Scenario", "./Output/rle_fps_plot.svg")
-    generate_fps_svg_chart(voxelplugin_fps_arr, "Run Directional Meshing FPS per Scenario", "./Output/voxelplugin_fps_plot.svg")
+    
+    
+    generate_fps_svg_chart("fps_grid_plot.svg", "Run Directional Meshing FPS per Scenario", grid_fps_arr)
+    generate_fps_svg_chart("fps_rle_plot.svg", "Run Directional Meshing FPS per Scenario", rle_fps_arr)
+    generate_fps_svg_chart("fps_voxelplugin_plot.svg", "Run Directional Meshing FPS per Scenario", voxelplugin_fps_arr)
+    
+    generate_total_time_chart("total_voxelplugin_plot.svg", "Total Voxel Meshing time in VoxelPlugin per Scenario", voxelplugin_total_dict)
+    generate_total_time_chart("total_rle_plot.svg", "Total Voxel Meshing time in RLECompression per Scenario", rle_total_dict)
+    generate_total_time_chart("total_grid_plot.svg", "Total Voxel Meshing time in VoxelGrid per Scenario", grid_total_dict)
+    
+    generate_phase_svg_chart("phase_grid_plot.svg","Voxel Meshing Phases in VoxelGrid per Scenario", grid_phase_dict)
+    generate_phase_svg_chart("phase_rle_plot.svg","Voxel Meshing Phases in RLECompression per Scenario", rle_phase_dict)
+    
+    x_values = range(1, len(voxelplugin_phase_dict[4]) + 1)
+    plt.bar(x_values, voxelplugin_phase_dict[4], bottom=np.array(voxelplugin_phase_dict[1]) + np.array(voxelplugin_phase_dict[2]) + np.array(voxelplugin_phase_dict[3]), label='Octree sampling')
+    generate_phase_svg_chart("phase_voxelplugin_plot.svg","Voxel Meshing Phases in VoxelPlugin per Scenario", voxelplugin_phase_dict)
+
+    return [np.array(voxelplugin_total_dict['mean']).mean(), np.array(rle_total_dict['mean']).mean(), np.array(grid_total_dict['mean']).mean()]
+

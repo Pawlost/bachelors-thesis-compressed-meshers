@@ -1,5 +1,6 @@
 import re
 import matplotlib.pyplot as plt
+import numpy as np
 
 def match_to_scenario(match):
     return int(match.group(1).strip()) - 1
@@ -12,12 +13,11 @@ def match_line_to_arr(regex_pattern, line, array):
         array[scenario_index] = value
 
 def generate_vertice_svg_chart(array, title, file_path):
-    x_values = range(1, len(array))
+    x_values = range(1, len(array) + 1)
     plt.bar(x_values, array, color='skyblue')
     plt.xlabel('Scenario Number')
     plt.ylabel('Vertices')
     plt.title(title)
-    plt.grid(True)
     plt.xticks(x_values)
 
     # Save as SVG
@@ -38,12 +38,12 @@ def generate_charts_from_log(log_file_path, scenario_count):
     log_pattern = re.compile(r".+LogVoxelMeshingProfiling.+")
 
     #Preallocate array to scenarios
-    scenario_memory_arr = [0] * scenario_count
-    scenario_vertices_rle_arr = [0] * scenario_count
-    scenario_vertices_grid_arr = [0] * scenario_count
-    scenario_vertices_voxelplugin_arr = [0] * scenario_count
-    scenario_opaque_voxels_arr = [0] * scenario_count
-    scenario_transparent_voxels_arr = [0] * scenario_count
+    scenario_memory_arr = np.zeros(scenario_count)
+    scenario_vertices_rle_arr = np.zeros(scenario_count)
+    scenario_vertices_grid_arr = np.zeros(scenario_count)
+    scenario_vertices_voxelplugin_arr = np.zeros( scenario_count)
+    scenario_opaque_voxels_arr = np.zeros( scenario_count)
+    scenario_transparent_voxels_arr = np.zeros(scenario_count)
 
     # Find matching lines in logs
     matching_lines = [line for line in file_lines if log_pattern.search(line)]
@@ -71,7 +71,7 @@ def generate_charts_from_log(log_file_path, scenario_count):
     print("Generating graphs.")
     
     # Create a voxel sparsity plot ------------
-    x_values = range(1, len(scenario_opaque_voxels_arr))
+    x_values = range(1, len(scenario_opaque_voxels_arr) + 1)
     
     # Plot
     plt.bar(x_values, scenario_opaque_voxels_arr, label='Opaque voxels')
@@ -90,16 +90,16 @@ def generate_charts_from_log(log_file_path, scenario_count):
     plt.close()  # Close the plot to free memory
 
     # Create a memory plot ---------
-    plt.axhline(y=262144, linewidth=3, color='b', linestyle='-', label='y=262144')
-    x_values = range(1, len(scenario_memory_arr))
+    plt.axhline(y=262144, linewidth=3, color='b', linestyle='-', label='Voxel Grid')
+    x_values = range(1, len(scenario_memory_arr) + 1)
 
-    bars = plt.bar(x_values, scenario_memory_arr, color='skyblue')
+    bars = plt.bar(x_values, scenario_memory_arr, color='skyblue', label="RLE Compressed")
     plt.bar_label(bars)
     plt.xlabel('Scenario Number')
     plt.ylabel('Voxel Model Memory (bytes)')
     plt.title('Voxel Model Memory Usage by Profiling Scenario')
-    plt.grid(True)
     plt.xticks(x_values)
+    plt.legend()
     
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
@@ -108,6 +108,8 @@ def generate_charts_from_log(log_file_path, scenario_count):
 
     print("Memory SVG graph saved as 'voxel_memory_plot.svg'")
 
-    generate_vertice_svg_chart(scenario_vertices_rle_arr, 'Run Directional Meshing from RLE', './Output/rle_vertices_plot.svg')
-    generate_vertice_svg_chart(scenario_vertices_grid_arr, 'Run Directional Meshing from Voxel Grid', './Output/grid_vertices_plot.svg')
-    generate_vertice_svg_chart(scenario_vertices_voxelplugin_arr, 'VoxelPlugin Cubic Meshing', './Output/voxelplugin_vertices_plot.svg')
+    generate_vertice_svg_chart(scenario_vertices_rle_arr, 'Run Directional Meshing from RLE', './Output/vertices_rle_plot.svg')
+    generate_vertice_svg_chart(scenario_vertices_grid_arr, 'Run Directional Meshing from Voxel Grid', './Output/vertices_grid_plot.svg')
+    generate_vertice_svg_chart(scenario_vertices_voxelplugin_arr, 'VoxelPlugin Cubic Meshing', './Output/vertices_voxelplugin_plot.svg')
+
+    return [scenario_vertices_rle_arr.mean(), scenario_vertices_grid_arr.mean(), scenario_vertices_voxelplugin_arr.mean()]
