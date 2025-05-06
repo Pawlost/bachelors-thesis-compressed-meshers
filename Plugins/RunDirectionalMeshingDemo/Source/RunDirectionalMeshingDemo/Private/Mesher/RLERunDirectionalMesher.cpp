@@ -38,7 +38,7 @@ void URLERunDirectionalMesher::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& 
 	VoxelGridObject->RLEVoxelGrid = RLEVoxelGrid;
 	Chunk.VoxelModel = VoxelGridObject;
 
-#ifdef UE_BUILD_DEBUG 
+#if defined(UE_BUILD_DEBUG) || defined(UE_BUILD_DEVELOPMENT)
 	const FString MapName = GetWorld()->GetMapName();
 	FVoxelMeshingProfilingLogger::LogAllocatedMemory(MapName, VoxelGridObject->RLEVoxelGrid->GetAllocatedSize());
 #endif
@@ -207,7 +207,7 @@ void URLERunDirectionalMesher::FaceGeneration(FIndexParams& IndexParams, FMesher
 			}
 		}
 
-#ifdef UE_BUILD_DEBUG 
+#if defined(UE_BUILD_DEBUG) || defined(UE_BUILD_DEVELOPMENT)
 		const FString MapName = GetWorld()->GetMapName();
 		FVoxelMeshingProfilingLogger::LogAllocatedMemory(MapName, IndexParams.NewVoxelGrid->GetAllocatedSize());
 #endif

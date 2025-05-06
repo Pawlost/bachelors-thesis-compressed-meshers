@@ -28,7 +28,7 @@ def generate_voxel_meshing_performance(output_file, title, multi_array):
 
     print(f"{title} SVG graph saved as {output_file}")
 
-SCENARIO_COUNT = 10
+SCENARIO_COUNT = 22
 
 scattegraph_array=[]
 scattegraph_array.append(logs.generate_charts_from_log('./Data/CompressedMesherDemo.log', SCENARIO_COUNT))

@@ -1,6 +1,8 @@
 import re
 import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
+
 
 def match_to_scenario(match):
     return int(match.group(1).strip()) - 1
@@ -14,7 +16,9 @@ def match_line_to_arr(regex_pattern, line, array):
 
 def generate_vertice_svg_chart(array, title, file_path):
     x_values = range(1, len(array) + 1)
-    plt.bar(x_values, array, color='skyblue')
+    plt.figure(figsize=(14, 6))
+    bars = plt.bar(x_values, array, color='skyblue')
+    plt.bar_label(bars)
     plt.xlabel('Scenario Number')
     plt.ylabel('Vertices')
     plt.title(title)
@@ -31,9 +35,8 @@ def generate_vertice_svg_chart(array, title, file_path):
 def generate_charts_from_log(log_file_path, scenario_count):
     print("Reading lines.")
 
-    with open(log_file_path, 'r') as file:
-        file_lines = file.readlines()
-
+    directory = Path("./Data/logs")
+    
     # Define regex pattern for correct log lines
     log_pattern = re.compile(r".+LogVoxelMeshingProfiling.+")
 
@@ -45,28 +48,38 @@ def generate_charts_from_log(log_file_path, scenario_count):
     scenario_opaque_voxels_arr = np.zeros( scenario_count)
     scenario_transparent_voxels_arr = np.zeros(scenario_count)
 
-    # Find matching lines in logs
-    matching_lines = [line for line in file_lines if log_pattern.search(line)]
+    print("Read logs.")
 
-    print("Extracted lines from logs.")
-
-    # Parse lines into array
-    for line in matching_lines:
-        print(line)
-        match_line_to_arr(r".*Scenario name:.*RLE_Scenario(\d+); Voxel Model memory: (\d+)", line, scenario_memory_arr) 
-        match_line_to_arr(r".*Scenario name:.*RLE_Scenario(\d+); Vertices: (\d+)", line, scenario_vertices_rle_arr) 
-        match_line_to_arr(r".*Scenario name:.*Grid_Scenario(\d+); Vertices: (\d+)", line, scenario_vertices_grid_arr) 
-        match_line_to_arr(r".*Scenario name:.*VoxelPlugin_Scenario(\d+); Vertices: (\d+)", line, scenario_vertices_voxelplugin_arr)
-            
-        match = re.search(r".*Scenario name:.*VoxelPlugin_Scenario(\d+); OpaqueVoxelCount: (\d+); TransparentVoxelCount: (\d+)", line)
-        if match:
-            scenario_index = match_to_scenario(match)
-            opaque_voxel_count = int(match.group(2))
-            scenario_opaque_voxels_arr[scenario_index] = opaque_voxel_count
-            
-            transparent_voxel_count = int(match.group(3))
-            scenario_transparent_voxels_arr[scenario_index] = transparent_voxel_count
-            
+    for file_path in directory.glob("*"):
+        
+        if file_path.is_file():
+            file_lines = []
+            print(f"Reading file {file_path.absolute()}")
+            filtered_file_lines = []
+            with file_path.open("r") as f:
+                file_lines = f.readlines()
+                 # Parse lines into array
+                for i, line in enumerate(file_lines):
+                    if log_pattern.search(line): 
+                        filtered_file_lines.append(line)
+                        print(line)
+                        match_line_to_arr(r".*Scenario name:.*RLE_Scenario(\d+); Voxel Model memory: (\d+)", line, scenario_memory_arr) 
+                        match_line_to_arr(r".*Scenario name:.*RLE_Scenario(\d+); Vertices: (\d+)", line, scenario_vertices_rle_arr) 
+                        match_line_to_arr(r".*Scenario name:.*Grid_Scenario(\d+); Vertices: (\d+)", line, scenario_vertices_grid_arr) 
+                        match_line_to_arr(r".*Scenario name:.*VoxelPlugin_Scenario(\d+); Vertices: (\d+)", line, scenario_vertices_voxelplugin_arr)
+                            
+                        match = re.search(r".*Scenario name:.*VoxelPlugin_Scenario(\d+); OpaqueVoxelCount: (\d+); TransparentVoxelCount: (\d+)", line)
+                        if match:
+                            scenario_index = match_to_scenario(match)
+                            opaque_voxel_count = int(match.group(2))
+                            scenario_opaque_voxels_arr[scenario_index] = opaque_voxel_count
+                            
+                            transparent_voxel_count = int(match.group(3))
+                            scenario_transparent_voxels_arr[scenario_index] = transparent_voxel_count
+                            
+            with open(file_path, 'w') as f:
+                f.writelines(filtered_file_lines)
+                
     print("Parsed lines from logs.")
     print("Generating graphs.")
     
@@ -90,8 +103,10 @@ def generate_charts_from_log(log_file_path, scenario_count):
     plt.close()  # Close the plot to free memory
 
     # Create a memory plot ---------
-    plt.axhline(y=262144, linewidth=3, color='b', linestyle='-', label='Voxel Grid')
     x_values = range(1, len(scenario_memory_arr) + 1)
+
+    plt.figure(figsize=(14, 6))
+    plt.axhline(y=262144, linewidth=5, color='b', linestyle='-', label='Voxel Grid Memory (262144)')
 
     bars = plt.bar(x_values, scenario_memory_arr, color='skyblue', label="RLE Compressed")
     plt.bar_label(bars)

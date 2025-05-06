@@ -174,8 +174,8 @@ def generate_charts_interate_logs(folder_path, scenario_count):
     
     
     generate_fps_svg_chart("fps_grid_plot.svg", "Run Directional Meshing FPS per Scenario", grid_fps_arr)
-    generate_fps_svg_chart("fps_rle_plot.svg", "Run Directional Meshing FPS per Scenario", rle_fps_arr)
-    generate_fps_svg_chart("fps_voxelplugin_plot.svg", "Run Directional Meshing FPS per Scenario", voxelplugin_fps_arr)
+    generate_fps_svg_chart("fps_rle_plot.svg", "RLE Run Directional Meshing FPS per Scenario", rle_fps_arr)
+    generate_fps_svg_chart("fps_voxelplugin_plot.svg", "Voxel Plugin FPS per Scenario", voxelplugin_fps_arr)
     
     generate_total_time_chart("total_voxelplugin_plot.svg", "Total Voxel Meshing time in VoxelPlugin per Scenario", voxelplugin_total_dict)
     generate_total_time_chart("total_rle_plot.svg", "Total Voxel Meshing time in RLECompression per Scenario", rle_total_dict)
