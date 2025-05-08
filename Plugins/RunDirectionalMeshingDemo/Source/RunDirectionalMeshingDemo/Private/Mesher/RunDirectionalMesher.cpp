@@ -14,7 +14,7 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChang
 	}
 
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Total - RunDirectionalMeshing generation")
 #endif
 
 	const auto VoxelGridPtr = Cast<UVoxelGrid>(MeshVars.ChunkParams.OriginalChunk->VoxelModel);
@@ -23,8 +23,8 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChang
     {
     	return;
     }
-	
-	auto& VoxelGrid = *VoxelGridPtr;
+
+	const auto& VoxelGrid = *VoxelGridPtr;
 
 	if (VoxelChange != nullptr)
 	{
@@ -40,7 +40,7 @@ void URunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelChang
 void URunDirectionalMesher::FaceGeneration(const UVoxelGrid& VoxelGridObject, FMesherVariables& FaceParams) const
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing from VoxelGrid generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Meshing - RunDirectionalMeshing from VoxelGrid generation")
 #endif
 
 	const auto ChunkDimension = VoxelGenerator->GetVoxelCountPerChunkDimension();
@@ -89,6 +89,12 @@ void URunDirectionalMesher::IncrementRun(const int X, const int Y, const int Z, 
 {
 	// Get voxel at current position of the run.
 	const auto Position = FIntVector(X, Y, Z);
+
+	if (!IsValid(VoxelGenerator) || !VoxelGridObject.VoxelGrid.IsValid())
+	{
+		return;
+	}
+	
 	const int32 Index = VoxelGenerator->CalculateVoxelIndex(Position);
 	const FVoxel Voxel = VoxelGridObject.VoxelGrid->GetData()[Index];
 	
@@ -179,7 +185,7 @@ bool URunDirectionalMesher::IsVoxelVisible(const UVoxelGrid& VoxelGridObject, co
 void URunDirectionalMesher::DirectionalGreedyMeshing(const FMesherVariables& MeshVars)
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing GreedyMesh generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Other - RunDirectionalMeshing GreedyMesh generation")
 #endif
 
 	// Merge faces in sorted arrays

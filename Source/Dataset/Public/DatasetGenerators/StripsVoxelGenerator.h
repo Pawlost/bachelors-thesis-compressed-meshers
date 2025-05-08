@@ -14,13 +14,14 @@ public:
 	virtual void GenerateVoxels(FChunk& Chunk) override;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (ClampMin = "0"), Category = "Voxel")
-	int32 XGap = 1;
+	int32 XGapCount = 1;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (ClampMin = "0"), Category = "Voxel")
-	int32 YGap = 1;
+	int32 YGapCount = 1;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (ClampMin = "0"), Category = "Voxel")
-	int32 ZGap = 1;
+	int32 ZGapCount = 1;
 private:
-	static bool IsInGap(const int Coordinate, const int StripDimension);
+	static bool IsInGap(const uint32 Coordinate, const int32 StripDimension);
+	static uint32 CalculateStripSize(const float ChunkDimension, const int32 GapCount);
 };

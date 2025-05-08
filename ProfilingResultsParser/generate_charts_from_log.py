@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 
-
 def match_to_scenario(match):
     return int(match.group(1).strip()) - 1
 
@@ -12,7 +11,10 @@ def match_line_to_arr(regex_pattern, line, array):
     if match:
         scenario_index = match_to_scenario(match)
         value = int(match.group(2))
-        array[scenario_index] = value
+        if array[scenario_index] == 0:
+            array[scenario_index] = value
+        else:
+            array[scenario_index] = round((array[scenario_index]+value)/2)
 
 def generate_vertice_svg_chart(array, title, file_path):
     x_values = range(1, len(array) + 1)
@@ -32,13 +34,15 @@ def generate_vertice_svg_chart(array, title, file_path):
     print(f"{title} SVG graph saved as {file_path}")
 #-----------------------
 
-def generate_charts_from_log(log_file_path, scenario_count):
+def generate_charts_from_log(scenario_count):
     print("Reading lines.")
 
     directory = Path("./Data/logs")
     
     # Define regex pattern for correct log lines
     log_pattern = re.compile(r".+LogVoxelMeshingProfiling.+")
+
+    print(scenario_count )
 
     #Preallocate array to scenarios
     scenario_memory_arr = np.zeros(scenario_count)
@@ -85,6 +89,7 @@ def generate_charts_from_log(log_file_path, scenario_count):
     
     # Create a voxel sparsity plot ------------
     x_values = range(1, len(scenario_opaque_voxels_arr) + 1)
+    plt.figure(figsize=(30, 6))
     
     # Plot
     plt.bar(x_values, scenario_opaque_voxels_arr, label='Opaque voxels')
@@ -105,7 +110,7 @@ def generate_charts_from_log(log_file_path, scenario_count):
     # Create a memory plot ---------
     x_values = range(1, len(scenario_memory_arr) + 1)
 
-    plt.figure(figsize=(14, 6))
+    plt.figure(figsize=(30, 6))
     plt.axhline(y=262144, linewidth=5, color='b', linestyle='-', label='Voxel Grid Memory (262144)')
 
     bars = plt.bar(x_values, scenario_memory_arr, color='skyblue', label="RLE Compressed")

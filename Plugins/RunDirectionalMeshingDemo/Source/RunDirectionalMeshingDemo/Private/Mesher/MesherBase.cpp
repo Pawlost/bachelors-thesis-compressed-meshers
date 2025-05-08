@@ -155,7 +155,7 @@ void UMesherBase::InitFaceContainers(FMesherVariables& MeshVars) const
 void UMesherBase::GenerateMeshFromFaces(const FMesherVariables& MeshVars) const
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing UE Buffer generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Buffer - UE RunDirectionalMeshing generation")
 #endif
 
 	auto StreamSet = MakeShared<RealtimeMesh::FRealtimeMeshStreamSet>();

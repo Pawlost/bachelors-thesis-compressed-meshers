@@ -47,7 +47,7 @@ void URLERunDirectionalMesher::CompressVoxelGrid(FChunk& Chunk, TArray<FVoxel>& 
 void URLERunDirectionalMesher::FaceGeneration(FIndexParams& IndexParams, FMesherVariables& MeshVars) const
 {
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("RunDirectionalMeshing from RLECompression generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Meshing - RunDirectionalMeshing from RLECompression generation")
 #endif
 
 	bool bEdited = false;
@@ -222,7 +222,7 @@ void URLERunDirectionalMesher::GenerateMesh(FMesherVariables& MeshVars, FVoxelCh
 	}
 
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("RLE RunDirectionalMeshing generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Total - RLE RunDirectionalMeshing generation")
 #endif
 
 	const auto VoxelGridPtr = Cast<URLEVoxelGrid>(MeshVars.ChunkParams.OriginalChunk->VoxelModel);

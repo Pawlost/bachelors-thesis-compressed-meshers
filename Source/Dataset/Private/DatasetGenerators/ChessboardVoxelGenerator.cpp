@@ -12,11 +12,11 @@ void UChessboardVoxelGenerator::GenerateVoxels(FChunk& Chunk)
 	TArray<FVoxel> VoxelGrid;
 	VoxelGrid.SetNum(GetVoxelCountPerChunk());
 	
-	for (uint32 x = 0; x < ChunkDimension; x+=2)
+	for (uint32 x = 0; x < ChunkDimension; x++)
 	{
-		for (uint32 y = 0; y < ChunkDimension; y+=2)
+		for (uint32 z = 0; z < ChunkDimension; z++)
 		{
-			for (uint32 z = 0; z < ChunkDimension; z+=2)
+			for (uint32 y = (z + x)%2; y < ChunkDimension; y+=2)
 			{
 				const auto Index = CalculateVoxelIndex(x, y, z);
 				ChangeKnownVoxelAtIndex(VoxelGrid, Chunk.ChunkVoxelIdTable, Index, VoxelFillIndex);

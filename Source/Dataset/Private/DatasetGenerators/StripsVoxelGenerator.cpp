@@ -2,9 +2,16 @@
 
 #include "Mesher/MesherBase.h"
 
-bool UStripsVoxelGenerator::IsInGap(const int Coordinate, const int StripDimension)
+bool UStripsVoxelGenerator::IsInGap(const uint32 Coordinate, const int32 StripDimension)
 {
 	return (Coordinate / StripDimension) % 2 != 0 ;
+}
+
+uint32 UStripsVoxelGenerator::CalculateStripSize(const float ChunkDimension, const int32 GapCount)
+{
+	// Last strip should be filled to atleast 75% or decrease strip size 
+	const float StripSize = ChunkDimension/(GapCount + GapCount + 0.75f);
+	return FMath::Max<uint32>(FMath::FloorToInt32(StripSize), 1);
 }
 
 void UStripsVoxelGenerator::GenerateVoxels(FChunk& Chunk)
@@ -15,9 +22,9 @@ void UStripsVoxelGenerator::GenerateVoxels(FChunk& Chunk)
 	TArray<FVoxel> VoxelGrid;
 	VoxelGrid.SetNum(GetVoxelCountPerChunk());
 
-	const int StripDimensionX = ChunkDimension/(XGap + XGap + 1);
-	const int StripDimensionY = ChunkDimension/(YGap + YGap + 1);
-	const int StripDimensionZ = ChunkDimension/(ZGap + ZGap + 1);
+	const uint32 StripSizeX = CalculateStripSize(ChunkDimension, XGapCount);
+	const uint32 StripSizeY = CalculateStripSize(ChunkDimension, YGapCount); 
+	const uint32 StripSizeZ = CalculateStripSize(ChunkDimension, ZGapCount);
 
 	for (uint32 x = 0; x < ChunkDimension; x++)
 	{
@@ -26,7 +33,7 @@ void UStripsVoxelGenerator::GenerateVoxels(FChunk& Chunk)
 			for (uint32 z = 0; z < ChunkDimension; z++)
 			{
 				FIntVector VoxelPosition(x, y, z);
-				if (IsInGap(x, StripDimensionX) || IsInGap(y, StripDimensionY) || IsInGap(z, StripDimensionZ))
+				if (IsInGap(x, StripSizeX) || IsInGap(y, StripSizeY) || IsInGap(z, StripSizeZ))
 				{
 					continue;
 				}
