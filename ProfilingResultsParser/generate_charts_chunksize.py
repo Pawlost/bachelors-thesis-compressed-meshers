@@ -23,7 +23,7 @@ def generate_total_time_chart(output_file, title, dictionary, chunk_sizes):
     
 def generate_chunk_size_charts():
     
-    chunk_size_scenarios = [1, 5, 8, 17]
+    chunk_size_scenarios = [1, 5, 17]
     chunk_sizes = [8, 16, 32, 64, 128]
     
     for scenario in chunk_size_scenarios:

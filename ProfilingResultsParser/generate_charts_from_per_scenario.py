@@ -54,6 +54,7 @@ def generate_fps_svg_chart(output_file, title, array):
     plt.ylabel('FPS')
     plt.title(title)
     plt.xticks(x_values)
+    plt.ylim(bottom=0, top=450000)
 
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
@@ -223,13 +224,13 @@ def generate_charts_interate_logs(folder_path, scenario_count):
     generate_phase_svg_chart("phase_rle_plot_group3.svg","Group 3 - Voxel Meshing Phases in RLECompression per Scenario") 
     
 
-    plot_octree(voxelplugin_total_dict, 0, 15)
+    plot_octree(voxelplugin_phase_dict, 0, 15)
     generate_phase_svg_chart("phase_voxelplugin_plot_group1.svg","Group 1 - Voxel Meshing Phases in VoxelPlugin per Scenario")
     
-    plot_octree(voxelplugin_total_dict, 17, 22)
+    plot_octree(voxelplugin_phase_dict, 17, 22)
     generate_phase_svg_chart("phase_voxelplugin_plot_group1.svg","Group 2 - Voxel Meshing Phases in VoxelPlugin per Scenario")
     
-    plot_octree(voxelplugin_total_dict, 22, scenario_count)
+    plot_octree(voxelplugin_phase_dict, 22, scenario_count)
     generate_phase_svg_chart("phase_voxelplugin_plot_group1.svg","Group 3 - Voxel Meshing Phases in VoxelPlugin per Scenario")
 
     return [np.array(voxelplugin_total_dict['mean']).mean(), np.array(rle_total_dict['mean']).mean(), np.array(grid_total_dict['mean']).mean()]

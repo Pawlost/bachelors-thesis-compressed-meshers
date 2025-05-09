@@ -34,6 +34,54 @@ def generate_vertice_svg_chart(array, title, file_path):
     print(f"{title} SVG graph saved as {file_path}")
 #-----------------------
 
+def generate_sparsity_chart(opaque_arr, empty_arr, title, file_path, start_index, end_index):
+    
+    # Create a voxel sparsity plot ------------
+    
+    temp_opaque = opaque_arr[start_index:end_index]
+    temp_empty =  empty_arr[start_index:end_index]
+    x_values = range(start_index + 1, start_index + 1 + len(temp_opaque))
+    
+    plt.figure(figsize=(7, 5))
+    
+    # Plot
+    plt.bar(x_values, temp_opaque, label='Opaque voxels')
+    plt.bar(x_values, temp_empty, bottom=temp_opaque, label='Empty voxels')
+    
+    plt.xlabel('Scenario Number')
+    plt.ylabel('Voxel count')
+    plt.title(title)
+    plt.legend()
+    plt.xticks(x_values)
+
+    # Save as SVG
+    plt.tight_layout()  # Prevent label cutoff
+    plt.savefig(file_path, format='svg')
+    plt.close()  # Close the plot to free memory
+
+def generate_memory_chart(memory_arr, title, file_path, start_index, end_index, modify_legend=False):
+    # Create a memory plot ---------
+    plt.figure(figsize=(10, 5))
+    plt.axhline(y=262144, linewidth=5, color='b', linestyle='-', label='Voxel Grid Memory (262144)')
+    temp_arr = memory_arr[start_index:end_index]
+    x_values = range(start_index + 1, start_index + 1 + len(temp_arr))
+
+    bars = plt.bar(x_values, temp_arr, color='skyblue', label="RLE Compressed")
+    plt.bar_label(bars)
+    plt.xlabel('Scenario Number')
+    plt.ylabel('Voxel Model Memory (bytes)')
+    plt.title(title)
+    plt.xticks(x_values)
+    
+    leg = plt.legend()
+    if modify_legend:
+        leg.set_bbox_to_anchor((1, 0.9))
+    
+    # Save as SVG
+    plt.tight_layout()  # Prevent label cutoff
+    plt.savefig(file_path, format='svg')
+    plt.close()  # Close the plot to free memory
+
 def generate_charts_from_log(scenario_count):
     print("Reading lines.")
 
@@ -76,10 +124,10 @@ def generate_charts_from_log(scenario_count):
                         if match:
                             scenario_index = match_to_scenario(match)
                             opaque_voxel_count = int(match.group(2))
-                            scenario_opaque_voxels_arr[scenario_index] = opaque_voxel_count
+                            scenario_opaque_voxels_arr[scenario_index] = (scenario_opaque_voxels_arr[scenario_index]+opaque_voxel_count)/2
                             
                             transparent_voxel_count = int(match.group(3))
-                            scenario_transparent_voxels_arr[scenario_index] = transparent_voxel_count
+                            scenario_transparent_voxels_arr[scenario_index] = (scenario_transparent_voxels_arr[scenario_index] + transparent_voxel_count)/2
                             
             with open(file_path, 'w') as f:
                 f.writelines(filtered_file_lines)
@@ -87,44 +135,13 @@ def generate_charts_from_log(scenario_count):
     print("Parsed lines from logs.")
     print("Generating graphs.")
     
-    # Create a voxel sparsity plot ------------
-    x_values = range(1, len(scenario_opaque_voxels_arr) + 1)
-    plt.figure(figsize=(30, 6))
-    
-    # Plot
-    plt.bar(x_values, scenario_opaque_voxels_arr, label='Opaque voxels')
-    plt.bar(x_values, scenario_transparent_voxels_arr, bottom=scenario_opaque_voxels_arr, label='Transparent voxels')
-    
-    plt.xlabel('Scenario Number')
-    plt.ylabel('Voxel count')
-    plt.title('Voxel Sparsity chart')
-    plt.grid(True)
-    plt.legend()
-    plt.xticks(x_values)
+    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Sparsity chart for group 1', './Output/voxel_sparsity_plot_group1.svg', 0, 16)
+    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Sparsity chart for group 2', './Output/voxel_sparsity_plot_group2.svg', 17, 22)
+    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Sparsity chart for group 3', './Output/voxel_sparsity_plot_group3.svg', 22, 36)
 
-    # Save as SVG
-    plt.tight_layout()  # Prevent label cutoff
-    plt.savefig('./Output/voxel_sparsity_plot.svg', format='svg')
-    plt.close()  # Close the plot to free memory
-
-    # Create a memory plot ---------
-    x_values = range(1, len(scenario_memory_arr) + 1)
-
-    plt.figure(figsize=(30, 6))
-    plt.axhline(y=262144, linewidth=5, color='b', linestyle='-', label='Voxel Grid Memory (262144)')
-
-    bars = plt.bar(x_values, scenario_memory_arr, color='skyblue', label="RLE Compressed")
-    plt.bar_label(bars)
-    plt.xlabel('Scenario Number')
-    plt.ylabel('Voxel Model Memory (bytes)')
-    plt.title('Voxel Model Memory Usage by Profiling Scenario')
-    plt.xticks(x_values)
-    plt.legend()
-    
-    # Save as SVG
-    plt.tight_layout()  # Prevent label cutoff
-    plt.savefig('./Output/voxel_memory_plot.svg', format='svg')
-    plt.close()  # Close the plot to free memory
+    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 1', './Output/voxel_memory_plot_group1.svg', 0, 17)
+    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 2', './Output/voxel_memory_plot_group2.svg', 17, 22, True)
+    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 3', './Output/voxel_memory_plot_group3.svg', 22, 37)
 
     print("Memory SVG graph saved as 'voxel_memory_plot.svg'")
 

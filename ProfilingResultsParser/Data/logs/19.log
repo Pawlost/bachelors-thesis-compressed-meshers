@@ -1,216 +1,216 @@
-[2025.05.08-11.09.55:121][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:121][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24658; TransparentVoxelCount: 8110
-[2025.05.08-11.09.55:135][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:135][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24530; TransparentVoxelCount: 8238
-[2025.05.08-11.09.55:136][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:136][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24631; TransparentVoxelCount: 8137
-[2025.05.08-11.09.55:136][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:136][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24639; TransparentVoxelCount: 8129
-[2025.05.08-11.09.55:136][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:136][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24632; TransparentVoxelCount: 8136
-[2025.05.08-11.09.55:139][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:139][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24548; TransparentVoxelCount: 8220
-[2025.05.08-11.09.55:139][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:139][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24594; TransparentVoxelCount: 8174
-[2025.05.08-11.09.55:151][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:151][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24584; TransparentVoxelCount: 8184
-[2025.05.08-11.09.55:152][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:152][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24636; TransparentVoxelCount: 8132
-[2025.05.08-11.09.55:153][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:153][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24572; TransparentVoxelCount: 8196
-[2025.05.08-11.09.55:156][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:156][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24539; TransparentVoxelCount: 8229
-[2025.05.08-11.09.55:159][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:159][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24739; TransparentVoxelCount: 8029
-[2025.05.08-11.09.55:161][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:161][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24576; TransparentVoxelCount: 8192
-[2025.05.08-11.09.55:161][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:161][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24554; TransparentVoxelCount: 8214
-[2025.05.08-11.09.55:169][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:169][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24658; TransparentVoxelCount: 8110
-[2025.05.08-11.09.55:171][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:171][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24542; TransparentVoxelCount: 8226
-[2025.05.08-11.09.55:172][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:172][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24558; TransparentVoxelCount: 8210
-[2025.05.08-11.09.55:173][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:173][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24630; TransparentVoxelCount: 8138
-[2025.05.08-11.09.55:176][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:176][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24713; TransparentVoxelCount: 8055
-[2025.05.08-11.09.55:176][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:176][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24563; TransparentVoxelCount: 8205
-[2025.05.08-11.09.55:176][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:176][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24588; TransparentVoxelCount: 8180
-[2025.05.08-11.09.55:188][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:188][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24686; TransparentVoxelCount: 8082
-[2025.05.08-11.09.55:189][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:189][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24670; TransparentVoxelCount: 8098
-[2025.05.08-11.09.55:192][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:192][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24677; TransparentVoxelCount: 8091
-[2025.05.08-11.09.55:192][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:192][206]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24522; TransparentVoxelCount: 8246
-[2025.05.08-11.09.55:194][207]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:194][207]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24497; TransparentVoxelCount: 8271
-[2025.05.08-11.09.55:194][207]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.09.55:194][207]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24542; TransparentVoxelCount: 8226
-[2025.05.08-11.09.55:245][207]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107716
-[2025.05.08-11.09.55:305][207]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108940
-[2025.05.08-11.09.55:360][209]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108076
-[2025.05.08-11.09.55:433][212]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107064
-[2025.05.08-11.09.55:515][215]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109928
-[2025.05.08-11.09.55:580][219]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109088
-[2025.05.08-11.09.55:655][223]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 105924
-[2025.05.08-11.09.55:721][226]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109068
-[2025.05.08-11.09.55:787][230]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107696
-[2025.05.08-11.09.55:853][233]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107400
-[2025.05.08-11.09.55:921][237]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109220
-[2025.05.08-11.09.55:988][241]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 106928
-[2025.05.08-11.09.56:055][244]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108888
-[2025.05.08-11.09.56:128][248]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107716
-[2025.05.08-11.09.56:204][252]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109008
-[2025.05.08-11.09.56:275][257]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108244
-[2025.05.08-11.09.56:343][260]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107324
-[2025.05.08-11.09.56:409][264]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 110584
-[2025.05.08-11.09.56:482][268]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108484
-[2025.05.08-11.09.56:554][272]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108548
-[2025.05.08-11.09.56:625][276]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108848
-[2025.05.08-11.09.56:690][280]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109364
-[2025.05.08-11.09.56:759][284]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108336
-[2025.05.08-11.09.56:827][288]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108812
-[2025.05.08-11.09.56:894][292]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109416
-[2025.05.08-11.09.56:967][296]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109940
-[2025.05.08-11.09.57:038][300]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108724
-[2025.05.08-11.10.03:641][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:652][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:652][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:656][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:656][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:658][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:658][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:669][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:672][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:673][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:676][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:677][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:678][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:678][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:691][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:691][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:691][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:696][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:698][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:698][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:699][713]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:712][714]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:713][714]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:715][714]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:716][714]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:718][714]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:718][714]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
-[2025.05.08-11.10.03:744][714]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160080
-[2025.05.08-11.10.03:772][714]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160272
-[2025.05.08-11.10.03:807][715]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161184
-[2025.05.08-11.10.03:848][717]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161732
-[2025.05.08-11.10.03:898][719]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160008
-[2025.05.08-11.10.03:951][721]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 159360
-[2025.05.08-11.10.04:009][721]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161928
-[2025.05.08-11.10.04:053][722]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 162288
-[2025.05.08-11.10.04:109][724]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 159744
-[2025.05.08-11.10.04:159][725]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 157920
-[2025.05.08-11.10.04:215][726]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161928
-[2025.05.08-11.10.04:265][728]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160776
-[2025.05.08-11.10.04:316][729]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161640
-[2025.05.08-11.10.04:363][730]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 159096
-[2025.05.08-11.10.04:419][732]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161352
-[2025.05.08-11.10.04:471][733]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161376
-[2025.05.08-11.10.04:519][735]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 159764
-[2025.05.08-11.10.04:578][736]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160584
-[2025.05.08-11.10.04:638][738]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160896
-[2025.05.08-11.10.04:693][740]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161208
-[2025.05.08-11.10.04:736][741]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 158952
-[2025.05.08-11.10.04:782][742]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161136
-[2025.05.08-11.10.04:835][744]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161184
-[2025.05.08-11.10.04:884][745]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161112
-[2025.05.08-11.10.04:929][746]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 162432
-[2025.05.08-11.10.04:975][747]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160272
-[2025.05.08-11.10.05:027][748]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161664
-[2025.05.08-11.10.12:765][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:765][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24658; TransparentVoxelCount: 8110
-[2025.05.08-11.10.12:772][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:772][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24619; TransparentVoxelCount: 8149
-[2025.05.08-11.10.12:775][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:775][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24584; TransparentVoxelCount: 8184
-[2025.05.08-11.10.12:776][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:776][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24530; TransparentVoxelCount: 8238
-[2025.05.08-11.10.12:776][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:776][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24713; TransparentVoxelCount: 8055
-[2025.05.08-11.10.12:778][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:778][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24592; TransparentVoxelCount: 8176
-[2025.05.08-11.10.12:778][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:778][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24575; TransparentVoxelCount: 8193
-[2025.05.08-11.10.12:788][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:788][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24539; TransparentVoxelCount: 8229
-[2025.05.08-11.10.12:788][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:788][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24701; TransparentVoxelCount: 8067
-[2025.05.08-11.10.12:793][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:793][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24602; TransparentVoxelCount: 8166
-[2025.05.08-11.10.12:794][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:794][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24667; TransparentVoxelCount: 8101
-[2025.05.08-11.10.12:796][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:796][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24510; TransparentVoxelCount: 8258
-[2025.05.08-11.10.12:798][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:798][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24623; TransparentVoxelCount: 8145
-[2025.05.08-11.10.12:798][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:798][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24531; TransparentVoxelCount: 8237
-[2025.05.08-11.10.12:811][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:811][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24559; TransparentVoxelCount: 8209
-[2025.05.08-11.10.12:811][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:811][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24673; TransparentVoxelCount: 8095
-[2025.05.08-11.10.12:814][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:814][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24630; TransparentVoxelCount: 8138
-[2025.05.08-11.10.12:814][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:814][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24519; TransparentVoxelCount: 8249
-[2025.05.08-11.10.12:821][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:821][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24682; TransparentVoxelCount: 8086
-[2025.05.08-11.10.12:821][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:821][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24648; TransparentVoxelCount: 8120
-[2025.05.08-11.10.12:821][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:821][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24502; TransparentVoxelCount: 8266
-[2025.05.08-11.10.12:833][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:833][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24500; TransparentVoxelCount: 8268
-[2025.05.08-11.10.12:835][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:835][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24681; TransparentVoxelCount: 8087
-[2025.05.08-11.10.12:837][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:837][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24600; TransparentVoxelCount: 8168
-[2025.05.08-11.10.12:838][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:838][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24732; TransparentVoxelCount: 8036
-[2025.05.08-11.10.12:840][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:840][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24607; TransparentVoxelCount: 8161
-[2025.05.08-11.10.12:840][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
-[2025.05.08-11.10.12:840][132]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24529; TransparentVoxelCount: 8239
-[2025.05.08-11.10.12:935][133]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 149888
-[2025.05.08-11.10.12:951][133]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150948
-[2025.05.08-11.10.12:988][134]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152036
-[2025.05.08-11.10.13:006][134]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 154732
-[2025.05.08-11.10.13:072][136]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152660
-[2025.05.08-11.10.13:081][137]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150808
-[2025.05.08-11.10.13:408][150]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 151944
-[2025.05.08-11.10.13:422][150]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153520
-[2025.05.08-11.10.13:483][154]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152596
-[2025.05.08-11.10.13:553][158]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150280
-[2025.05.08-11.10.13:596][160]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 146364
-[2025.05.08-11.10.13:666][164]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 148808
-[2025.05.08-11.10.13:675][164]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150236
-[2025.05.08-11.10.13:787][170]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152208
-[2025.05.08-11.10.13:790][171]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 149604
-[2025.05.08-11.10.13:908][178]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 149768
-[2025.05.08-11.10.13:968][181]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152976
-[2025.05.08-11.10.14:001][183]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153140
-[2025.05.08-11.10.14:189][193]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152964
-[2025.05.08-11.10.14:192][194]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 148572
-[2025.05.08-11.10.14:274][198]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153800
-[2025.05.08-11.10.14:283][199]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150516
-[2025.05.08-11.10.14:449][208]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150544
-[2025.05.08-11.10.14:454][208]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 155364
-[2025.05.08-11.10.14:520][212]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 155724
-[2025.05.08-11.10.14:522][212]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 151984
-[2025.05.08-11.10.14:679][222]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153568
+[2025.05.09-14.09.59:678][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:678][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24658; TransparentVoxelCount: 8110
+[2025.05.09-14.09.59:695][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:695][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24639; TransparentVoxelCount: 8129
+[2025.05.09-14.09.59:696][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:696][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24627; TransparentVoxelCount: 8141
+[2025.05.09-14.09.59:701][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:701][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24616; TransparentVoxelCount: 8152
+[2025.05.09-14.09.59:702][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:702][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24636; TransparentVoxelCount: 8132
+[2025.05.09-14.09.59:706][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:706][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24551; TransparentVoxelCount: 8217
+[2025.05.09-14.09.59:706][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:706][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24625; TransparentVoxelCount: 8143
+[2025.05.09-14.09.59:719][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:719][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24692; TransparentVoxelCount: 8076
+[2025.05.09-14.09.59:721][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:721][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24631; TransparentVoxelCount: 8137
+[2025.05.09-14.09.59:722][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:722][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24631; TransparentVoxelCount: 8137
+[2025.05.09-14.09.59:722][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:722][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24524; TransparentVoxelCount: 8244
+[2025.05.09-14.09.59:728][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:729][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24684; TransparentVoxelCount: 8084
+[2025.05.09-14.09.59:729][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:729][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24573; TransparentVoxelCount: 8195
+[2025.05.09-14.09.59:729][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:729][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24596; TransparentVoxelCount: 8172
+[2025.05.09-14.09.59:737][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:737][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24568; TransparentVoxelCount: 8200
+[2025.05.09-14.09.59:738][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:738][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24672; TransparentVoxelCount: 8096
+[2025.05.09-14.09.59:738][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:738][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24658; TransparentVoxelCount: 8110
+[2025.05.09-14.09.59:741][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:741][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24615; TransparentVoxelCount: 8153
+[2025.05.09-14.09.59:744][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:744][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24565; TransparentVoxelCount: 8203
+[2025.05.09-14.09.59:745][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:745][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24651; TransparentVoxelCount: 8117
+[2025.05.09-14.09.59:745][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:745][857]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24594; TransparentVoxelCount: 8174
+[2025.05.09-14.09.59:756][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:756][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24711; TransparentVoxelCount: 8057
+[2025.05.09-14.09.59:757][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:757][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24697; TransparentVoxelCount: 8071
+[2025.05.09-14.09.59:758][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:758][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24459; TransparentVoxelCount: 8309
+[2025.05.09-14.09.59:759][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:759][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24628; TransparentVoxelCount: 8140
+[2025.05.09-14.09.59:762][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:762][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24693; TransparentVoxelCount: 8075
+[2025.05.09-14.09.59:762][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.09.59:762][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; OpaqueVoxelCount: 24545; TransparentVoxelCount: 8223
+[2025.05.09-14.09.59:813][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107588
+[2025.05.09-14.09.59:869][858]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107944
+[2025.05.09-14.09.59:934][859]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108344
+[2025.05.09-14.10.00:001][861]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107604
+[2025.05.09-14.10.00:070][862]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108312
+[2025.05.09-14.10.00:138][864]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107536
+[2025.05.09-14.10.00:223][866]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107700
+[2025.05.09-14.10.00:296][869]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108688
+[2025.05.09-14.10.00:361][872]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108368
+[2025.05.09-14.10.00:432][874]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108740
+[2025.05.09-14.10.00:492][877]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108052
+[2025.05.09-14.10.00:565][880]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108772
+[2025.05.09-14.10.00:633][883]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108148
+[2025.05.09-14.10.00:702][887]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107956
+[2025.05.09-14.10.00:769][889]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 106536
+[2025.05.09-14.10.00:840][892]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107596
+[2025.05.09-14.10.00:900][895]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109396
+[2025.05.09-14.10.00:966][898]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 106904
+[2025.05.09-14.10.01:035][900]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108520
+[2025.05.09-14.10.01:099][903]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 106772
+[2025.05.09-14.10.01:171][906]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107564
+[2025.05.09-14.10.01:240][909]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 109804
+[2025.05.09-14.10.01:306][913]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 107564
+[2025.05.09-14.10.01:376][916]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 106796
+[2025.05.09-14.10.01:462][921]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108828
+[2025.05.09-14.10.01:532][925]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108628
+[2025.05.09-14.10.01:598][928]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_Grid_Scenario19; Vertices: 108140
+[2025.05.09-14.10.08:659][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:672][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:672][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:674][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:674][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:676][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:676][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:689][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:690][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:691][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:692][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:696][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:697][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:697][378]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:707][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:707][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:710][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:710][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:715][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:716][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:716][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:727][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:728][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:730][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:733][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:733][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:733][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Voxel Model memory: 170436
+[2025.05.09-14.10.08:761][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160080
+[2025.05.09-14.10.08:791][379]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 163512
+[2025.05.09-14.10.08:828][380]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161472
+[2025.05.09-14.10.08:871][382]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 159600
+[2025.05.09-14.10.08:915][383]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160152
+[2025.05.09-14.10.08:963][384]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161900
+[2025.05.09-14.10.09:019][385]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160368
+[2025.05.09-14.10.09:059][385]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160848
+[2025.05.09-14.10.09:118][386]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161112
+[2025.05.09-14.10.09:165][387]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160868
+[2025.05.09-14.10.09:214][388]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161184
+[2025.05.09-14.10.09:261][389]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161664
+[2025.05.09-14.10.09:303][390]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 162000
+[2025.05.09-14.10.09:350][390]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160056
+[2025.05.09-14.10.09:394][391]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 158640
+[2025.05.09-14.10.09:443][392]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 159888
+[2025.05.09-14.10.09:494][392]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 162432
+[2025.05.09-14.10.09:544][392]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161592
+[2025.05.09-14.10.09:592][393]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160176
+[2025.05.09-14.10.09:657][393]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160728
+[2025.05.09-14.10.09:705][394]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161568
+[2025.05.09-14.10.09:751][394]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161352
+[2025.05.09-14.10.09:803][395]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 159336
+[2025.05.09-14.10.09:852][395]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 160440
+[2025.05.09-14.10.09:908][396]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 161616
+[2025.05.09-14.10.09:949][396]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 162768
+[2025.05.09-14.10.09:995][397]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_RLE_Scenario19; Vertices: 159260
+[2025.05.09-14.10.17:653][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:654][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24658; TransparentVoxelCount: 8110
+[2025.05.09-14.10.17:663][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:663][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24664; TransparentVoxelCount: 8104
+[2025.05.09-14.10.17:665][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:665][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24640; TransparentVoxelCount: 8128
+[2025.05.09-14.10.17:668][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:668][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24547; TransparentVoxelCount: 8221
+[2025.05.09-14.10.17:671][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:671][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24677; TransparentVoxelCount: 8091
+[2025.05.09-14.10.17:672][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:672][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24609; TransparentVoxelCount: 8159
+[2025.05.09-14.10.17:672][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:672][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24539; TransparentVoxelCount: 8229
+[2025.05.09-14.10.17:682][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:682][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24631; TransparentVoxelCount: 8137
+[2025.05.09-14.10.17:683][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:683][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24520; TransparentVoxelCount: 8248
+[2025.05.09-14.10.17:689][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:689][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24695; TransparentVoxelCount: 8073
+[2025.05.09-14.10.17:690][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:690][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24693; TransparentVoxelCount: 8075
+[2025.05.09-14.10.17:692][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:692][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24550; TransparentVoxelCount: 8218
+[2025.05.09-14.10.17:693][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:693][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24655; TransparentVoxelCount: 8113
+[2025.05.09-14.10.17:693][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:693][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24575; TransparentVoxelCount: 8193
+[2025.05.09-14.10.17:707][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:707][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24688; TransparentVoxelCount: 8080
+[2025.05.09-14.10.17:709][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:709][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24567; TransparentVoxelCount: 8201
+[2025.05.09-14.10.17:709][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:709][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24632; TransparentVoxelCount: 8136
+[2025.05.09-14.10.17:711][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:711][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24525; TransparentVoxelCount: 8243
+[2025.05.09-14.10.17:717][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:717][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24623; TransparentVoxelCount: 8145
+[2025.05.09-14.10.17:717][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:717][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24603; TransparentVoxelCount: 8165
+[2025.05.09-14.10.17:717][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:717][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24620; TransparentVoxelCount: 8148
+[2025.05.09-14.10.17:730][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:730][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24631; TransparentVoxelCount: 8137
+[2025.05.09-14.10.17:730][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:730][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24448; TransparentVoxelCount: 8320
+[2025.05.09-14.10.17:731][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:731][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24711; TransparentVoxelCount: 8057
+[2025.05.09-14.10.17:731][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:731][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24608; TransparentVoxelCount: 8160
+[2025.05.09-14.10.17:735][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:735][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24668; TransparentVoxelCount: 8100
+[2025.05.09-14.10.17:735][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; Voxel Model memory: 262144
+[2025.05.09-14.10.17:735][770]LogVoxelMeshingProfiling: Display: Scenario name: UEDPIE_0_Map_VoxelPlugin_Scenario19; OpaqueVoxelCount: 24487; TransparentVoxelCount: 8281
+[2025.05.09-14.10.17:832][771]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 148060
+[2025.05.09-14.10.17:838][771]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152092
+[2025.05.09-14.10.17:906][772]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153472
+[2025.05.09-14.10.17:907][772]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 155416
+[2025.05.09-14.10.17:995][776]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 155880
+[2025.05.09-14.10.18:242][782]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150468
+[2025.05.09-14.10.18:278][784]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152120
+[2025.05.09-14.10.18:317][786]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 151996
+[2025.05.09-14.10.18:428][792]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 154832
+[2025.05.09-14.10.18:441][793]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150664
+[2025.05.09-14.10.18:543][799]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 146468
+[2025.05.09-14.10.18:639][804]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 149480
+[2025.05.09-14.10.18:646][804]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 149800
+[2025.05.09-14.10.18:747][810]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150032
+[2025.05.09-14.10.18:751][811]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152096
+[2025.05.09-14.10.18:923][820]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 149752
+[2025.05.09-14.10.18:927][821]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 151464
+[2025.05.09-14.10.19:008][825]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153308
+[2025.05.09-14.10.19:183][835]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 151632
+[2025.05.09-14.10.19:193][836]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 147944
+[2025.05.09-14.10.19:275][841]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152444
+[2025.05.09-14.10.19:284][841]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 152844
+[2025.05.09-14.10.19:448][851]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150444
+[2025.05.09-14.10.19:478][853]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153272
+[2025.05.09-14.10.19:537][856]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 150544
+[2025.05.09-14.10.19:639][862]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153636
+[2025.05.09-14.10.19:693][865]LogVoxelMeshingProfiling: Display: Scenario name: Map_VoxelPlugin_Scenario19; Vertices: 153824
