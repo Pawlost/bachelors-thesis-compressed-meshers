@@ -139,9 +139,9 @@ def generate_charts_from_log(scenario_count):
     generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Sparsity chart for group 2', './Output/voxel_sparsity_plot_group2.svg', 17, 22)
     generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Sparsity chart for group 3', './Output/voxel_sparsity_plot_group3.svg', 22, 36)
 
-    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 1', './Output/voxel_memory_plot_group1.svg', 0, 17)
+    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 1', './Output/voxel_memory_plot_group1.svg', 0, 16)
     generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 2', './Output/voxel_memory_plot_group2.svg', 17, 22, True)
-    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 3', './Output/voxel_memory_plot_group3.svg', 22, 37)
+    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 3', './Output/voxel_memory_plot_group3.svg', 22, 36)
 
     print("Memory SVG graph saved as 'voxel_memory_plot.svg'")
 
