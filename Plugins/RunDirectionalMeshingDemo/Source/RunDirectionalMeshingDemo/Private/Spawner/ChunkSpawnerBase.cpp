@@ -1,6 +1,6 @@
 ﻿#include "Spawner/ChunkSpawnerBase.h"
 
-#include "Mesher/MeshingUtils/MesherVariables.h"
+#include "VoxelMesher/MeshingUtils/MesherVariables.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 
 bool AChunkSpawnerBase::IsInitialized() const

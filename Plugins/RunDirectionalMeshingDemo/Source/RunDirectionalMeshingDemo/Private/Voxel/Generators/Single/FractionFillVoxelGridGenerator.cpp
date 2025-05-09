@@ -1,6 +1,6 @@
 ﻿#include "Voxel/Generator/Single/FractionFillVoxelGridGenerator.h"
 
-#include "Mesher/MesherBase.h"
+#include "VoxelMesher/VoxelMesherBase.h"
 
 void UFractionFillVoxelGridGenerator::GenerateVoxels(FChunk& Chunk)
 {

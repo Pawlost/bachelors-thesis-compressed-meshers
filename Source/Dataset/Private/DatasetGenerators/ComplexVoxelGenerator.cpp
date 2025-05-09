@@ -1,5 +1,5 @@
 #include "DatasetGenerators/ComplexShapeVoxelGenerator.h"
-#include "Mesher/MesherBase.h"
+#include "VoxelMesher/VoxelMesherBase.h"
 
 void UComplexShapeVoxelGenerator::GenerateVoxels(FChunk& Chunk)
 {

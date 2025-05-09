@@ -7,7 +7,7 @@
 
 struct FVoxelChange;
 struct FMesherVariables;
-class UMesherBase;
+class UVoxelMesherBase;
 
 /**
  * Base for components used to fill voxel models with voxels.
@@ -20,7 +20,7 @@ class RUNDIRECTIONALMESHINGDEMO_API UVoxelGeneratorBase : public UActorComponent
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowAbstract="false", BlueprintBaseOnly), NoClear,
 		Category="Voxels")
-	TSubclassOf<UMesherBase> VoxelMesherBlueprint = nullptr;
+	TSubclassOf<UVoxelMesherBase> VoxelMesherBlueprint = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Voxels",
 		meta=(ToolTip=
@@ -75,7 +75,7 @@ public:
 	
 protected:
 	UPROPERTY()
-	TObjectPtr<UMesherBase> VoxelMesher;
+	TObjectPtr<UVoxelMesherBase> VoxelMesher;
 	virtual void BeginPlay() override;
 
 private:

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
 #include "SingleChunkSpawnerBase.h"
-#include "Mesher/MeshingUtils/FaceDirection.h"
+#include "VoxelMesher/MeshingUtils/FaceDirection.h"
 #include "SingleBorderlessChunkSpawner.generated.h"
 
 struct FVoxelChange;

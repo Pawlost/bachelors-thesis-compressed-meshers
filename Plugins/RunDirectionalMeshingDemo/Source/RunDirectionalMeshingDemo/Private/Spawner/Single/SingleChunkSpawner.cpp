@@ -1,6 +1,6 @@
 ﻿#include "Spawner/Single/SingleChunkSpawner.h"
 
-#include "Mesher/MeshingUtils/MesherVariables.h"
+#include "VoxelMesher/MeshingUtils/MesherVariables.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 
 void ASingleChunkSpawner::BeginPlay()

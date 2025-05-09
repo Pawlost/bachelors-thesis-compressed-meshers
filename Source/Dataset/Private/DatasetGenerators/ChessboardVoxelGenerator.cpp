@@ -2,7 +2,7 @@
 #include "DatasetGenerators/ChessboardVoxelGenerator.h"
 
 #include "DatasetGenerators/SphereVoxelGenerator.h"
-#include "Mesher/MesherBase.h"
+#include "VoxelMesher/VoxelMesherBase.h"
 
 void UChessboardVoxelGenerator::GenerateVoxels(FChunk& Chunk)
 {

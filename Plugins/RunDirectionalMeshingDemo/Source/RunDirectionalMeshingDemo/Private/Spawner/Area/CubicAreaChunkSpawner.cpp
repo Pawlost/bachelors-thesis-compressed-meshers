@@ -1,6 +1,6 @@
 ﻿#include "Spawner/Area/CubicAreaChunkSpawner.h"
 
-#include "Mesher/MeshingUtils/MesherVariables.h"
+#include "VoxelMesher/MeshingUtils/MesherVariables.h"
 
 void ACubicAreaChunkSpawner::GenerateArea()
 {

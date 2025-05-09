@@ -1,6 +1,5 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-#include "Voxel/Generator/VoxelGeneratorBase.h"
-#include "Mesher/MesherBase.h"
+﻿#include "Voxel/Generator/VoxelGeneratorBase.h"
+#include "VoxelMesher/VoxelMesherBase.h"
 
 void UVoxelGeneratorBase::BeginPlay()
 {
@@ -16,7 +15,7 @@ void UVoxelGeneratorBase::BeginPlay()
 	if (VoxelMesherBlueprint)
 	{
 		// Register mesher
-		VoxelMesher = NewObject<UMesherBase>(this, VoxelMesherBlueprint);
+		VoxelMesher = NewObject<UVoxelMesherBase>(this, VoxelMesherBlueprint);
 
 		if (VoxelMesher)
 		{

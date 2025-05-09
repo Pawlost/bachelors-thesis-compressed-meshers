@@ -1,6 +1,6 @@
 ﻿#include "Spawner/Area/PreloadedVoxelCenterAreaChunkSpawner.h"
 
-#include "Mesher/MeshingUtils/MesherVariables.h"
+#include "VoxelMesher/MeshingUtils/MesherVariables.h"
 
 void APreloadedVoxelCenterAreaChunkSpawner::GenerateArea()
 {

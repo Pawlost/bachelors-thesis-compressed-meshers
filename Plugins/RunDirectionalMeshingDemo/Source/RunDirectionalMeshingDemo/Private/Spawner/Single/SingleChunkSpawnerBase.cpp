@@ -1,6 +1,6 @@
 ﻿#include "Spawner/Single/SingleChunkSpawnerBase.h"
 
-#include "Mesher/MeshingUtils/VoxelChange.h"
+#include "VoxelMesher/MeshingUtils/VoxelChange.h"
 #include "Voxel/VoxelPosition.h"
 #include "Voxel/Generator/VoxelGeneratorBase.h"
 #include "Voxel/Grid/VoxelModel.h"

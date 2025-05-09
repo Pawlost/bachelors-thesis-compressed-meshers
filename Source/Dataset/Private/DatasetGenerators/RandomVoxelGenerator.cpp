@@ -1,6 +1,6 @@
 #include "DatasetGenerators/RandomVoxelGenerator.h"
 
-#include "Mesher/MesherBase.h"
+#include "VoxelMesher/VoxelMesherBase.h"
 
 void URandomVoxelGenerator::GenerateVoxels(FChunk& Chunk)
 {
