@@ -2,17 +2,18 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import generate_charts_from_per_scenario as scenarios
 
-def generate_total_time_chart(output_file, title, dictionary, chunk_sizes):
+def generate_total_time_chart(output_file, title, dictionary, chunk_sizes, font_size=20):
     
     for key, value in dictionary.items():
         plt.plot(chunk_sizes, value,  label=key)
     
-    plt.xlabel(f'Chunk size')
-    plt.ylabel('time [ms]')
-    plt.title(title)
     plt.grid(True)
-    plt.legend()
-    plt.xticks(chunk_sizes)
+    plt.xticks(fontsize=font_size)
+    plt.yticks(fontsize=font_size)
+    plt.xlabel('Chunk size', fontsize=font_size+1)
+    plt.ylabel('time [ms]', fontsize=font_size+1)
+    plt.title(title, fontsize=font_size+2)
+    plt.legend(fontsize=font_size)
 
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
@@ -41,6 +42,6 @@ def generate_chunk_size_charts():
             scenarios.read_csv_file_dictionary(f"./Data/ChunkSizeSubScenarios/{scenario}/{chunksize}/RLE_Meshing_Total.csv", rle_total_dict)
             scenarios.read_csv_file_dictionary(f"./Data/ChunkSizeSubScenarios/{scenario}/{chunksize}/Grid_Meshing_Total.csv", grid_total_dict)
             
-        generate_total_time_chart(f"total_voxelplugin_plot_chunksize_{scenario}.svg", f"Total Voxel Meshing time for VoxelPlugin in {scenario} Scenario", voxelplugin_total_dict, chunk_sizes)
+        generate_total_time_chart(f"total_voxelplugin_plot{scenario}.svg", f"Total Voxel Meshing time for VoxelPlugin in {scenario} Scenario", voxelplugin_total_dict, chunk_sizes)
         generate_total_time_chart(f"total_rle_plot{scenario}.svg", f"Total Voxel Meshing time for RLECompression in {scenario} Scenario", rle_total_dict, chunk_sizes)
         generate_total_time_chart(f"total_grid_plot{scenario}.svg", f"Total Voxel Meshing time for VoxelGrid in {scenario} Scenario", grid_total_dict, chunk_sizes)

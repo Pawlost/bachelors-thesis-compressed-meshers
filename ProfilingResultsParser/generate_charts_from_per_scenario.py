@@ -3,49 +3,77 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from matplotlib.patches import Patch
 
-def plot_phase_bars(dictionary, start_index, end_index):
-    plt.figure(figsize=(18, 6))
 
-    phase1 = np.array(dictionary[1])[start_index:end_index]
-    phase2 = np.array(dictionary[2])[start_index:end_index]
-    phase3 = np.array(dictionary[3])[start_index:end_index]
+def dictionary_to_phases(dictionary, index, start_index, end_index):
+    return np.array(dictionary[index])[start_index:end_index]
+
+
+def generate_phase_svg_chart(voxelplugin_dictionary, rle_dictionary, grid_dictionary, title, file_path, start_index, end_index, fig_width, fig_height=6, font_size=14):
     
-    x_values = range(start_index + 1, start_index + 1 + len(phase1))
+    plt.figure(figsize=(fig_width, fig_height))
 
-    # Plot
-    plt.bar(x_values, phase1, color='b', label='Inserting vertices to UE Buffer')
-    plt.bar(x_values, phase2, color='y',bottom=phase1, label='Voxel Meshing')
-    plt.bar(x_values, phase3, color='g', bottom=phase1 + phase2, label='Other timings')
-    plt.xticks(x_values)
+    voxelplugin_phase1 = dictionary_to_phases(voxelplugin_dictionary, 1, start_index, end_index)
+    voxelplugin_phase2 = dictionary_to_phases(voxelplugin_dictionary, 2, start_index, end_index)
+    voxelplugin_phase3 = dictionary_to_phases(voxelplugin_dictionary, 3, start_index, end_index)
+    voxelplugin_phase4 = dictionary_to_phases(voxelplugin_dictionary, 4, start_index, end_index)
     
-def plot_octree(dictionary, start_index, end_index):
-    plt.figure(figsize=(18, 6))
+    bar_width = 0.28
     
-    phase1 = np.array(dictionary[1])[start_index:end_index]
-    phase2 = np.array(dictionary[2])[start_index:end_index]
-    phase3 = np.array(dictionary[3])[start_index:end_index]
-    phase4 = np.array(dictionary[4])[start_index:end_index]
-
-    x_values = range(start_index + 1, start_index + 1 + len(phase1))
+    x_values = range(start_index + 1, start_index + len(voxelplugin_phase1) + 1)
     
-    plt.bar(x_values, phase4, label='Octree sampling')
-    plt.bar(x_values, phase1, color='b', bottom=phase4, label='Inserting vertices to UE Buffer')
-    plt.bar(x_values, phase2, color='y', bottom=phase1+phase4, label='Voxel Meshing')
-    plt.bar(x_values, phase3, color='g', bottom=phase1+phase2+phase4, label='Other timings')
+    offset = 0.02
+    x1 = [x - bar_width - offset for x in x_values] 
+    x2 = [x for x in x_values]            
+    x3 = [x + bar_width + offset for x in x_values]
+    
+    plt.bar(x1, voxelplugin_phase4, color="r", width=bar_width)
+    plt.bar(x1, voxelplugin_phase1, width=bar_width, color="b", bottom=voxelplugin_phase4)
+    plt.bar(x1, voxelplugin_phase2, width=bar_width, color="y", bottom=voxelplugin_phase1+voxelplugin_phase4)
+    bars1 = plt.bar(x1, voxelplugin_phase3, width=bar_width, color="g", bottom=voxelplugin_phase1+voxelplugin_phase2+voxelplugin_phase4)
+    bars1_labels = ["VP"] * len(x1)
+    plt.bar_label(bars1, labels=bars1_labels)
 
-def generate_phase_svg_chart(output_file, title):
-    plt.xlabel('Scenario Number')
-    plt.ylabel('time [ms]')
-    plt.title(title)
-    plt.legend()
+    rle_phase1 = dictionary_to_phases(rle_dictionary, 1, start_index, end_index)
+    rle_phase2 = dictionary_to_phases(rle_dictionary, 2, start_index, end_index)
+    rle_phase3 = dictionary_to_phases(rle_dictionary, 3, start_index, end_index)
 
+    plt.bar(x2, rle_phase1, width=bar_width, color="b")
+    plt.bar(x2, rle_phase2, width=bar_width, color="y", bottom=rle_phase1)
+    bars2 = plt.bar(x2, rle_phase3, width=bar_width, color="g", bottom=rle_phase1 + rle_phase2)
+    bars2_labels = ["RLE"] * len(x2)
+    plt.bar_label(bars2, labels=bars2_labels)
+    
+    grid_phase1 = dictionary_to_phases(grid_dictionary, 1, start_index, end_index)
+    grid_phase2 = dictionary_to_phases(grid_dictionary, 2, start_index, end_index)
+    grid_phase3 = dictionary_to_phases(grid_dictionary, 3, start_index, end_index)
+
+    plt.bar(x3, grid_phase1, width=bar_width, color="b")
+    plt.bar(x3, grid_phase2, width=bar_width, color="y", bottom=grid_phase1)
+    bars3 = plt.bar(x3, grid_phase3, width=bar_width, color="g", bottom=grid_phase1 + grid_phase2)
+    bars3_labels = ["Grid"] * len(x3)
+    plt.bar_label(bars3, labels=bars3_labels)
+
+    plt.xticks(x_values, fontsize=font_size)
+    plt.yticks(fontsize=font_size)
+    plt.xlabel('Scenario Number', fontsize=font_size+1)
+    plt.ylabel('time [ms]', fontsize=font_size+1)
+    plt.title(title, fontsize=font_size+2)
+    
+    custom_legend = [Patch(color='r', label='Octree sampling'), Patch(color='g', label='Other timings'), Patch(color='y', label='Voxel Meshing'), Patch(color='b', label='Insertion into UE Buffers')]
+    plt.legend(handles=custom_legend, fontsize=font_size)
+    
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
-    plt.savefig(f"./Output/{output_file}", format='svg')
+    plt.savefig(f"./Output/{file_path}", format='svg')
     plt.close()  # Close the plot to free memory
 
-    print(f"{title} SVG graph saved as {output_file}")
+    print(f"{title} SVG graph saved as {file_path}")
+    
+def plot_scenario_17():
+    print("hello")
+
     
 def generate_fps_svg_chart(output_file, title, array):
     x_values = range(1, len(array) + 1)
@@ -119,23 +147,26 @@ def read_phase(csv_file, array):
 
         # Calculate durations
         df['Duration'] = (df['EndTime'] - df['StartTime']) * 1000
-        array.append( df['Duration'].sum())
+        array.append( df['Duration'].mean())
         print(f"{csv_file}: {array[-1]}")
     else:
         array.append(0)
     
-def generate_total_time_chart(output_file, title, dictionary):
+def generate_total_time_chart(dictionary, output_file, title,  start_index, end_index,font_size=14):
     
-    for key, value in dictionary.items():
-        x_values = range(1, len(value) + 1)
-        plt.plot(x_values, value,  label=key)
-    
-    plt.xlabel('Scenario Number')
-    plt.ylabel('time [ms]')
-    plt.title(title)
+    for key, value in dictionary.items():    
+        temp_time = value[start_index:end_index]
+        x_values = range(start_index + 1, start_index + len(temp_time) + 1)
+        plt.plot(x_values, temp_time, label=key)
+        
     plt.grid(True)
-    plt.legend()
-    plt.xticks(x_values)
+    plt.xticks(x_values, fontsize=font_size)
+    plt.yticks(fontsize=font_size)
+    plt.xlabel('Scenario Number', fontsize=font_size+1)
+    plt.ylabel('time [ms]', fontsize=font_size+1)
+    plt.title(title, fontsize=font_size+2)
+    
+    plt.legend(fontsize=font_size)
 
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
@@ -194,44 +225,17 @@ def generate_charts_interate_logs(folder_path, scenario_count):
         read_phase(f"{folder_path}/{i}/VoxelPlugin_Meshing_Octree.csv", voxelplugin_phase_dict[4])
         voxelplugin_phase_dict[3][-1] -= voxelplugin_phase_dict[4][-1]
     
-    
-    
     generate_fps_svg_chart("fps_grid_plot.svg", "Run Directional Meshing FPS per Scenario", grid_fps_arr)
     generate_fps_svg_chart("fps_rle_plot.svg", "RLE Run Directional Meshing FPS per Scenario", rle_fps_arr)
     generate_fps_svg_chart("fps_voxelplugin_plot.svg", "Voxel Plugin FPS per Scenario", voxelplugin_fps_arr)
     
-    generate_total_time_chart("total_voxelplugin_plot.svg", "Total Voxel Meshing time for VoxelPlugin per Scenario", voxelplugin_total_dict)
-    generate_total_time_chart("total_rle_plot.svg", "Total Voxel Meshing time for RLECompression per Scenario", rle_total_dict)
-    generate_total_time_chart("total_grid_plot.svg", "Total Voxel Meshing time for VoxelGrid per Scenario", grid_total_dict)
+    generate_total_time_chart(rle_total_dict, "total_rle_plot_factor1.svg", "Run Direction Meshing from RLE in Group 2", 17, 22)
+    generate_total_time_chart(rle_total_dict, "total_rle_plot_factor2.svg", "Total Voxel Meshing time for RLE in Group 3", 22, scenario_count)
     
-    plot_phase_bars(grid_phase_dict, 0, 15)
-    generate_phase_svg_chart("phase_grid_plot_group1.svg","Group 1 - Voxel Meshing Phases in VoxelGrid per Scenario")
-    
-    plot_phase_bars(grid_phase_dict, 17, 22)
-    generate_phase_svg_chart("phase_grid_plot_group2.svg","Group 2 - Voxel Meshing Phases in VoxelGrid per Scenario")
-    
-    plot_phase_bars(grid_phase_dict, 22, scenario_count)
-    generate_phase_svg_chart("phase_grid_plot_group3.svg","Group 3 - Voxel Meshing Phases in VoxelGrid per Scenario")
-    
-   
-    plot_phase_bars(rle_phase_dict, 0, 15)
-    generate_phase_svg_chart("phase_rle_plot_group1.svg","Group 1 - Voxel Meshing Phases in RLECompression per Scenario")
-  
-    plot_phase_bars(rle_phase_dict, 17, 22)
-    generate_phase_svg_chart("phase_rle_plot_group2.svg","Group 2 - Voxel Meshing Phases in RLECompression per Scenario")
-    
-    plot_phase_bars(rle_phase_dict, 22, scenario_count)
-    generate_phase_svg_chart("phase_rle_plot_group3.svg","Group 3 - Voxel Meshing Phases in RLECompression per Scenario") 
-    
-
-    plot_octree(voxelplugin_phase_dict, 0, 15)
-    generate_phase_svg_chart("phase_voxelplugin_plot_group1.svg","Group 1 - Voxel Meshing Phases in VoxelPlugin per Scenario")
-    
-    plot_octree(voxelplugin_phase_dict, 17, 22)
-    generate_phase_svg_chart("phase_voxelplugin_plot_group1.svg","Group 2 - Voxel Meshing Phases in VoxelPlugin per Scenario")
-    
-    plot_octree(voxelplugin_phase_dict, 22, scenario_count)
-    generate_phase_svg_chart("phase_voxelplugin_plot_group1.svg","Group 3 - Voxel Meshing Phases in VoxelPlugin per Scenario")
+    generate_phase_svg_chart(voxelplugin_phase_dict, rle_phase_dict, grid_phase_dict, "Voxel Meshing Phases Group 1", "phase_plot_group1.svg", 0, 16, 15, 9, font_size=18)
+    generate_phase_svg_chart(voxelplugin_phase_dict, rle_phase_dict, grid_phase_dict, "Voxel Meshing Phases Scenario 17", "phase_plot_scenario_17.svg", 16, 17, 4)
+    generate_phase_svg_chart(voxelplugin_phase_dict, rle_phase_dict, grid_phase_dict, "Voxel Meshing Phases Group 2", "phase_plot_group2.svg", 17, 22, 10)
+    generate_phase_svg_chart(voxelplugin_phase_dict, rle_phase_dict, grid_phase_dict, "Voxel Meshing Phases Group 3", "phase_plot_group3.svg", 22, 37, 15, 9, font_size=18)
 
     return [np.array(voxelplugin_total_dict['mean']).mean(), np.array(rle_total_dict['mean']).mean(), np.array(grid_total_dict['mean']).mean()]
 

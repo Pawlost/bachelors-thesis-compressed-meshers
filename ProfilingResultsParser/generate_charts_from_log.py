@@ -16,15 +16,37 @@ def match_line_to_arr(regex_pattern, line, array):
         else:
             array[scenario_index] = round((array[scenario_index]+value)/2)
 
-def generate_vertice_svg_chart(array, title, file_path):
-    x_values = range(1, len(array) + 1)
+def generate_vertice_svg_charts(rle_vertices, grid_vertices, voxelplugin_vertices, title, file_path, start_index, end_index, font_size_bar=3, font_size_text=14):
+    
+    bar_width = 0.3
+    
+    temp_rle_vertices = rle_vertices[start_index:end_index]
+    temp_grid_vertices = grid_vertices[start_index:end_index]
+    temp_voxelplugin_vertices = voxelplugin_vertices[start_index:end_index]
+    x_values = range(start_index + 1, start_index + len(temp_rle_vertices) + 1)
+    
+    x1 = [x - bar_width for x in x_values] 
+    x2 = [x for x in x_values]            
+    x3 = [x + bar_width for x in x_values]
+        
     plt.figure(figsize=(14, 6))
-    bars = plt.bar(x_values, array, color='skyblue')
-    plt.bar_label(bars)
-    plt.xlabel('Scenario Number')
-    plt.ylabel('Vertices')
-    plt.title(title)
-    plt.xticks(x_values)
+
+    # ------------------------------
+    bars1 = plt.bar(x1, temp_rle_vertices, width=bar_width, label='RLE-based RDM')
+    plt.bar_label(bars1, fontsize=font_size_bar)
+    
+    bars2 = plt.bar(x2, temp_voxelplugin_vertices, width=bar_width, label='Voxel Plugin')
+    plt.bar_label(bars2, fontsize=font_size_bar)
+    
+    bars3 = plt.bar(x3, temp_grid_vertices, width=bar_width, label='Grid-based RDM' )
+    plt.bar_label(bars3, fontsize=font_size_bar)
+    
+    plt.xticks(x_values, fontsize=font_size_text)
+    plt.yticks(fontsize=font_size_text)
+    plt.xlabel('Scenario Number', fontsize=font_size_text+1)
+    plt.ylabel('Vertices', fontsize=font_size_text+1)
+    plt.title(title, fontsize=font_size_text+2)
+    plt.legend(fontsize=font_size_text)
 
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
@@ -34,7 +56,7 @@ def generate_vertice_svg_chart(array, title, file_path):
     print(f"{title} SVG graph saved as {file_path}")
 #-----------------------
 
-def generate_sparsity_chart(opaque_arr, empty_arr, title, file_path, start_index, end_index):
+def generate_sparsity_chart(opaque_arr, empty_arr, title, file_path, start_index, end_index, font_size=14):
     
     # Create a voxel sparsity plot ------------
     
@@ -48,18 +70,19 @@ def generate_sparsity_chart(opaque_arr, empty_arr, title, file_path, start_index
     plt.bar(x_values, temp_opaque, label='Opaque voxels')
     plt.bar(x_values, temp_empty, bottom=temp_opaque, label='Empty voxels')
     
-    plt.xlabel('Scenario Number')
-    plt.ylabel('Voxel count')
-    plt.title(title)
-    plt.legend()
-    plt.xticks(x_values)
+    plt.xticks(x_values, fontsize=font_size)
+    plt.yticks(fontsize=font_size)
+    plt.xlabel('Scenario Number', fontsize=font_size+1)
+    plt.ylabel('Voxel count', fontsize=font_size+1)
+    plt.title(title, fontsize=font_size+2)
+    plt.legend(fontsize=font_size)
 
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
     plt.savefig(file_path, format='svg')
     plt.close()  # Close the plot to free memory
 
-def generate_memory_chart(memory_arr, title, file_path, start_index, end_index, modify_legend=False):
+def generate_memory_chart(memory_arr, title, file_path, start_index, end_index, modify_legend=False, font_size=14):
     # Create a memory plot ---------
     plt.figure(figsize=(10, 5))
     plt.axhline(y=262144, linewidth=5, color='b', linestyle='-', label='Voxel Grid Memory (262144)')
@@ -68,12 +91,15 @@ def generate_memory_chart(memory_arr, title, file_path, start_index, end_index, 
 
     bars = plt.bar(x_values, temp_arr, color='skyblue', label="RLE Compressed")
     plt.bar_label(bars)
-    plt.xlabel('Scenario Number')
-    plt.ylabel('Voxel Model Memory (bytes)')
-    plt.title(title)
-    plt.xticks(x_values)
+
+        
+    plt.xticks(x_values, fontsize=font_size)
+    plt.yticks(fontsize=font_size)
+    plt.xlabel('Scenario Number', fontsize=font_size+1)
+    plt.ylabel('Voxel Model Memory (bytes)', fontsize=font_size+1)
+    plt.title(title, fontsize=font_size+2)
+    leg = plt.legend(fontsize=font_size)
     
-    leg = plt.legend()
     if modify_legend:
         leg.set_bbox_to_anchor((1, 0.9))
     
@@ -114,7 +140,6 @@ def generate_charts_from_log(scenario_count):
                 for i, line in enumerate(file_lines):
                     if log_pattern.search(line): 
                         filtered_file_lines.append(line)
-                        print(line)
                         match_line_to_arr(r".*Scenario name:.*RLE_Scenario(\d+); Voxel Model memory: (\d+)", line, scenario_memory_arr) 
                         match_line_to_arr(r".*Scenario name:.*RLE_Scenario(\d+); Vertices: (\d+)", line, scenario_vertices_rle_arr) 
                         match_line_to_arr(r".*Scenario name:.*Grid_Scenario(\d+); Vertices: (\d+)", line, scenario_vertices_grid_arr) 
@@ -135,18 +160,23 @@ def generate_charts_from_log(scenario_count):
     print("Parsed lines from logs.")
     print("Generating graphs.")
     
-    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Sparsity chart for group 1', './Output/voxel_sparsity_plot_group1.svg', 0, 16)
-    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Sparsity chart for group 2', './Output/voxel_sparsity_plot_group2.svg', 17, 22)
-    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Sparsity chart for group 3', './Output/voxel_sparsity_plot_group3.svg', 22, 36)
+    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Ratio chart for group 1', './Output/voxel_sparsity_plot_group1.svg', 0, 17, 13)
+    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Ratio chart for group 2', './Output/voxel_sparsity_plot_group2.svg', 17, 22, 13)
+    generate_sparsity_chart(scenario_opaque_voxels_arr, scenario_transparent_voxels_arr, 'Voxel Ratio chart for group 3', './Output/voxel_sparsity_plot_group3.svg', 22, scenario_count, 13)
 
-    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 1', './Output/voxel_memory_plot_group1.svg', 0, 16)
-    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 2', './Output/voxel_memory_plot_group2.svg', 17, 22, True)
-    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 3', './Output/voxel_memory_plot_group3.svg', 22, 36)
+    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 1', './Output/voxel_memory_plot_group1.svg', 0, 17, 12)
+    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 2', './Output/voxel_memory_plot_group2.svg', 17, 22, True, 11)
+    generate_memory_chart(scenario_memory_arr, 'Voxel Model Memory Usage for group 3', './Output/voxel_memory_plot_group3.svg', 22, scenario_count, 11)
+
+    memory_mean = (scenario_memory_arr.mean()/262144) * 100
+    
+    print(f"Averge RLE percentage compression to voxel grid: {memory_mean} %")
 
     print("Memory SVG graph saved as 'voxel_memory_plot.svg'")
 
-    generate_vertice_svg_chart(scenario_vertices_rle_arr, 'Run Directional Meshing from RLE', './Output/vertices_rle_plot.svg')
-    generate_vertice_svg_chart(scenario_vertices_grid_arr, 'Run Directional Meshing from Voxel Grid', './Output/vertices_grid_plot.svg')
-    generate_vertice_svg_chart(scenario_vertices_voxelplugin_arr, 'VoxelPlugin Cubic Meshing', './Output/vertices_voxelplugin_plot.svg')
+    generate_vertice_svg_charts(scenario_vertices_rle_arr, scenario_vertices_grid_arr, scenario_vertices_voxelplugin_arr, 'Vertices in Group 1', './Output/vertices_plot_group1.svg', 0, 17)
+    generate_vertice_svg_charts(scenario_vertices_rle_arr, scenario_vertices_grid_arr, scenario_vertices_voxelplugin_arr, 'Vertices in Group 2', './Output/vertices_plot_group2.svg', 17, 22, 10)
+    generate_vertice_svg_charts(scenario_vertices_rle_arr, scenario_vertices_grid_arr, scenario_vertices_voxelplugin_arr, 'Vertices in Group 3', './Output/vertices_plot_group3.svg', 22, scenario_count, 6)
 
-    return [scenario_vertices_rle_arr.mean(), scenario_vertices_grid_arr.mean(), scenario_vertices_voxelplugin_arr.mean()]
+
+    return [scenario_vertices_voxelplugin_arr.mean(), scenario_vertices_rle_arr.mean(), scenario_vertices_grid_arr.mean()]
