@@ -1,5 +1,5 @@
---- Begin : FPS chart dump for level 'Map_VoxelPlugin_Scenario6'
-Dumping FPS chart at 2025.05.06-07.37.54 using build ++UE5+Release-5.4-CL-35576357 in config Development built from changelist 35576357
+--- Begin : FPS chart dump for level 'Map_Scenario_Template1'
+Dumping FPS chart at 2025.05.11-22.32.05 using build ++UE5+Release-5.4-CL-35576357 in config Development built from changelist 35576357
 Machine info:
 	OS: Windows 11 (24H2) [10.0.26100.3915] 
 	CPU: GenuineIntel Intel(R) Xeon(R) CPU E3-1240 v5 @ 3.50GHz
@@ -18,10 +18,10 @@ Machine info:
 	Hair Quality: 3
 	Window Mode: WindowedFullscreen
 	Resolution: 1280x720
-943 frames collected over 12.42 seconds, disregarding 0.00 seconds (0 frames) for a 75.90 FPS average
-Average GPU frametime: 12.51 ms
-Average RenderThread frametime: 12.54 ms
-Average GameThread frametime: 2.30 ms
+2531 frames collected over 32.68 seconds, disregarding 0.00 seconds (0 frames) for a 77.45 FPS average
+Average GPU frametime: 12.19 ms
+Average RenderThread frametime: 12.27 ms
+Average GameThread frametime: 2.12 ms
 Total time spent flushing async loading: 0.00 ms
 Total flushing async loading calls: 0
 Max flush async loading time: 0.00 ms
@@ -33,8 +33,8 @@ BoundGPUPct: 0.00
 ExcludeIdleTime: 0
   Target 30 FPS: 0.00 % syncs missed
   Target 60 FPS: 0.00 % syncs missed
-  Target 120 FPS: 36.71 % syncs missed
---- Begin : Hitch chart dump for level 'Map_VoxelPlugin_Scenario6'
+  Target 120 FPS: 35.45 % syncs missed
+--- Begin : Hitch chart dump for level 'Map_Scenario_Template1'
 Bucket: 0.00s - 0.03s  Count: 0  Time: 0.00 s
 Bucket: 0.03s - 0.06s  Count: 0  Time: 0.00 s
 Bucket: 0.06s - 0.10s  Count: 0  Time: 0.00 s

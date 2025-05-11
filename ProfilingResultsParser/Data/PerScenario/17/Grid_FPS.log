@@ -1,5 +1,5 @@
 --- Begin : FPS chart dump for level 'Map_Grid_Scenario17'
-Dumping FPS chart at 2025.05.06-08.27.27 using build ++UE5+Release-5.4-CL-35576357 in config Development built from changelist 35576357
+Dumping FPS chart at 2025.05.11-22.58.15 using build ++UE5+Release-5.4-CL-35576357 in config Development built from changelist 35576357
 Machine info:
 	OS: Windows 11 (24H2) [10.0.26100.3915] 
 	CPU: GenuineIntel Intel(R) Xeon(R) CPU E3-1240 v5 @ 3.50GHz
@@ -18,22 +18,22 @@ Machine info:
 	Hair Quality: 3
 	Window Mode: WindowedFullscreen
 	Resolution: 1280x720
-1100 frames collected over 14.97 seconds, disregarding 0.00 seconds (0 frames) for a 73.49 FPS average
-Average GPU frametime: 12.89 ms
-Average RenderThread frametime: 13.00 ms
-Average GameThread frametime: 2.12 ms
+1399 frames collected over 47.37 seconds, disregarding 0.00 seconds (0 frames) for a 29.53 FPS average
+Average GPU frametime: 33.22 ms
+Average RenderThread frametime: 33.24 ms
+Average GameThread frametime: 2.19 ms
 Total time spent flushing async loading: 0.00 ms
 Total flushing async loading calls: 0
 Max flush async loading time: 0.00 ms
 Average flush async loading time: 0.00 ms
 Total sync loads: 0
 BoundGameThreadPct: 0.00
-BoundRenderThreadPct: 0.00
-BoundGPUPct: 0.00
+BoundRenderThreadPct: 43.82
+BoundGPUPct: 43.60
 ExcludeIdleTime: 0
-  Target 30 FPS: 0.00 % syncs missed
-  Target 60 FPS: 0.00 % syncs missed
-  Target 120 FPS: 38.75 % syncs missed
+  Target 30 FPS: 1.55 % syncs missed
+  Target 60 FPS: 50.77 % syncs missed
+  Target 120 FPS: 75.39 % syncs missed
 --- Begin : Hitch chart dump for level 'Map_Grid_Scenario17'
 Bucket: 0.00s - 0.03s  Count: 0  Time: 0.00 s
 Bucket: 0.03s - 0.06s  Count: 0  Time: 0.00 s

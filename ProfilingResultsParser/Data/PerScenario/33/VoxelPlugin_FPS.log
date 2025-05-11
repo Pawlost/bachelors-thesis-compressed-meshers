@@ -1,5 +1,5 @@
---- Begin : FPS chart dump for level 'Map_VoxelPlugin_Scenario16'
-Dumping FPS chart at 2025.05.06-08.26.25 using build ++UE5+Release-5.4-CL-35576357 in config Development built from changelist 35576357
+--- Begin : FPS chart dump for level 'Map_VoxelPlugin_Scenario33'
+Dumping FPS chart at 2025.05.11-23.59.23 using build ++UE5+Release-5.4-CL-35576357 in config Development built from changelist 35576357
 Machine info:
 	OS: Windows 11 (24H2) [10.0.26100.3915] 
 	CPU: GenuineIntel Intel(R) Xeon(R) CPU E3-1240 v5 @ 3.50GHz
@@ -18,26 +18,26 @@ Machine info:
 	Hair Quality: 3
 	Window Mode: WindowedFullscreen
 	Resolution: 1280x720
-1171 frames collected over 16.50 seconds, disregarding 0.00 seconds (0 frames) for a 70.97 FPS average
-Average GPU frametime: 13.39 ms
-Average RenderThread frametime: 13.49 ms
-Average GameThread frametime: 2.25 ms
+2236 frames collected over 41.84 seconds, disregarding 0.00 seconds (0 frames) for a 53.44 FPS average
+Average GPU frametime: 18.06 ms
+Average RenderThread frametime: 18.14 ms
+Average GameThread frametime: 2.02 ms
 Total time spent flushing async loading: 0.00 ms
 Total flushing async loading calls: 0
 Max flush async loading time: 0.00 ms
 Average flush async loading time: 0.00 ms
 Total sync loads: 0
 BoundGameThreadPct: 0.00
-BoundRenderThreadPct: 0.00
-BoundGPUPct: 0.00
+BoundRenderThreadPct: 0.72
+BoundGPUPct: 0.58
 ExcludeIdleTime: 0
   Target 30 FPS: 0.00 % syncs missed
-  Target 60 FPS: 0.00 % syncs missed
-  Target 120 FPS: 40.86 % syncs missed
---- Begin : Hitch chart dump for level 'Map_VoxelPlugin_Scenario16'
+  Target 60 FPS: 10.92 % syncs missed
+  Target 120 FPS: 55.47 % syncs missed
+--- Begin : Hitch chart dump for level 'Map_VoxelPlugin_Scenario33'
 Bucket: 0.00s - 0.03s  Count: 0  Time: 0.00 s
 Bucket: 0.03s - 0.06s  Count: 0  Time: 0.00 s
-Bucket: 0.06s - 0.10s  Count: 0  Time: 0.00 s
+Bucket: 0.06s - 0.10s  Count: 2  Time: 0.16 s
 Bucket: 0.10s - 0.15s  Count: 0  Time: 0.00 s
 Bucket: 0.15s - 0.20s  Count: 0  Time: 0.00 s
 Bucket: 0.20s - 0.30s  Count: 0  Time: 0.00 s
@@ -49,13 +49,14 @@ Bucket: 1.50s - 2.00s  Count: 0  Time: 0.00 s
 Bucket: 2.00s - 2.50s  Count: 0  Time: 0.00 s
 Bucket: 2.50s - 5.00s  Count: 0  Time: 0.00 s
 Bucket: 5.00s - inf  Count: 0  Time: 0.00 s
-Total hitch count:  0
-Total hitch time:  0.00 s (0.00 %)
+Total hitch count:  2
+Total hitch time:  0.04 s (0.11 %)
 Hitch frames bound by game thread:  0  (0.0 %)
-Hitch frames bound by render thread:  0  (0.0 %)
+Hitch frames bound by render thread:  1  (0.5 %)
 Hitch frames bound by RHI thread:  0  (0.0 %)
-Hitch frames bound by GPU:  0  (0.0 %)
-Hitches / min:  0.00
+Hitch frames bound by GPU:  1  (0.5 %)
+Hitches / min:  2.87
+Avg. hitch frame length:  0.08 s
 --- End
 DynamicRes above 0% : 100.00% of frames
 DynamicRes above 60% : 100.00% of frames

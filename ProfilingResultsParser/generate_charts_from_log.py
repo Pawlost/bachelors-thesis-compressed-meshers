@@ -16,7 +16,7 @@ def match_line_to_arr(regex_pattern, line, array):
         else:
             array[scenario_index] = round((array[scenario_index]+value)/2)
 
-def generate_vertice_svg_charts(rle_vertices, grid_vertices, voxelplugin_vertices, title, file_path, start_index, end_index, font_size_bar=3, font_size_text=14):
+def generate_vertice_svg_charts(rle_vertices, grid_vertices, voxelplugin_vertices, title, file_path, start_index, end_index, font_size_bar=3, font_size_text=20):
     
     bar_width = 0.3
     

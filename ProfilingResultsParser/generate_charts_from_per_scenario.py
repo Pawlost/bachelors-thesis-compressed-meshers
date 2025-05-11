@@ -75,14 +75,45 @@ def plot_scenario_17():
     print("hello")
 
     
-def generate_fps_svg_chart(output_file, title, array):
-    x_values = range(1, len(array) + 1)
-    plt.bar(x_values, array, color='skyblue')
-    plt.xlabel('Scenario Number')
-    plt.ylabel('FPS')
-    plt.title(title)
-    plt.xticks(x_values)
-    plt.ylim(bottom=0, top=450000)
+def generate_fps_svg_chart(rle_fps, grid_fps, voxelplugin_fps, output_file, title, font_size=14):
+    bar_width = 0.3
+    
+    scenario_numbers = [13, 17, 23, 33]
+    temp_rle_fps = []
+    temp_grid_fps =[]
+    temp_voxelplugin_fps = []
+    
+    for i in range(len(scenario_numbers)):
+        scenario_index = scenario_numbers[i] - 1
+        temp_rle_fps.append(rle_fps[scenario_index])
+        temp_grid_fps.append(grid_fps[scenario_index])
+        temp_voxelplugin_fps.append(voxelplugin_fps[scenario_index])
+        
+    
+    x_values = range(1, len(scenario_numbers) + 1)
+    
+    x1 = [x - bar_width for x in x_values] 
+    x2 = [x for x in x_values]            
+    x3 = [x + bar_width for x in x_values]
+    
+    
+    plt.axhline(y=77, linewidth=2, color='r', linestyle='-', label='Average FPS in empty scenario (77)')
+    
+    bars1 = plt.bar(x1, temp_rle_fps, width=bar_width, label="RLE-based RDM")
+    plt.bar_label(bars1)
+    
+    bars3 = plt.bar(x2, temp_voxelplugin_fps, width=bar_width, label="Voxel Plugin")
+    plt.bar_label(bars3)
+    
+    bars2 = plt.bar(x3, temp_grid_fps, width=bar_width, label="Grid-based RDM")
+    plt.bar_label(bars2)
+    
+    plt.xticks(ticks=x_values, labels=scenario_numbers, fontsize=font_size)
+    plt.yticks(fontsize=font_size)
+    plt.xlabel('Scenario Number', fontsize=font_size+1)
+    plt.ylabel('Average FPS in a scenario', fontsize=font_size+1)
+    plt.title(title, fontsize=font_size+2)
+    plt.legend()
 
     # Save as SVG
     plt.tight_layout()  # Prevent label cutoff
@@ -225,9 +256,7 @@ def generate_charts_interate_logs(folder_path, scenario_count):
         read_phase(f"{folder_path}/{i}/VoxelPlugin_Meshing_Octree.csv", voxelplugin_phase_dict[4])
         voxelplugin_phase_dict[3][-1] -= voxelplugin_phase_dict[4][-1]
     
-    generate_fps_svg_chart("fps_grid_plot.svg", "Run Directional Meshing FPS per Scenario", grid_fps_arr)
-    generate_fps_svg_chart("fps_rle_plot.svg", "RLE Run Directional Meshing FPS per Scenario", rle_fps_arr)
-    generate_fps_svg_chart("fps_voxelplugin_plot.svg", "Voxel Plugin FPS per Scenario", voxelplugin_fps_arr)
+    generate_fps_svg_chart(rle_fps_arr, grid_fps_arr, voxelplugin_fps_arr, "fps_plot.svg", "FPS per Scenario")
     
     generate_total_time_chart(rle_total_dict, "total_rle_plot_factor1.svg", "Run Direction Meshing from RLE in Group 2", 17, 22)
     generate_total_time_chart(rle_total_dict, "total_rle_plot_factor2.svg", "Total Voxel Meshing time for RLE in Group 3", 22, scenario_count)
