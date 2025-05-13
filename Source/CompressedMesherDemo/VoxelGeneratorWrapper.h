@@ -1,10 +1,6 @@
-// Copyright Voxel Plugin SAS. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FastNoise/VoxelFastNoise.h"
-#include "VoxelGenerators/VoxelGenerator.h"
 #include "VoxelGenerators/VoxelGenerator.h"
 #include "VoxelGenerators/VoxelGeneratorHelpers.h"
 #include "VoxelGeneratorWrapper.generated.h"

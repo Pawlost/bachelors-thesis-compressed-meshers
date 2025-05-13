@@ -119,7 +119,7 @@ void URLERunDirectionalVoxelMesher::FaceGeneration(FIndexParams& IndexParams, FM
 							// Calculated once per meshing
 							bEdited = true;
 
-							if (!CalculateMidRunEditIndex(IndexParams, RunEnd))
+							if (!CalculateStartRunEditIndex(IndexParams, RunEnd))
 							{
 								return;
 							}
@@ -278,7 +278,7 @@ void URLERunDirectionalVoxelMesher::CreateFace(FMesherVariables& MeshVars, const
 	MeshVars.Faces[FaceContainerIndex][LocalVoxelId]->Push(NewFace);
 }
 
-bool URLERunDirectionalVoxelMesher::CalculateMidRunEditIndex(FIndexParams& IndexParams, const int RunEnd)
+bool URLERunDirectionalVoxelMesher::CalculateStartRunEditIndex(FIndexParams& IndexParams, const int RunEnd)
 {
 	if (RunEnd == IndexParams.VoxelChange->VoxelPosition.Y)
 	{

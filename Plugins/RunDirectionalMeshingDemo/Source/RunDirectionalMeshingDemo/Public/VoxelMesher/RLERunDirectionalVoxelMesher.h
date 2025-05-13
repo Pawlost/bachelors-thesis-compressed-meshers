@@ -46,7 +46,7 @@ private:
 	static void CreateFace(FMesherVariables& MeshVars, const FStaticMergeData& StaticData, const FIntVector& InitialPosition, const FRLEVoxel& RLEVoxel, const int YEnd);
 
 	//TODO: Types
-	static bool CalculateMidRunEditIndex(FIndexParams& IndexParams, int RunEnd);
+	static bool CalculateStartRunEditIndex(FIndexParams& IndexParams, int RunEnd);
 
 	static bool CalculateBorderRunEditIndex(FIndexParams& IndexParams);
 
