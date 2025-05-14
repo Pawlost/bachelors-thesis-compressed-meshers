@@ -106,7 +106,7 @@ SillyCraft includes two playable characters with voxel interaction capabilities:
 They can be found in `Plugins/RunDirectionalMeshingDemo/Blueprints/Content/Characters`.
 
 ### Scenes
-Example maps showcasing different voxel terrain configurations and chunk spawning techniques can be found in: `Plugins/RunDirectionalMeshingDemo/Content/Maps`. Test scenarios can be found in `Content/ProfilingScenarios/`.
+Example maps showcasing different voxel test scenarios can be found in `Content/ProfilingScenarios/`. The deault map showcases can be found directly in `Content/`.
 
 ## Licence
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
