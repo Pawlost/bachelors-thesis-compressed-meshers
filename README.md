@@ -7,17 +7,17 @@ This repository is obsolete and documents the results presented in my bachelor�
 
 ## Table of Contents
 - [Description](#description)
- - [Project as plugin](#project-as-plugin)
+  - [Project as plugin](#project-as-plugin)
 - [Installation](#installation)
- - [Prerequisites](#prerequisites)
- - [Project Setup](#project-setup)
+  - [Prerequisites](#prerequisites)
+  - [Project Setup](#project-setup)
 - [Known Issues (RMC Plugin)](#known-issues-rmc-plugin)
 - [Usage](#usage)
- - [Data Table](#data-table)
- - [Voxel Generators](#voxel-generators)
- - [Chunk Spawners](#chunk-spawners)
- - [Characters](#characters)
- - [Scenes](#scenes)
+  - [Data Table](#data-table)
+  - [Voxel Generators](#voxel-generators)
+  - [Chunk Spawners](#chunk-spawners)
+  - [Characters](#characters)
+  - [Scenes](#scenes)
 - [Releases](#releases)
 - [Contribution](#contribution)
 - [License](#license)
@@ -36,13 +36,13 @@ To enable plugin content: Content Browser → Settings → Show Plugin Content.
 ### Prerequisites
 Windows 11:
 * [Visual Studio Installer](https://visualstudio.microsoft.com/cs/downloads/)
- * [Workloads: Game development with C++, Desktop development with C++, .NET desktop development](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.4)
- * Individual Components: MSVC v143 - VS 2022 C++ x64/x86 build tools (v14.38-17.8)
+  * [Workloads: Game development with C++, Desktop development with C++, .NET desktop development](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.4)
+  * Individual Components: MSVC v143 - VS 2022 C++ x64/x86 build tools (v14.38-17.8)
 * [Jetbrains Rider](https://www.jetbrains.com/rider/) (or alternative IDE able to build and run Unreal Engine)
 * [Epic games launcher](https://store.epicgames.com/en-US/download)
- * [Unreal Engine 5.4](https://www.unrealengine.com/en-US/)
- * [Fast Noise Generator Plugin](https://www.fab.com/listings/c1d444fc-54cc-4f11-8a4a-c0c41112a321)
- * [Realtime Mesh - Core](https://www.fab.com/listings/bb2e4fbb-617c-41d3-aac6-e181eddf8b3b)
+  * [Unreal Engine 5.4](https://www.unrealengine.com/en-US/)
+  * [Fast Noise Generator Plugin](https://www.fab.com/listings/c1d444fc-54cc-4f11-8a4a-c0c41112a321)
+  * [Realtime Mesh - Core](https://www.fab.com/listings/bb2e4fbb-617c-41d3-aac6-e181eddf8b3b)
 
 Note: Linux environment is not tested
 
@@ -60,8 +60,8 @@ If .uproject files are not associated with Unreal Engine:
 1. Clone or download the repository to a directory of your choice.
 2. Right-click the `.uproject` file -> Show More Options -> Generate Visual Studio project files.
 3. Open the generated `.sln` solution file in **JetBrains Rider** (or your preferred IDE able to run UE projects):
- 1. Wait for the IDE to process the solution files.
- 2. Ensure the **RiderLink plugin** is installed.
+  1. Wait for the IDE to process the solution files.
+  2. Ensure the **RiderLink plugin** is installed.
 4. Build and run the project.
 
 For further details, see [Usage](#usage).
