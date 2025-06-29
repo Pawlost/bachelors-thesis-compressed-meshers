@@ -1,23 +1,23 @@
 # Run Directional Meshing – Bachelor's Thesis
 
-![RDM](./Screenshots/SillCraft.PNG)
+![RDM](./Screenshots/RDM.PNG)
 
 **NOTICE!**
 This repository is obsolete and documents the results presented in my bachelor’s thesis. The updated version with the extended optimizations is available [here](https://github.com/Pawlost/run-directional-meshing-extended).
 
 ## Table of Contents
 - [Description](#description)
-    - [Project as plugin](#project-as-plugin)
+ - [Project as plugin](#project-as-plugin)
 - [Installation](#installation)
-    - [Prerequisites](#prerequisites)
-    - [Project Setup](#project-setup)
+ - [Prerequisites](#prerequisites)
+ - [Project Setup](#project-setup)
 - [Known Issues (RMC Plugin)](#known-issues-rmc-plugin)
 - [Usage](#usage)
-    - [Data Table](#data-table)
-    - [Voxel Generators](#voxel-generators)
-    - [Chunk Spawners](#chunk-spawners)
-    - [Characters](#characters)
-    - [Scenes](#scenes)
+ - [Data Table](#data-table)
+ - [Voxel Generators](#voxel-generators)
+ - [Chunk Spawners](#chunk-spawners)
+ - [Characters](#characters)
+ - [Scenes](#scenes)
 - [Releases](#releases)
 - [Contribution](#contribution)
 - [License](#license)
@@ -27,22 +27,22 @@ This repository is obsolete and documents the results presented in my bachelor�
 This repository contains the implementation of a new voxel meshing algorithm developed for Unreal Engine 5.4 as part of a bachelor's thesis. The project showcases Run Directional Meshing, an interactive, real-time technique for converting voxel data into polygonal meshes optimized for performance and editor integration.
 
 ### Project as plugin
-The main project is `CompressedMesherDemo. project`, which contains profiling datasets in its content. The plugin with the implementation is located in the `Plugins/RunDirectionalMeshingDemo` repository and may copied from this place into your solution.
+The main project is `CompressedMesherDemo.project`, which contains profiling datasets in its content. The plugin with the implementation is located in the `Plugins/RunDirectionalMeshingDemo` repository and may copied from this place into your solution.
 
-SillyCraft includes a freely usable and shareable Unreal Engine plugin located in the Plugins folder.
+This project includes a freely usable and shareable Unreal Engine plugin located in the Plugins folder.
 To enable plugin content: Content Browser → Settings → Show Plugin Content.
 
 ## Installation
 ### Prerequisites
 Windows 11:
 * [Visual Studio Installer](https://visualstudio.microsoft.com/cs/downloads/)
-    * [Workloads: Game development with C++, Desktop development with C++, .NET desktop development](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.4)
-    * Individual Components: MSVC v143 - VS 2022 C++ x64/x86 build tools (v14.38-17.8)
+ * [Workloads: Game development with C++, Desktop development with C++, .NET desktop development](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.4)
+ * Individual Components: MSVC v143 - VS 2022 C++ x64/x86 build tools (v14.38-17.8)
 * [Jetbrains Rider](https://www.jetbrains.com/rider/) (or alternative IDE able to build and run Unreal Engine)
 * [Epic games launcher](https://store.epicgames.com/en-US/download)
-    * [Unreal Engine 5.4](https://www.unrealengine.com/en-US/)
-    * [Fast Noise Generator Plugin](https://www.fab.com/listings/c1d444fc-54cc-4f11-8a4a-c0c41112a321)
-    * [Realtime Mesh - Core](https://www.fab.com/listings/bb2e4fbb-617c-41d3-aac6-e181eddf8b3b)
+ * [Unreal Engine 5.4](https://www.unrealengine.com/en-US/)
+ * [Fast Noise Generator Plugin](https://www.fab.com/listings/c1d444fc-54cc-4f11-8a4a-c0c41112a321)
+ * [Realtime Mesh - Core](https://www.fab.com/listings/bb2e4fbb-617c-41d3-aac6-e181eddf8b3b)
 
 Note: Linux environment is not tested
 
@@ -60,17 +60,17 @@ If .uproject files are not associated with Unreal Engine:
 1. Clone or download the repository to a directory of your choice.
 2. Right-click the `.uproject` file -> Show More Options -> Generate Visual Studio project files.
 3. Open the generated `.sln` solution file in **JetBrains Rider** (or your preferred IDE able to run UE projects):
- 1. Wait for the IDE to process the solution files.
- 2. Ensure the **RiderLink plugin** is installed.
+ 1. Wait for the IDE to process the solution files.
+ 2. Ensure the **RiderLink plugin** is installed.
 4. Build and run the project.
 
 For further details, see [Usage](#usage).
 
-## Known Issue (RMC Plugin)
+**Known Issue (RMC Plugin)**
 When running Unreal Engine in Debug Mode, closing the editor before chunk spawning may trigger a breakpoint in the Realtime Mesh Component (RMC) plugin. This issue does not cause a crash, resume execution should continue.
 
 ## Usage
-The first scene that opens in this project is ``. 
+The first scene that opens in this project is `Map_Scenario_Showcase.umap`. 
 
 ### Data table
 Example tables can be found in `Plugins/RunDirectionalMeshingDemo/VoxelTypes`.
@@ -100,7 +100,7 @@ Chunk spawners determine the number and positions of generated chunks. To config
 
 
 ### Characters
-SillyCraft includes two playable characters with voxel interaction capabilities:
+This project includes two playable characters with voxel interaction capabilities:
 
 1. BP_VoxelInteractionObserverCharacter -- Enables voxel placement and picking.
 2. BP_VoxelWorldExplorer *(inherits from BP_VoxelInteractionObserverCharacter)* -- Automatically spawns chunks around the player for exploration.
