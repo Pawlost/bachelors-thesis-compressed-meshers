@@ -2,6 +2,8 @@
 
 ![RDM](./Screenshots/SillCraft.PNG)
 
+**NOTICE!**
+This repository is obsolete and documents the results presented in my bachelor’s thesis. The updated version with the extended optimizations is available [here](https://github.com/Pawlost/run-directional-meshing-extended).
 
 ## Table of Contents
 - [Description](#description)
